@@ -12,7 +12,7 @@ include_once "../templates/defaultTop.php";
         <?php if ($successMsg != "") { ?>
             <div class="alert alert-success"><?php echo $successMsg; ?></div><?php } ?>
         <input type="hidden" class="form-control" name="<?php echo MONEY_WALLET; ?>" value="" placeholder="chaine du wallet"/>
-        <table id="myTable" class="table table-bordered table-striped">
+        <table id="wallets" class="table table-bordered table-striped">
             <thead>
             <tr>
                 <th>

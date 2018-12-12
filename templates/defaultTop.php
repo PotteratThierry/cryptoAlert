@@ -23,13 +23,11 @@
     <script src="../js/loginNameFormat.js"></script>
     <script src="../js/mailFormat.js"></script>
 
->
 
     <!-- Tablesorter: required -->
     <link rel="stylesheet" href="../module/tableSorter/css/theme.bootstrap_4.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.js"></script>
     <script src="../module/tableSorter/js/jquery.tablesorter.widgets.js"></script>
-
     <!-- pager plugin -->
     <style>
         .tablesorter-pager .btn-group-sm .btn {

@@ -10,7 +10,7 @@ include_once "../templates/defaultTop.php";
         <?php if ($successMsg != "") { ?>
             <div class="alert alert-success"><?php echo $successMsg; ?></div><?php } ?>
         <input type="hidden" class="form-control" name="<?php echo MONEY_WALLET; ?>" value="" placeholder="chaine du wallet"/>
-        <table class="table ">
+        <table id="money" class="table ">
             <thead>
             <tr>
                 <th>
@@ -35,7 +35,7 @@ include_once "../templates/defaultTop.php";
                 {
                     ?>
                     <tr>
-                        <td><?php echo $value[COLUMN_ID_MONEY];?></td>
+                        <td><?php echo $key;?></td>
                         <td>
                             <?php ?><img class="logo16x16" onerror="this.src='../img/moneyDefault.png'" src="<?php echo 'https://raw.githubusercontent.com/dziungles/cryptocurrency-logos/master/coins/16x16/'.strtolower($value[COLUMN_MONEY_NAME]).'.png';?>">
                         </td>
