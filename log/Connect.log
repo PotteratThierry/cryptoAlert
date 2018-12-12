@@ -1,0 +1,224 @@
+[2015-06-02 17:08:23] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-02 17:08:27] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2015-06-02 17:08:47] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-02 17:12:35] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2015-06-02 17:12:40] [127.0.0.1] [Undefined] connect fail: user deactivated
+[2015-06-02 17:12:53] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-02 17:14:09] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2015-06-02 17:14:13] [127.0.0.1] [Undefined] connect fail: user deactivated
+[2015-06-02 17:14:28] [127.0.0.1] [Undefined] connect fail: bad password
+[2015-06-02 17:14:43] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-02 17:15:43] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2015-06-02 17:16:13] [127.0.0.1] [Undefined] connect fail: user deactivated
+[2015-06-02 17:17:18] [127.0.0.1] [Undefined] connect fail: user deactivated
+[2015-06-02 17:17:42] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:19:06] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:19:59] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:20:20] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:20:34] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:20:45] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:22:16] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:22:26] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-04-02 17:23:35] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:24:02] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:24:38] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:25:39] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:25:57] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:26:04] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:26:19] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:27:02] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:27:06] [127.0.0.1] [] disconnect form user
+[2015-06-02 17:27:18] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:27:21] [127.0.0.1] [] disconnect form user
+[2015-06-02 17:27:46] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-02 17:29:30] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-03 08:34:53] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-03 08:38:31] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2015-06-03 08:39:52] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-03 08:40:36] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-03 08:41:36] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-03 08:41:57] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-03 08:42:26] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-03 08:45:35] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-03 08:45:48] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-03 08:46:04] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-03 08:46:14] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-03 08:46:38] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-03 08:46:48] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-03 08:48:29] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-03 08:48:40] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-03 08:49:28] [127.0.0.1] [tutu] connect fail: Undefined user
+[2015-06-03 08:52:17] [127.0.0.1] [tutu] connect fail: Undefined user
+[2015-06-03 08:52:35] [127.0.0.1] [tutu] connect fail: Undefined user
+[2015-06-03 08:52:53] [127.0.0.1] [tutu] connect fail: Undefined user
+[2015-06-03 08:53:13] [127.0.0.1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2015-06-03 08:53:32] [127.0.0.1] [Undefined] access denied to adminSettingsTemplate.php
+[2015-06-03 09:08:58] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-03 09:09:01] [127.0.0.1] [potterat.thierry@gmail.com] access denied to admin.php
+[2015-06-03 09:09:16] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-03 09:09:18] [127.0.0.1] [potterat.thierry@gmail.com] access denied to admin.php
+[2015-06-03 09:09:47] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-03 11:30:11] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2015-06-03 11:30:23] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-03 15:47:40] [127.0.0.1] [Undefined] access denied to adminAccountGroup.php
+[2015-06-03 15:48:08] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-05 14:08:18] [127.0.0.1] [Undefined] access denied to adminAccountUser.php
+[2015-06-08 10:11:50] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-08 11:24:10] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-08 11:52:40] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-09 10:01:11] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-09 10:01:19] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-09 10:01:28] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-09 10:02:06] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-09 10:02:35] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-09 10:16:57] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-09 10:19:58] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-11 09:19:20] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-25 11:36:47] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-25 11:52:54] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2015-06-25 11:53:50] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-25 11:56:36] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2015-06-25 11:57:13] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-25 12:00:16] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2015-06-25 12:00:34] [127.0.0.1] [felinya.hime@uroboros.com] connect fail: user deactivated
+[2015-06-25 12:00:51] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-06-25 12:01:02] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2015-06-25 12:01:35] [127.0.0.1] [felinya.hime@uroboros.com] connect fail: bad password
+[2015-06-25 12:02:30] [127.0.0.1] [felinya.hime@uroboros.com] connect success
+[2015-06-25 12:46:21] [127.0.0.1] [felinya.hime@uroboros.com] disconnect form user
+[2015-06-25 12:46:32] [127.0.0.1] [Potterat.thierry@gmail.com] connect fail: bad password
+[2015-06-25 12:46:45] [127.0.0.1] [Potterat.thierry@gmail.com] connect fail: bad password
+[2015-06-25 12:48:43] [127.0.0.1] [felinya.hime@uroboros.com] connect success
+[2015-06-25 12:49:55] [127.0.0.1] [felinya.hime@uroboros.com] disconnect form user
+[2015-06-25 12:50:05] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-08-26 10:26:13] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2015-08-26 10:26:26] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2015-08-26 10:32:49] [127.0.0.1] [] disconnect form user
+[2015-08-26 10:32:54] [127.0.0.1] [user.1@rspd.com] connect fail: user deactivated
+[2015-10-03 23:17:58] [::1] [potterat.thierry@gmail.com] connect success
+[2015-10-03 23:18:10] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2015-10-03 23:39:04] [::1] [potterat.thierry@gmail.com] connect success
+[2016-06-16 11:14:30] [::1] [potterat.thierry@gmail.com] connect success
+[2018-09-14 17:43:26] [127.0.0.1] [potterat.thierry@gmail.com] connect fail: bad password
+[2018-09-14 17:46:26] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-14 17:47:44] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2018-09-14 17:47:53] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-21 15:50:19] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-21 15:54:19] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2018-09-21 15:54:23] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 15:39:20] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 15:46:15] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2018-09-28 15:46:21] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 15:46:52] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2018-09-28 16:12:33] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 16:12:52] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 16:13:13] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 16:13:18] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2018-09-28 16:13:25] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 16:14:03] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 16:14:14] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 16:14:48] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 16:15:01] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 16:15:24] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 16:15:43] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 16:16:07] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 16:17:22] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 16:18:42] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 16:21:39] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-09-28 16:31:14] [127.0.0.1] [potterat.thierry@gmail.com] disconnect form user
+[2018-09-28 16:31:19] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-10-09 14:14:04] [127.0.0.1] [potterat.thierry@gmail.com] connect success
+[2018-10-30 08:07:15] [::1] [potterat.thierry@gmail.com] connect success
+[2018-10-30 08:23:10] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2018-10-30 08:23:12] [::1] [potterat.thierry@gmail.com] connect success
+[2018-10-30 11:49:18] [::1] [potterat.thierry@gmail.com] connect success
+[2018-10-31 07:51:27] [::1] [potterat.thierry@gmail.com] connect success
+[2018-10-31 11:54:52] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2018-10-31 11:54:54] [::1] [potterat.thierry@gmail.com] connect success
+[2018-11-01 07:52:45] [::1] [potterat.thierry@gmail.com] connect success
+[2018-11-01 08:45:31] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2018-11-01 08:45:33] [::1] [Undefined] access denied to adminAccountGroup.php
+[2018-11-01 08:58:49] [::1] [felinya@uroboros.com] connect success
+[2018-11-01 08:59:20] [::1] [felinya@uroboros.com] disconnect form user
+[2018-11-01 08:59:23] [::1] [potterat.thierry@gmail.com] connect success
+[2018-11-01 08:59:42] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2018-11-01 08:59:49] [::1] [felinya@uroboros.com] connect success
+[2018-11-01 09:03:56] [::1] [felinya@uroboros.com] disconnect form user
+[2018-11-01 09:04:07] [::1] [utilisateur@numero1.ch] connect fail: user deactivated
+[2018-11-01 09:04:23] [::1] [utilisateur@numero1.ch] connect success
+[2018-11-01 09:04:48] [::1] [utilisateur@numero1.ch] access denied to accountData.php
+[2018-11-01 09:04:50] [::1] [utilisateur@numero1.ch] disconnect form user
+[2018-11-01 09:04:54] [::1] [potterat.thierry@gmail.com] connect success
+[2018-11-01 09:05:51] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2018-11-01 09:05:58] [::1] [felinya@uroboros.com] connect success
+[2018-11-01 09:06:14] [::1] [felinya@uroboros.com] disconnect form user
+[2018-11-01 09:06:17] [::1] [utilisateur@numero1.ch] connect success
+[2018-11-01 09:06:28] [::1] [utilisateur@numero1.ch] disconnect form user
+[2018-11-01 09:06:31] [::1] [potterat.thierry@gmail.com] connect success
+[2018-11-01 09:06:36] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2018-11-01 09:06:42] [::1] [utilisateur@numero1.ch] connect success
+[2018-11-01 09:06:44] [::1] [utilisateur@numero1.ch] access denied to admin.php
+[2018-11-01 09:06:49] [::1] [utilisateur@numero1.ch] disconnect form user
+[2018-11-01 09:06:59] [::1] [felinya@uroboros.com] connect success
+[2018-11-01 09:40:16] [::1] [felinya@uroboros.com] disconnect form user
+[2018-11-01 09:40:33] [::1] [felinya@uroboros.com] connect success
+[2018-11-01 09:40:55] [::1] [felinya@uroboros.com] disconnect form user
+[2018-11-01 09:41:00] [::1] [potterat.thierry@gmail.com] connect success
+[2018-11-01 09:51:09] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2018-11-01 09:51:14] [::1] [felinya@uroboros.com] connect success
+[2018-11-01 09:51:26] [::1] [felinya@uroboros.com] disconnect form user
+[2018-11-01 09:51:30] [::1] [potterat.thierry@gmail.com] connect success
+[2018-11-01 11:39:00] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2018-11-01 11:39:04] [::1] [felinya@uroboros.com] connect success
+[2018-11-01 11:39:42] [::1] [felinya@uroboros.com] disconnect form user
+[2018-11-01 11:39:47] [::1] [utilisateur@numero1.ch] connect success
+[2018-11-01 11:40:26] [::1] [utilisateur@numero1.ch] access denied to admin.php
+[2018-11-01 11:42:06] [::1] [utilisateur@numero1.ch] disconnect form user
+[2018-11-01 11:42:10] [::1] [felinya@uroboros.com] connect success
+[2018-11-01 11:42:20] [::1] [felinya@uroboros.com] disconnect form user
+[2018-11-01 11:42:26] [::1] [potterat.thierry@gmail.com] connect success
+[2018-11-01 11:42:56] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2018-11-01 11:43:00] [::1] [felinya@uroboros.com] connect success
+[2018-11-01 11:43:06] [::1] [felinya@uroboros.com] disconnect form user
+[2018-11-01 11:43:10] [::1] [utilisateur@numero1.ch] connect success
+[2018-11-01 11:47:07] [::1] [utilisateur@numero1.ch] disconnect form user
+[2018-11-01 11:47:14] [::1] [potterat.thierry@gmail.com] connect success
+[2018-11-01 11:47:17] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2018-11-01 11:47:24] [::1] [potterat.thierry@gmail.com] connect success
+[2018-11-01 11:48:47] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2018-11-01 11:48:56] [::1] [test3@gmail.com] connect success
+[2018-11-01 11:49:01] [::1] [test3@gmail.com] access denied to accountSignature.php
+[2018-11-01 11:49:03] [::1] [test3@gmail.com] access denied to accountSignature.php
+[2018-11-01 11:49:05] [::1] [test3@gmail.com] access denied to accountProfil.php
+[2018-11-01 11:49:06] [::1] [test3@gmail.com] access denied to accountSettings.php
+[2018-11-01 11:49:07] [::1] [test3@gmail.com] access denied to accountData.php
+[2018-11-01 11:49:12] [::1] [test3@gmail.com] access denied to accountSettings.php
+[2018-11-01 11:49:14] [::1] [test3@gmail.com] access denied to accountProfil.php
+[2018-11-01 11:49:15] [::1] [test3@gmail.com] access denied to accountSignature.php
+[2018-11-01 11:49:17] [::1] [test3@gmail.com] access denied to accountData.php
+[2018-11-01 11:49:18] [::1] [test3@gmail.com] access denied to accountSettings.php
+[2018-11-01 11:49:21] [::1] [test3@gmail.com] disconnect form user
+[2018-11-01 11:49:31] [::1] [potterat.thierry@gmail.com] connect success
+[2018-11-01 11:51:34] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2018-11-01 11:51:53] [::1] [test4@gmail.com] connect fail: user deactivated
+[2018-11-01 11:52:00] [::1] [potterat.thierry@gmail.com] connect success
+[2018-11-01 11:52:13] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2018-11-01 11:52:18] [::1] [test4@gmail.com] connect success
+[2018-11-01 11:55:15] [::1] [test4@gmail.com] disconnect form user
+[2018-11-01 11:55:20] [::1] [potterat.thierry@gmail.com] connect success
+[2018-11-01 11:55:51] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2018-11-01 11:55:54] [::1] [test3@gmail.com] connect fail: user deactivated
+[2018-11-01 11:55:58] [::1] [test3@gmail.com] connect fail: user deactivated
+[2018-11-01 11:56:06] [::1] [potterat.thierry@gmail.com] connect success
+[2018-11-01 11:56:20] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2018-11-01 11:56:23] [::1] [test3@gmail.com] connect success
+[2018-11-02 07:47:59] [::1] [potterat.thierry@gmail.com] connect success
+[2018-11-02 07:58:02] [::1] [potterat.thierry@gmail.com] disconnect form user
+[2018-11-02 07:58:06] [::1] [test3@gmail.com] connect success
+[2018-11-02 07:58:35] [::1] [test3@gmail.com] disconnect form user
+[2018-11-02 07:58:39] [::1] [potterat.thierry@gmail.com] connect success
+[2018-12-07 08:49:23] [::1] [] disconnect form user
+[2018-12-07 10:31:56] [::1] [Undefined] access denied to accountData.php
+[2018-12-07 10:32:00] [::1] [Undefined] access denied to accountSignature.php
+[2018-12-07 10:32:01] [::1] [Undefined] access denied to accountSettings.php
+[2018-12-10 14:12:34] [::1] [Undefined] access denied to accountProfil.php
