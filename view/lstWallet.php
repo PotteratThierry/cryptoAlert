@@ -12,17 +12,11 @@ include_once "../templates/defaultTop.php";
         <?php if ($successMsg != "") { ?>
             <div class="alert alert-success"><?php echo $successMsg; ?></div><?php } ?>
         <input type="hidden" class="form-control" name="<?php echo MONEY_WALLET; ?>" value="" placeholder="chaine du wallet"/>
-        <table class="table ">
+        <table id="myTable" class="table table-bordered table-striped">
             <thead>
             <tr>
                 <th>
-                    <input type="checkbox" name="">
-                </th>
-                <th>
                     <?php echo 'nom du wallet';?>
-                </th>
-                <th>
-                    <?php echo 'logo';?>
                 </th>
                 <th>
                     <?php echo 'monnaie';?>
@@ -46,12 +40,11 @@ include_once "../templates/defaultTop.php";
                 {
                     ?>
                     <tr>
-                        <td> <input type="checkbox" name="" value=""></td>
                         <td><?php echo $value[WALL_NAME];?></td>
                         <td>
-                            <?php ?><img class="logo16x16" onerror="this.src='../img/moneyDefault.png'" src="<?php echo 'https://raw.githubusercontent.com/dziungles/cryptocurrency-logos/master/coins/16x16/'.$value[WALL_LOGO].'.png';?>">
+                            <img class="logo16x16" onerror="this.src='../img/moneyDefault.png'" src="<?php echo 'https://raw.githubusercontent.com/dziungles/cryptocurrency-logos/master/coins/16x16/'.$value[WALL_LOGO].'.png';?>">
+                            <?php echo ' '.$value[WALL_MONEY];?>
                         </td>
-                        <td><?php echo $value[WALL_MONEY];?></td>
                         <td><?php echo $value[WALL_KEY];?></td>
                         <td><?php echo $value[WALL_BALANCE].' <b>'.$value[WALL_CODE].'</b>';?></td>
                         <td><?php echo $value[WALL_VALUE].' <b>'.$defaultCurrency;?></b></td>
@@ -63,6 +56,8 @@ include_once "../templates/defaultTop.php";
             </tbody>
         </table>
 </form>
+
+
 <?php
 include_once "../templates/defaultBottom.php";
 ?>

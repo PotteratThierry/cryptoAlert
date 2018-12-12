@@ -16,25 +16,29 @@
 
     <!-- Le jquery -->
     <script src="https://code.jquery.com/jquery.min.js"></script>
-    <!-- les scrips perso -->
+    <!-- les scrips personnel -->
     <script src="../js/main.js"></script>
     <script src="../js/ajax.js"></script>
     <script src="../js/passwordComplexity.js"></script>
     <script src="../js/loginNameFormat.js"></script>
     <script src="../js/mailFormat.js"></script>
 
-    <!-- les script table sorter -->
-    <script src="../js/initTableSorter.js"></script>
+>
 
     <!-- Tablesorter: required -->
-    <link rel="stylesheet" href="../module/tableSorter/css/theme.blue.css">
-    <script src="../module/tableSorter/js/jquery.tablesorter.js"></script>
-    <script src="../module/tableSorter/js/widgets/widget-storage.js"></script>
-    <script src="../module/tableSorter/js/widgets/widget-filter.js"></script>
+    <link rel="stylesheet" href="../module/tableSorter/css/theme.bootstrap_4.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.js"></script>
+    <script src="../module/tableSorter/js/jquery.tablesorter.widgets.js"></script>
 
-    <script src="../module/tableSorter/js/parsers/parser-input-select.js"></script>
-    <script src="../module/tableSorter/js/parsers/parser-date-weekday.js"></script>
-    <script src="../module/tableSorter/js/widgets/widget-grouping.js"></script>
+    <!-- pager plugin -->
+    <style>
+        .tablesorter-pager .btn-group-sm .btn {
+            font-size: 1.2em; /* make pager arrows more visible */
+        }
+    </style>
+
+    <!-- les script table sorter -->
+    <script src="../js/initTableSorter.js"></script
 
 </head>
 <body>
