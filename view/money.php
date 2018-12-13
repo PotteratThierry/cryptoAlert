@@ -4,6 +4,7 @@ include_once "../controller/money_controller.php";
 include_once "../templates/defaultTop.php";
 ?>
     <form class="form" role="form" method="post" action="<?php echo NAME_PAGE; ?>">
+        <legend class=""> <?php echo "chargement block 1 : ".$difference_block1." ms (solde)";?></legend>
         <button type="submit" class="btn btn-primary"><?php echo 'mise à jours des monnaies disponibles'; ?></button>
         <?php if ($errorMsg != "") { ?>
             <div class="alert alert-danger"><?php echo $errorMsg; ?></div><?php } ?>
@@ -37,7 +38,7 @@ include_once "../templates/defaultTop.php";
                     <tr>
                         <td><?php echo $key;?></td>
                         <td>
-                            <?php ?><img class="logo16x16" onerror="this.src='../img/moneyDefault.png'" src="<?php echo 'https://raw.githubusercontent.com/dziungles/cryptocurrency-logos/master/coins/16x16/'.strtolower($value[COLUMN_MONEY_NAME]).'.png';?>">
+                            <?php ?><img class="logo16x16" onerror="this.src='../img/moneyDefault.jpg'" src="<?php echo 'https://raw.githubusercontent.com/dziungles/cryptocurrency-logos/master/coins/16x16/'.strtolower($value[COLUMN_MONEY_NAME]).'.png';?>">
                         </td>
                         <td><?php echo $value[COLUMN_MONEY_NAME];?></td>
                         <td><?php echo $value[COLUMN_MONEY_CODE];?></td>

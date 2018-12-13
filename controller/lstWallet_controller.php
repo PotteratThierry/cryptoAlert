@@ -27,6 +27,12 @@ $error = 0;
 $success = 0;
 $NewTabWallet = array();
 
+//valeur pour l'affichage de performances
+$difference_block1 = 0;
+$difference_block2 = 0;
+$difference_block3 = 0;
+$total = 0;
+
 //récupère l'id de l'utilisateur
 $contact = new contact();
 $contact->setLoginName($_SESSION[LOGIN_NAME]);
@@ -50,14 +56,26 @@ if(isset($_POST[DELETE]))
     $cWallet->delete($connector);
 }
 
-
-
-
-
 if($tabWallet != "")
 {
+    //-------------------------------------//
+    //-----------------block1--------------//
+    //-------------------------------------//
+    $timestampAPI1_debut = microtime( true);
+
+    //change de la monnaie en la devise que l'utilisateur à configurer
+    $request = $defaultApiCurrency.API_CHANGE_SEPARATOR.$defaultCurrency;
+    $addressQuery = param::searchParam(INI_PATH, 'apiChangeRequest');
+    $addressQuery = str_replace('*'.API_CHANGE_REQUEST.'*',$request,$addressQuery);
+
+    //recuperation de la valeur depuis l'API
+    $currencyValue = json_decode(file_get_contents($addressQuery));
+
+    $timestampAPI1_fin = microtime( true);
+
     foreach ($tabWallet as $key=>$value)
     {
+
         //recuperation du code de la monnaie
         $tmp1 = strrchr($value->{WALL_MONEY}, '(');
         $moneyCode = str_replace(')','',str_replace('(', '', substr($tmp1, 0, strpos($tmp1, ')') + 1)));
@@ -69,6 +87,10 @@ if($tabWallet != "")
         }
         else
         {
+            //-------------------------------------//
+            //-----------------block2--------------//
+            //-------------------------------------//
+             $timestampAPI2_debut = microtime( true);
             //recuperation de l'adressse pour le sold. et remplacement des paramètres par les valeurs
             $addressQuery = param::searchParam(INI_PATH, 'apiAddressQuery');
             $addressQuery = str_replace('*'.API_CRYPTO_COIN.'*',$moneyCode,$addressQuery);
@@ -77,7 +99,15 @@ if($tabWallet != "")
 
             //récupère le sold depuis l'api
             $balance = utf8_encode(file_get_contents($addressQuery));
+             $timestampAPI2_fin = microtime( true);
 
+
+
+
+            //-------------------------------------//
+            //-----------------block3--------------//
+            //-------------------------------------//
+             $timestampAPI3_debut = microtime( true);
             //recuperation de l'adressse pour la valeur de la  Monnaie. et remplacement des paramètres par les valeurs
             $addressQuery = param::searchParam(INI_PATH, 'apiAddressQuery');
             $addressQuery = str_replace('*'.API_CRYPTO_COIN.'*',$moneyCode,$addressQuery);
@@ -86,19 +116,14 @@ if($tabWallet != "")
 
             //récupère la valeur de la monnaie depuis l'api
             $moneyValue = utf8_encode(file_get_contents($addressQuery));
+             $timestampAPI3_fin = microtime( true);
 
-            //change de la monnaie en la devise que l'utilisateur à configurer
-            $request = $defaultApiCurrency.API_CHANGE_SEPARATOR.$defaultCurrency;
-            $addressQuery = param::searchParam(INI_PATH, 'apiChangeRequest');
-            $addressQuery = str_replace('*'.API_CHANGE_REQUEST.'*',$request,$addressQuery);
-
-            //recuperation de la valeur depuis l'API
-            $currencyValue = json_decode(file_get_contents($addressQuery));
 
             //converti la valeur de la monnaie en devise define par l'utilisateur
             $moneyValue = $moneyValue*$currencyValue->{$request}->{'val'};
-            //calcule la valeur du sold
 
+
+            //calcule la valeur du sold
             $walletValue = $moneyValue*$balance;
             //vérifie si il il y a besoin d'arondire ou pas
             if($walletValue<0.01 and $walletValue != 0)
@@ -110,7 +135,6 @@ if($tabWallet != "")
                 $walletValue = round($moneyValue*$balance,'2');
             }
 
-
             //création de format des nombre
             $balance = number_format($balance, 2, '.', '\'');
             $walletValue = number_format($walletValue, 2, '.', '\'');
@@ -118,7 +142,6 @@ if($tabWallet != "")
             //création du nom de la monnaie pour le logo
             $logo = substr($value->{WALL_MONEY}, 0, strpos($value->{WALL_MONEY},'('));
         }
-
 
         //crée un nouveau tableau
         $NewTabWallet[$key][WALL_NAME] = $value->{WALL_NAME};
@@ -129,5 +152,10 @@ if($tabWallet != "")
         $NewTabWallet[$key][WALL_BALANCE] = $balance;
         $NewTabWallet[$key][WALL_VALUE] = $walletValue;
 
+        $difference_block1 = $difference_block1 + $timestampAPI1_fin - $timestampAPI1_debut;
+        $difference_block2 = $difference_block2 +  $timestampAPI2_fin - $timestampAPI2_debut;
+        $difference_block3 = $difference_block3 +  $timestampAPI3_fin - $timestampAPI3_debut;
+
     }
+    $total = $difference_block1+ $difference_block2+$difference_block3;
 }

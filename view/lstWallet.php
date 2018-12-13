@@ -4,8 +4,12 @@ include_once "../controller/lstWallet_controller.php";
 include_once "../templates/defaultTop.php";
 ?>
 <form class="form" role="form" method="post" action="<?php echo NAME_PAGE; ?>">
+    <legend class=""> <?php echo "chargement block 1 : ".$difference_block1." ms (change)";?></legend>
+    <legend class=""> <?php echo "chargement block 2 : ".$difference_block2." ms (sold)";?></legend>
+    <legend class=""> <?php echo "chargement block 3 : ".$difference_block3." ms (valeur monnaie)";?></legend>
+    <legend class=""> <?php echo "chargement total   : ".$total." ms";?></legend>
     <button type="submit" formaction="wallet.php" name="<?php echo NEW_WALLET; ?>"class="btn btn-warning"><?php echo 'ajouter un wallet'; ?></button>
-    <button type="submit" name="<?php echo DELETE.'all'; ?>"class="btn btn-danger"><?php echo 'supprimer tout les wallets'; ?></button>
+    <?php /*<button type="submit" name="<?php echo DELETE.'all'; ?>"class="btn btn-danger"><?php echo 'supprimer tout les wallets'; ?></button>*/?>
         <?php if ($errorMsg != "") { ?>
             <div class="alert alert-danger"><?php echo $errorMsg; ?></div><?php } ?>
         <?php if ($successMsg != "") { ?>
@@ -44,7 +48,7 @@ include_once "../templates/defaultTop.php";
                     <tr>
                         <td><?php echo $value[WALL_NAME];?></td>
                         <td>
-                            <img class="logo16x16" onerror="this.src='../img/moneyDefault.png'" src="<?php echo 'https://raw.githubusercontent.com/dziungles/cryptocurrency-logos/master/coins/16x16/'.$value[WALL_LOGO].'.png';?>">
+                            <img class="logo16x16" onerror="this.src='../img/moneyDefault.jpg'" src="<?php echo 'https://raw.githubusercontent.com/dziungles/cryptocurrency-logos/master/coins/16x16/'.$value[WALL_LOGO].'.png';?>">
                             <?php echo ' '.$value[WALL_MONEY];?>
                         </td>
                         <td><?php echo $value[WALL_KEY];?></td>
