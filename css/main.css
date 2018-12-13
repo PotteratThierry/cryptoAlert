@@ -348,3 +348,6 @@ input::-webkit-calendar-picker-indicator {
     width: 16px;
     height: 16px;
 }
+.tablesorter-pager .btn-group-sm .btn {
+ font-size: 1.2em; /* make pager arrows more visible */
+}

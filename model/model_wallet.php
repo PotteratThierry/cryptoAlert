@@ -5,6 +5,7 @@ class wallet
     private $wallet;
     private $oldWallet;
     private $idUser;
+    private $idWallet;
     private $moneyWallet;
     private $nameWallet;
     private $keyWallet;
@@ -32,10 +33,13 @@ class wallet
         $this->result = dbManager::update($connector, $request) ;
 
     }
-    public function create($connector)
+    public function create($connector, $refresh=0)
     {
-        $wallet = array(WALL_NAME =>$this->nameWallet,WALL_MONEY=>$this->moneyWallet,WALL_KEY=>$this->keyWallet);
-        $this->tabWallet[0] = $wallet;
+        if(!$refresh)
+        {
+            $wallet = array(WALL_NAME =>$this->nameWallet,WALL_MONEY=>$this->moneyWallet,WALL_KEY=>$this->keyWallet);
+            $this->tabWallet[0] = $wallet;
+        }
         $jsonWallet = json_encode ($this->tabWallet);
         //générer le tableau de wallet à partie de old wallet
         $request = new requestBuilder()  ;
@@ -48,9 +52,21 @@ class wallet
     {
         $this->result = json_decode($this->tabUser[COLUMN_USE_WALLET]);
     }
-    public function delete()
+    public function delete($connector)
     {
-
+        unset($this->tabWallet[$this->idWallet]);
+        //reinitialisation des id
+        $tabNewWallet = array();
+        $i = 0;
+        foreach ($this->tabWallet as $key=>$value)
+        {
+            $tabNewWallet[$i][WALL_NAME] = $value->{WALL_NAME};
+            $tabNewWallet[$i][WALL_MONEY] = $value->{WALL_MONEY};
+            $tabNewWallet[$i][WALL_KEY] = $value->{WALL_KEY};
+            $i++;
+        }
+        $this->tabWallet = $tabNewWallet;
+        self::create($connector, 1);
     }
     public function deleteAll($connector)
     {
@@ -59,6 +75,22 @@ class wallet
         $request->setParam( COLUMN_USE_WALLET , '') ;
 
         $this->result = dbManager::update($connector, $request) ;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdWallet()
+    {
+        return $this->idWallet;
+    }
+
+    /**
+     * @param mixed $idWallet
+     */
+    public function setIdWallet($idWallet)
+    {
+        $this->idWallet = $idWallet;
     }
 
     /**

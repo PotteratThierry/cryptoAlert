@@ -4,9 +4,8 @@ include_once "../controller/lstWallet_controller.php";
 include_once "../templates/defaultTop.php";
 ?>
 <form class="form" role="form" method="post" action="<?php echo NAME_PAGE; ?>">
-    <button type="submit" class="btn btn-primary"><?php echo 'mise à jours des wallets sélectionné'; ?></button>
     <button type="submit" formaction="wallet.php" name="<?php echo NEW_WALLET; ?>"class="btn btn-warning"><?php echo 'ajouter un wallet'; ?></button>
-    <button type="submit" name="<?php echo DELETE; ?>"class="btn btn-danger"><?php echo 'supprimer tout les wallets'; ?></button>
+    <button type="submit" name="<?php echo DELETE.'all'; ?>"class="btn btn-danger"><?php echo 'supprimer tout les wallets'; ?></button>
         <?php if ($errorMsg != "") { ?>
             <div class="alert alert-danger"><?php echo $errorMsg; ?></div><?php } ?>
         <?php if ($successMsg != "") { ?>
@@ -30,6 +29,9 @@ include_once "../templates/defaultTop.php";
                 <th>
                     <?php echo 'valeur en '.$defaultCurrency;?>
                 </th>
+                <th>
+                    <?php echo 'supprimer'?>
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -48,6 +50,7 @@ include_once "../templates/defaultTop.php";
                         <td><?php echo $value[WALL_KEY];?></td>
                         <td><?php echo $value[WALL_BALANCE].' <b>'.$value[WALL_CODE].'</b>';?></td>
                         <td><?php echo $value[WALL_VALUE].' <b>'.$defaultCurrency;?></b></td>
+                        <td><button class="btn btn-danger" type="submit" name="<?php echo DELETE;?>" value="<?php echo $key;?>" onclick="return confirm('voulez vous vraiment supprimer ce wallet ?')">supprimer</button></b></td>
                     </tr>
                     <?php
                 }
