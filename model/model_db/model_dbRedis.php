@@ -60,7 +60,7 @@ class dbRedis implements iDatabase {
         {
             $this->result =  $e->getMessage() ;
         }
-;
+
     }
     public function update(requestBuilder $param)
     {
@@ -68,7 +68,6 @@ class dbRedis implements iDatabase {
         {
             try
             {
-                echo "key= ".$param->getTable().", ".$key.", ",$value."<br>";
                 $this->getInstance()->hset($param->getTable(), $key, $value);
                 $this->result = 1;
             }
@@ -86,7 +85,7 @@ class dbRedis implements iDatabase {
         $this->result = NULL;
         while($i <= $maxId)
         {
-            //ne verifie pas les id vide
+            //ne verifies pas les id vide
             if($this->instance->hGetAll($param->getTable().$i) != array())
             {
                 //si on veut les clef non numeric
@@ -154,7 +153,7 @@ class dbRedis implements iDatabase {
     }
     public function delete(requestBuilder $param)
     {
-        $this->instance->delete( $this->instance->keys( $param->getTable().'*'));
+        $this->instance->delete($param->getTable().$param->getParams()['id']);
 
     }
     public function deleteTable(requestBuilder $param)

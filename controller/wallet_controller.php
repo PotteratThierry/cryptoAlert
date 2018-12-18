@@ -6,10 +6,7 @@ define ('TYPE_PERM', 'all');
 include_once "../controller/main_controller.php";
 
 $lstWallet =  "active";
-$successMsg = "";
-$errorMsg = "";
-$error = 0;
-$success = 0;
+
 
 //si on arrive à ce connecter à la base de donnée
 if($dbConnected)
@@ -24,7 +21,7 @@ if($dbConnected)
         $contact = new contact();
         $contact->setLoginName($_SESSION[LOGIN_NAME]);
         $contact->loadOnceByName( $connector);
-        $idUser = $contact->getResult()[COLUMN_ID];
+        $idUser = $contact->getResult()[COLUMN_USER_ID];
 
         if($strWallet == "")
         {

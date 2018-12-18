@@ -44,9 +44,10 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item <?php echo $accueil;?>"><a class="nav-link" href="../index.php"><?php echo $lang_home;?></a></li>
-                <li class="nav-item <?php echo $viewDb;?>"><a class="nav-link" href="../view/viewDb.php"><?php echo 'visualiser la base de donnée';?></a></li>
+                <li class="nav-item <?php echo $viewDb;?>"><a class="nav-link" href="../view/viewDb.php"><?php echo 'visualiser les utilisateurs';?></a></li>
                 <?php if($userConnect->getConnect()){?><li class="nav-item <?php echo $lstWallet;?>"><a class="nav-link" href="../view/lstWallet.php"><?php echo 'gestion de mes wallets';?></a></li><?php }?>
-                <?php if($userConnect->getConnect()){?><li class="nav-item <?php echo $money;?>"><a class="nav-link" href="../view/money.php"><?php echo 'gestion des monnaies';?></a></li><?php }?>
+                <?php if($userConnect->getConnect()){?><li class="nav-item <?php echo $alert;?>"><a class="nav-link" href="../view/lstAlert.php"><?php echo 'gestion de mes alertes';?></a></li><?php }?>
+                <?php if($userConnect->getConnect()){?><li class="nav-item <?php echo $money;?>"><a class="nav-link" href="../view/lstMoney.php"><?php echo 'gestion des monnaies';?></a></li><?php }?>
                 <?php if($loginErrorMsg != ""){?><li><div class="alert alert-danger loginErrorMsg"><?php echo $loginErrorMsg;?></div></li><?php }?>
             </ul>
             <?php

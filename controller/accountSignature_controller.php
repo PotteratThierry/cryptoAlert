@@ -38,13 +38,13 @@ $dbUser->getMail();
 $userInfo = $dbUser->getResult();
 
 
-//si l'image de l'avatage à été renseingé
+//si l'image de l'avatage à été renseigné
 if (isset($_FILES[AVATAR][IMG_NAME]) && $_FILES[AVATAR][IMG_NAME] != "") {
     if ($_FILES[AVATAR][ERROR] <= 0) {
         if ($_FILES[AVATAR][SIZE] <= WEIGHT) {
             $avatar = $_FILES[AVATAR][IMG_NAME];
             $avatarTmp = $_FILES[AVATAR][IMG_TMP_NAME];
-            //verifie si l'extention est valide
+            //verifies si l'extention est valide
             $ext = handleImg::checkImg($avatarTmp);
             if ($ext != '0' && $ext != '1') {
 

@@ -6,9 +6,6 @@ define ('TYPE_PERM', 'admin');
 include_once "../controller/main_controller.php";
 
 $AccountManagement = "active";
-$errorMsg = "";
-$plusErrorMsg = "";
-$successMsg = "";
 
 $add = 0;
 $plus = 0;

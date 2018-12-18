@@ -21,10 +21,7 @@ define ('BALANCE', 'getbalance');
 define ('VALUE', 'ticker.usd');
 
 $lstWallet =  "active";
-$successMsg = "";
-$errorMsg = "";
-$error = 0;
-$success = 0;
+$totalWalletValue = 0;
 $NewTabWallet = array();
 
 //valeur pour l'affichage de performances
@@ -45,14 +42,14 @@ $tabWallet = $cWallet->getResult();
 if(isset($_POST[DELETE.'all']))
 {
     $cWallet = new wallet();
-    $cWallet->setIdUser($contact->getResult()[COLUMN_ID]);
+    $cWallet->setIdUser($contact->getResult()[COLUMN_USER_ID]);
     $cWallet->deleteAll($connector);
 }
 if(isset($_POST[DELETE]))
 {
     $cWallet->setIdWallet($_POST[DELETE]);
     $cWallet->setTabWallet($tabWallet);
-    $cWallet->setIdUser($contact->getResult()[COLUMN_ID]);
+    $cWallet->setIdUser($contact->getResult()[COLUMN_USER_ID]);
     $cWallet->delete($connector);
 }
 
@@ -72,7 +69,7 @@ if($tabWallet != "")
     $currencyValue = json_decode(file_get_contents($addressQuery));
 
     $timestampAPI1_fin = microtime( true);
-
+    $difference_block1 = $timestampAPI1_fin - $timestampAPI1_debut;
     foreach ($tabWallet as $key=>$value)
     {
 
@@ -134,7 +131,7 @@ if($tabWallet != "")
             {
                 $walletValue = round($moneyValue*$balance,'2');
             }
-
+            $totalWalletValue += $walletValue;
             //création de format des nombre
             $balance = number_format($balance, 2, '.', '\'');
             $walletValue = number_format($walletValue, 2, '.', '\'');
@@ -152,10 +149,12 @@ if($tabWallet != "")
         $NewTabWallet[$key][WALL_BALANCE] = $balance;
         $NewTabWallet[$key][WALL_VALUE] = $walletValue;
 
-        $difference_block1 = $difference_block1 + $timestampAPI1_fin - $timestampAPI1_debut;
+
+
         $difference_block2 = $difference_block2 +  $timestampAPI2_fin - $timestampAPI2_debut;
         $difference_block3 = $difference_block3 +  $timestampAPI3_fin - $timestampAPI3_debut;
 
     }
+    $totalWalletValue = number_format($totalWalletValue, 2, '.', '\'');
     $total = $difference_block1+ $difference_block2+$difference_block3;
 }

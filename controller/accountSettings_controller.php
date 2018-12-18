@@ -6,9 +6,6 @@ define ('TYPE_PERM', 'member');
 include_once "../controller/main_controller.php";
 $accountMenu = "btn-Active";
 
-$errorMsg = "";
-$successMsg = "";
-
 if (isset($_POST[MAIL])) {
     //récupération des valeurs du formulaire
     $password = security::html($_POST[PASSWORD]);

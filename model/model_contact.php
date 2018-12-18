@@ -23,16 +23,16 @@ class contact
     {
         $request = new requestBuilder()  ;
         $request->setTable( TABLE_USER) ;
-        $request->setParam( COLUMN_ID  ,  "") ;
-        $request->setParam( COLUMN_USE_MAIL  ,  $this->mail) ;
-        $request->setParam( COLUMN_USE_LOGIN_NAME , $this->loginName) ;
-        $request->setParam( COLUMN_USE_PASSWORD , $this->password) ;
-        $request->setParam( COLUMN_USE_STATUS , $this->status) ;
-        $request->setParam( COLUMN_USE_ACTIVATION_KEY , $this->activationKey) ;
-        $request->setParam( COLUMN_USE_CREAT_DATE , $this->creatDate) ;
-        $request->setParam( COLUMN_USE_RESET_KEY , $this->resetKey) ;
-        $request->setParam( COLUMN_USE_RESET_DATE , $this->resetDate) ;
-        $request->setParam( COLUMN_USE_WALLET , $this->keyWallet) ;
+        $request->setParam( COLUMN_USER_ID  ,  "") ;
+        $request->setParam( COLUMN_USER_MAIL  ,  $this->mail) ;
+        $request->setParam( COLUMN_USER_LOGIN_NAME , $this->loginName) ;
+        $request->setParam( COLUMN_USER_PASSWORD , $this->password) ;
+        $request->setParam( COLUMN_USER_STATUS , $this->status) ;
+        $request->setParam( COLUMN_USER_ACTIVATION_KEY , $this->activationKey) ;
+        $request->setParam( COLUMN_USER_CREAT_DATE , $this->creatDate) ;
+        $request->setParam( COLUMN_USER_RESET_KEY , $this->resetKey) ;
+        $request->setParam( COLUMN_USER_RESET_DATE , $this->resetDate) ;
+        $request->setParam( COLUMN_USER_WALLET , $this->keyWallet) ;
 
 
         $this->result = dbManager::save($connector, $request) ;
@@ -54,10 +54,10 @@ class contact
         {
 
             //si les mots de passe son identique
-            if($this->password === $this->result[COLUMN_USE_PASSWORD])
+            if($this->password === $this->result[COLUMN_USER_PASSWORD])
             {
                 //si le compte est actif
-                if($this->result[COLUMN_USE_STATUS])
+                if($this->result[COLUMN_USER_STATUS])
                 {
                     $result = 1;
                 }
@@ -82,9 +82,9 @@ class contact
 
 
         //si oui lance add et transmet l'ancinenne liste sinon create
-        if(self::getResult()[COLUMN_USE_WALLET] != "")
+        if(self::getResult()[COLUMN_USER_WALLET] != "")
         {
-            $request->setOldWallet(self::getResult()[COLUMN_USE_WALLET]);
+            $request->setOldWallet(self::getResult()[COLUMN_USER_WALLET]);
             $request->add($connector);
 
         }
@@ -97,7 +97,7 @@ class contact
     {
         $request = new requestBuilder()  ;
         $request->setTable( TABLE_USER.$this->idUser) ;
-        $request->setParam( COLUMN_USE_STATUS , $this->status) ;
+        $request->setParam( COLUMN_USER_STATUS , $this->status) ;
 
         $this->result = dbManager::update($connector, $request) ;
     }
@@ -105,7 +105,7 @@ class contact
     {
         $request = new requestBuilder()  ;
         $request->setTable( TABLE_USER.$this->idUser) ;
-        $request->setParam( COLUMN_USE_RESET_DATE , $this->resetDate) ;
+        $request->setParam( COLUMN_USER_RESET_DATE , $this->resetDate) ;
 
         $this->result = dbManager::update($connector, $request) ;
     }
@@ -113,7 +113,7 @@ class contact
     {
         $request = new requestBuilder()  ;
         $request->setTable( TABLE_USER.$this->idUser) ;
-        $request->setParam( COLUMN_USE_PASSWORD , $this->password) ;
+        $request->setParam( COLUMN_USER_PASSWORD , $this->password) ;
 
         $this->result = dbManager::update($connector, $request) ;
     }
@@ -121,7 +121,7 @@ class contact
     {
         $request = new requestBuilder();
         $request->setTable(TABLE_USER);
-        $request->setParam( COLUMN_USE_MAIL  ,  $this->mail) ;
+        $request->setParam( COLUMN_USER_MAIL  ,  $this->mail) ;
 
         $this->result = dbManager::loadOnce($connector, $request) ;
     }
@@ -129,7 +129,7 @@ class contact
     {
         $request = new requestBuilder();
         $request->setTable(TABLE_USER);
-        $request->setParam( COLUMN_USE_LOGIN_NAME  ,  $this->loginName) ;
+        $request->setParam( COLUMN_USER_LOGIN_NAME  ,  $this->loginName) ;
 
         $this->result = dbManager::loadOnce($connector, $request) ;
     }
@@ -137,7 +137,7 @@ class contact
     {
         $request = new requestBuilder();
         $request->setTable(TABLE_USER);
-        $request->setParam( COLUMN_ID  ,  $this->idUser) ;
+        $request->setParam( COLUMN_USER_ID  ,  $this->idUser) ;
 
         $this->result = dbManager::loadOnce($connector, $request) ;
     }
@@ -145,7 +145,7 @@ class contact
     {
         $request = new requestBuilder();
         $request->setTable(TABLE_USER);
-        $request->setParam( COLUMN_USE_LOGIN_NAME  ,  $this->loginName) ;
+        $request->setParam( COLUMN_USER_LOGIN_NAME  ,  $this->loginName) ;
 
         $this->result = dbManager::loadOnce($connector, $request) ;
     }
@@ -153,7 +153,7 @@ class contact
     {
         $request = new requestBuilder();
         $request->setTable(TABLE_USER);
-        $request->setParam( COLUMN_USE_MAIL  ,  $this->mail) ;
+        $request->setParam( COLUMN_USER_MAIL  ,  $this->mail) ;
 
         $this->result = dbManager::loadOnce($connector, $request) ;
     }
@@ -161,7 +161,7 @@ class contact
     {
         $request = new requestBuilder();
         $request->setTable(TABLE_USER);
-        $request->setParam( COLUMN_USE_RESET_KEY  , $this->resetKey) ;
+        $request->setParam( COLUMN_USER_RESET_KEY  , $this->resetKey) ;
 
         $this->result = dbManager::loadOnce($connector, $request) ;
     }
@@ -169,7 +169,7 @@ class contact
     {
         $request = new requestBuilder();
         $request->setTable(TABLE_USER);
-        $request->setParam( COLUMN_USE_ACTIVATION_KEY  , $this->activationKey) ;
+        $request->setParam( COLUMN_USER_ACTIVATION_KEY  , $this->activationKey) ;
 
         $this->result = dbManager::loadOnce($connector, $request) ;
     }
@@ -177,7 +177,7 @@ class contact
     {
         $request = new requestBuilder();
         $request->setTable(TABLE_USER);
-        $request->setParam( COLUMN_USE_CREAT_DATE  , $this->creatDate) ;
+        $request->setParam( COLUMN_USER_CREAT_DATE  , $this->creatDate) ;
 
         $this->result = dbManager::loadOnce($connector, $request) ;
     }
@@ -185,7 +185,7 @@ class contact
     {
         $request = new requestBuilder();
         $request->setTable(TABLE_USER);
-        $request->setParam( COLUMN_USE_STATUS  , $this->status) ;
+        $request->setParam( COLUMN_USER_STATUS  , $this->status) ;
 
         $this->result = dbManager::loadOnce($connector, $request) ;
     }
@@ -193,7 +193,7 @@ class contact
     {
         $request = new requestBuilder();
         $request->setTable(TABLE_USER);
-        $request->setParam( COLUMN_USE_LOGIN_NAME  ,  $this->loginName) ;
+        $request->setParam( COLUMN_USER_LOGIN_NAME  ,  $this->loginName) ;
 
         $this->result = dbManager::delete($connector, $request) ;
     }
@@ -201,7 +201,7 @@ class contact
     {
         $request = new requestBuilder();
         $request->setTable(TABLE_USER);
-        $request->setParam( COLUMN_USE_MAIL  ,  $this->mail) ;
+        $request->setParam( COLUMN_USER_MAIL  ,  $this->mail) ;
 
         $this->result = dbManager::delete($connector, $request) ;
     }
@@ -209,7 +209,7 @@ class contact
     {
         $request = new requestBuilder();
         $request->setTable(TABLE_USER);
-        $request->setParam( TABLE_USER_ID  ,  $this->idUser) ;
+        $request->setParam( COLUMN_USER_ID  ,  $this->idUser) ;
 
         $this->result = dbManager::delete($connector, $request) ;
     }

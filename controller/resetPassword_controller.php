@@ -12,10 +12,6 @@ $resetPassword = "active";
 //paramètre de session pour afficher les bon menu lors de la navigation sur les paramètre de compte
 $_SESSION[ADMIN] = 0;
 
-$successMsg = "";
-$errorMsg = "";
-$error = 0;
-$success = 0;
 $tabUser = array();
 $resetPage = 0;
 
@@ -36,7 +32,7 @@ if($dbConnected)
         //vérifie si le loginName existe
         if($contact->getResult() != array())
         {
-            $mail =  $contact->getResult()[COLUMN_USE_MAIL];
+            $mail =  $contact->getResult()[COLUMN_USER_MAIL];
 
             $date = new datetime();
             $date = $date->format('Y-m-d H:i:s');
@@ -94,13 +90,13 @@ if($dbConnected)
             {
                 //crée la date d'expiration
                 $date = new DateTime();
-                $creatDate = new DateTime($contact->getResult()[COLUMN_USE_CREAT_DATE]);
+                $creatDate = new DateTime($contact->getResult()[COLUMN_USER_CREAT_DATE]);
                 $creatDate = $creatDate->modify('+'.param::searchParam(INI_PATH, P_RESET_MAIL_EXPIRATION));
 
                 if($creatDate > $date)
                 {
                     $resetPage = 1;
-                    $useId = $contact->getResult()[COLUMN_ID];
+                    $useId = $contact->getResult()[COLUMN_USER_ID];
                 }
 
             }
@@ -118,9 +114,9 @@ if($dbConnected)
         $contact->loadOnceById($connector);
 
         $tabUser = $contact->getResult();
-        $mail = $tabUser[COLUMN_USE_MAIL];
-        $loginName = $tabUser[COLUMN_USE_LOGIN_NAME];
-        $resetDate = $tabUser[COLUMN_USE_RESET_DATE];
+        $mail = $tabUser[COLUMN_USER_MAIL];
+        $loginName = $tabUser[COLUMN_USER_LOGIN_NAME];
+        $resetDate = $tabUser[COLUMN_USER_RESET_DATE];
 
         $resetDate = new DateTime($resetDate);
         $resetDate = $resetDate->format('d-m-Y à H:i:s');

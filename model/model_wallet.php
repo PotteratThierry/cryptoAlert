@@ -28,7 +28,7 @@ class wallet
 
         $request = new requestBuilder()  ;
         $request->setTable( TABLE_USER.$this->idUser) ;
-        $request->setParam( COLUMN_USE_WALLET , $jsonWallet) ;
+        $request->setParam( COLUMN_USER_WALLET , $jsonWallet) ;
 
         $this->result = dbManager::update($connector, $request) ;
 
@@ -44,13 +44,13 @@ class wallet
         //générer le tableau de wallet à partie de old wallet
         $request = new requestBuilder()  ;
         $request->setTable( TABLE_USER.$this->idUser) ;
-        $request->setParam( COLUMN_USE_WALLET , $jsonWallet) ;
+        $request->setParam( COLUMN_USER_WALLET , $jsonWallet) ;
 
         $this->result = dbManager::update($connector, $request) ;
     }
     public function loadOnceById()
     {
-        $this->result = json_decode($this->tabUser[COLUMN_USE_WALLET]);
+        $this->result = json_decode($this->tabUser[COLUMN_USER_WALLET]);
     }
     public function delete($connector)
     {
@@ -72,7 +72,7 @@ class wallet
     {
         $request = new requestBuilder()  ;
         $request->setTable( TABLE_USER.$this->idUser) ;
-        $request->setParam( COLUMN_USE_WALLET , '') ;
+        $request->setParam( COLUMN_USER_WALLET , '') ;
 
         $this->result = dbManager::update($connector, $request) ;
     }

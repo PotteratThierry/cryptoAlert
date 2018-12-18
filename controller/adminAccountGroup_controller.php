@@ -8,8 +8,6 @@ include_once "../controller/main_controller.php";
 
 
 $AccountManagement = "active";
-$successMsg = "";
-$errorMsg = "";
 $disabled = "";
 $selectedOui = "";
 $selectedNon = "";
@@ -17,7 +15,6 @@ $permission = 0x00;
 $addNewGroup = 0;
 $allDisable = 0;
 $groupDel = 0;
-$errorMsg = "";
 
 $add = 0;
 $edit = 0;

@@ -6,9 +6,6 @@ define ('TYPE_PERM', 'member');
 include_once "../controller/main_controller.php";
 $accountMenu = "btn-Active";
 
-$errorMsg = "";
-$successMsg = "";
-
 if (isset($_POST[NAME])) {
     //on vas chercher les infos de l'utilisateur avant modification
     $dbUser->setUseMail($_SESSION[MAIL]);

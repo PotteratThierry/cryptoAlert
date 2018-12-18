@@ -38,7 +38,7 @@ class money
             {
                 $request = new requestBuilder();
                 $request->setTable( TAB_MONEY);
-                $request->setParam( COLUMN_ID  ,  "") ;
+                $request->setParam( COLUMN_MONEY_ID  ,  "") ;
                 $request->setParam( COLUMN_MONEY_NAME,$value->{self::NAME} );
                 $request->setParam( COLUMN_MONEY_CODE,$key);
                 /*$request->setParam( COLUMN_MONEY_POW,$value->{self::POW}   );

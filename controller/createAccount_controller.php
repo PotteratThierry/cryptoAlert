@@ -12,10 +12,6 @@ $creatAccount = "active";
 //paramètre de session pour afficher les bon menu lors de la navigation sur les paramètre de compte
 $_SESSION[ADMIN] = 0;
 
-$successMsg = "";
-$errorMsg = "";
-$error = 0;
-$success = 0;
 $tabUser = array();
 
 //si on arrive à ce connecter à la base de donnée
@@ -129,7 +125,7 @@ if($dbConnected)
             $contact->setPassword(security::hash($password1));
             $contact->setActivationKey($activationKey);
             $contact->setCreatDate($date);
-            $contact->setWallet($wallet);
+            $contact->setKeyWallet($wallet);
             $contact->save( $connector);
             //si il n'y a pas d'erreur
             if($contact->getResult())
@@ -192,12 +188,12 @@ if($dbConnected)
 
                 //crée la date d'expiration
                 $date = new DateTime();
-                $creatDate = new DateTime($contact->getResult()[COLUMN_USE_CREAT_DATE]);
+                $creatDate = new DateTime($contact->getResult()[COLUMN_USER_CREAT_DATE]);
                 $creatDate = $creatDate->modify('+'.param::searchParam(INI_PATH, P_ACTIVATION_MAIL_EXPIRATION));
 
                 if($creatDate > $date)
                 {
-                    $contact->setIdUser($contact->getResult()[COLUMN_ID]);
+                    $contact->setIdUser($contact->getResult()[COLUMN_USER_ID]);
                     $contact->setStatus(1);
                     $contact->updateStatus( $connector);
                     if($contact->getResult())

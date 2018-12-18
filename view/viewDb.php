@@ -49,16 +49,16 @@ include_once "../templates/defaultTop.php";
             {
                 ?>
                 <tr>
-                    <td><?php echo $value[COLUMN_ID];?></td>
-                    <td><?php echo $value[COLUMN_USE_LOGIN_NAME];?></td>
-                    <td><?php echo $value[COLUMN_USE_MAIL];?></td>
-                    <td><?php echo $value[COLUMN_USE_PASSWORD];?></td>
-                    <td><?php echo $value[COLUMN_USE_STATUS];?></td>
-                    <td><?php echo $value[COLUMN_USE_ACTIVATION_KEY];?></td>
-                    <td><?php echo $value[COLUMN_USE_CREAT_DATE];?></td>
-                    <td><?php echo $value[COLUMN_USE_RESET_KEY];?></td>
-                    <td><?php echo $value[COLUMN_USE_RESET_DATE];?></td>
-                    <td><?php echo $value[COLUMN_USE_WALLET];?></td>
+                    <td><?php echo $value[COLUMN_USER_ID];?></td>
+                    <td><?php echo $value[COLUMN_USER_LOGIN_NAME];?></td>
+                    <td><?php echo $value[COLUMN_USER_MAIL];?></td>
+                    <td><?php echo $value[COLUMN_USER_PASSWORD];?></td>
+                    <td><?php echo $value[COLUMN_USER_STATUS];?></td>
+                    <td><?php echo $value[COLUMN_USER_ACTIVATION_KEY];?></td>
+                    <td><?php echo $value[COLUMN_USER_CREAT_DATE];?></td>
+                    <td><?php echo $value[COLUMN_USER_RESET_KEY];?></td>
+                    <td><?php echo $value[COLUMN_USER_RESET_DATE];?></td>
+                    <td><?php echo $value[COLUMN_USER_WALLET];?></td>
                 </tr>
                 <?php
             }

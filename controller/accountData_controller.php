@@ -5,6 +5,3 @@ define ('TYPE_PERM', 'member');
 
 include_once "../controller/main_controller.php";
 $accountMenu = "btn-Active";
-
-$errorMsg = "";
-$successMsg = "";

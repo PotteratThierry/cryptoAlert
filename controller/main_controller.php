@@ -40,6 +40,7 @@ include_once "../model/model_param.php";
 include_once "../model/model_security.php";
 include_once "../model/model_wallet.php";
 include_once "../model/model_money.php";
+include_once "../model/model_alert.php";
 
 
 ///////////////////////////////////////////////////////////////////
@@ -49,21 +50,21 @@ include_once "../model/model_money.php";
 
 //défini les champs de la table contact
 define ('TABLE_USER', 'user:');
-define ('COLUMN_USE_MAIL', 'useMail');
-define ('COLUMN_USE_PASSWORD', 'usePassword');
-define ('COLUMN_ID', 'id');
-define ('COLUMN_USE_LOGIN_NAME', 'useName');
-define ('COLUMN_USE_ACTIVATE', 'useActivate');
-define ('COLUMN_USE_STATUS', 'useStatus');
-define ('COLUMN_USE_ACTIVATION_KEY', 'useActivationKey');
-define ('COLUMN_USE_CREAT_DATE', 'useCreatDate');
-define ('COLUMN_USE_RESET_KEY', 'useResetKey');
-define ('COLUMN_USE_RESET_DATE', 'useResetDate');
-define ('COLUMN_USE_WALLET', 'useWallet');
+define ('COLUMN_USER_ID', 'id');
+define ('COLUMN_USER_MAIL', 'useMail');
+define ('COLUMN_USER_PASSWORD', 'usePassword');
+define ('COLUMN_USER_LOGIN_NAME', 'useName');
+define ('COLUMN_USER_ACTIVATE', 'useActivate');
+define ('COLUMN_USER_STATUS', 'useStatus');
+define ('COLUMN_USER_ACTIVATION_KEY', 'useActivationKey');
+define ('COLUMN_USER_CREAT_DATE', 'useCreatDate');
+define ('COLUMN_USER_RESET_KEY', 'useResetKey');
+define ('COLUMN_USER_RESET_DATE', 'useResetDate');
+define ('COLUMN_USER_WALLET', 'useWallet');
 
 //défini les champs de la table money
-define ('TAB_MONEY', 'money:');
-define ('COLUMN_ID_MONEY', 'id');
+define ('TAB_MONEY', 'tabMoney:');
+define ('COLUMN_MONEY_ID', 'id');
 define ('COLUMN_MONEY_NAME', 'moneyName');
 define ('COLUMN_MONEY_POW', 'moneyPow');
 define ('COLUMN_MONEY_POS', 'moneyPos');
@@ -72,6 +73,20 @@ define ('COLUMN_MONEY_DIFF', 'moneyDiff');
 define ('COLUMN_MONEY_SUPPLY', 'moneySupply');
 define ('COLUMN_MONEY_TICKER', 'moneyTicker');
 define ('COLUMN_MONEY_CODE', 'moneyTicker');
+
+//défini les champs de la table alert
+define ('TABLE_ALERT', 'alert:');
+define ('COLUMN_ALERT_ID', 'id');
+define ('COLUMN_ALERT_USER_ID', 'idUser');
+define ('COLUMN_ALERT_CONCERN', 'alrConcern');
+define ('COLUMN_ALERT_CONCERN_NAME', 'alrConcernName');
+define ('COLUMN_ALERT_OPERATOR', 'alrOperator');
+define ('COLUMN_ALERT_VALUE', 'alrValue');
+define ('COLUMN_ALERT_TIME_RANGE', 'alrTimeRange');
+define ('COLUMN_ALERT_TYPE', 'alrType');
+define ('COLUMN_ALERT_STATUS', 'alrStatus');
+define ('COLUMN_ALERT_LAST_REFRESH', 'alrLastRefresh');
+
 
 //défini les champs du tableau de wallet
 define ('WALL_NAME', 'wallName');
@@ -82,12 +97,40 @@ define ('WALL_CODE', 'wallCode');
 define ('WALL_LOGO', 'wallLogo');
 define ('WALL_VALUE', 'wallValue');
 
+//défini le tableau des type d'alert
+define ('CONCERN' , array(0=>'une monnaie',1=>'le sold d\'un wallet',2=>'le sold du compte'));
+//défini le tableau des opérateur
+define ('OPERATOR' , array(0=>'<',1=>'>',2=>'<=',3=>'>=',4=>'=',5=>'+%',6=>'-%'));
+//defini le tableau des interval
+define ('TIME_RANGE' , array(0=>'1 heure',1=>'6 heures',2=>'12 heures',3=>'1 jour',4=>'1 semaine'));
+//defini des type de retour
+define ('TYPE' , array(0=>'par Mail',1=>'par notification'));
 
+//défini les paramètres des de selection des tableau
+define('CONCERN_MONEY','0');
+define('CONCERN_WALLET','1');
+define('CONCERN_TOTAL','2');
+
+define('OPERATOR_GREATER','0');
+define('OPERATOR_SMALLER','1');
+define('OPERATOR_G_EQUAL','2');
+define('OPERATOR_S_EQUAL','3');
+define('OPERATOR_EQUAL','4');
+define('OPERATOR_MORE_PERCENT','5');
+define('OPERATOR_LESS_PERCENT','6');
+
+define('TIME_HOUR','0');
+define('TIME_6_HOURS','1');
+define('TIME_12_HOURS','2');
+define('TIME_1_DAY','3');
+define('TIME_1_WEEK','4');
+
+define('TYPE_MAIL','0');
+define('TYPE_NOTIFICATION','1');
 
 //défini le paramètre pour les clef d'activation
 define ('GET_ACTIVATE', 'a');
 define ('GET_RESET', 'r');
-
 
 //constant pour le fichier de paramètre
 define ('INI_PATH', '../config.ini');
@@ -163,6 +206,7 @@ define ('PLUS', "plus");
 define ('NB_USER', 'nb_user');
 define ('NEW_USER', "new_user");
 define ('NEW_WALLET', "new_wallet");
+define ('NEW_ALERT', "new_wallet");
 define ('MONEY_WALLET', "moneyWallet");
 define ('VALID_PLUS', 'validePlus');
 define ('VALID_NEW_USER', 'valideNew_user');
@@ -276,6 +320,14 @@ $loginErrorMsg = "";
 $connect = 0;
 $access = 0;
 
+//gestion des message d'erreur
+$successMsg = "";
+$errorMsg = "";
+$error = 0;
+$success = 0;
+
+$operator = '';
+
 //variable pour l'affichage du fils d'arian
 //page du site
 $accueil = "";
@@ -285,12 +337,14 @@ $wallet = "";
 $viewDb = "";
 $money = "";
 $lstWallet = "";
+$alert = "";
 
 //page de l'administration
 $admin = "";
 $AccountManagement = "";
 $AppSettings = "";
 $AppStats = "";
+
 //pages des paramètre de compte
 $accountMenu = "";
 $accountSettings = "";
@@ -344,45 +398,43 @@ if(isset($_SESSION[CONNECT]) and  $_SESSION[CONNECT] != 0)
     $userConnect->setLoginName($_SESSION[LOGIN_NAME]);
 }
 //lors de la reception d'un formulaire de connection
-if (isset($_POST[NAME]) and isset($_POST[CONNECT])) {
-
-    $useLoginName = security::html($_POST[NAME]);
-    $usePassword = security::html($_POST[PASSWORD]);
-
-    $userConnect = new contact();
-    $userConnect->setLoginName($useLoginName);
-    $userConnect->setPassword(security::hash($usePassword));
-    $userConnect->connect($connector);
-
-    $userConnect->getResult();
-
-    //si le compte est désactivé
-    if( $userConnect->getResult() == 2)
+if (isset($_POST[NAME]) and isset($_POST[CONNECT]))
+{
+    if($dbConnected != 0)
     {
-        $loginErrorMsg = $lang_errorMsg_disabledAccount;
-        $userConnect->setLoginName('');
-        $userConnect->setConnect(0);
-    }
-    else
-    {
-        //si le mots de passe est faut
-        if(!$userConnect->getResult())
-        {
-            $loginErrorMsg = $lang_errorMsg_connect;
+        $useLoginName = security::html($_POST[NAME]);
+        $usePassword = security::html($_POST[PASSWORD]);
+
+        $userConnect = new contact();
+        $userConnect->setLoginName($useLoginName);
+        $userConnect->setPassword(security::hash($usePassword));
+        $userConnect->connect($connector);
+
+        $userConnect->getResult();
+
+        //si le compte est désactivé
+        if ($userConnect->getResult() == 2) {
+            $loginErrorMsg = $lang_errorMsg_disabledAccount;
             $userConnect->setLoginName('');
             $userConnect->setConnect(0);
-        }
-        else
-        {
-            if($loginErrorMsg == "")
-            {
-                $_SESSION[CONNECT] = 1;
-                $_SESSION[LOGIN_NAME] = $useLoginName;
+        } else {
+            //si le mots de passe est faut
+            if (!$userConnect->getResult()) {
+                $loginErrorMsg = $lang_errorMsg_connect;
+                $userConnect->setLoginName('');
+                $userConnect->setConnect(0);
+            } else {
+                if ($loginErrorMsg == "") {
+                    $_SESSION[CONNECT] = 1;
+                    $_SESSION[LOGIN_NAME] = $useLoginName;
+                }
             }
         }
     }
-
-
+    else
+    {
+        $loginErrorMsg = "impossible de se connecter à la base de donnée";
+    }
 }
 //lors de la reception d'un formulaire de changement de langue
 if (isset($_POST[LANG])) {

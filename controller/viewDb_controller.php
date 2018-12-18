@@ -12,14 +12,8 @@ $viewDb = "active";
 //paramètre de session pour afficher les bon menu lors de la navigation sur les paramètre de compte
 $_SESSION[ADMIN] = 0;
 
-$successMsg = "";
-$errorMsg = "";
-$error = 0;
-$success = 0;
 
-$contact = new contact();
-$contact->load($connector);
-$tabUser = $contact->getResult();
+
 
 if($dbConnected)
 {
@@ -29,4 +23,6 @@ if($dbConnected)
         $contact->deleteALL($connector);
     }
 }
-
+$contact = new contact();
+$contact->load($connector);
+$tabUser = $contact->getResult();
