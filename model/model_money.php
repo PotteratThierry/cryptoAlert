@@ -15,7 +15,7 @@ class money
 
     public function __construct()
     {
-        $this->apiSource = param::searchParam(INI_PATH, 'apiSource');
+        $this->apiSource = param::searchParam(INI_PATH, 'apiExplorer');
 
     }
     public function refresh($connector)

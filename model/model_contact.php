@@ -15,6 +15,7 @@ class contact
     private $keyWallet = '';
     private $moneyWallet;
     private $nameWallet;
+    private $balanceWallet;
 
     private $result;
 
@@ -72,25 +73,27 @@ class contact
     }
     public function addWallet($connector)
     {
-        $request = new wallet;
-        $request->setIdUser($this->idUser);
-        $request->setKeyWallet($this->keyWallet);
-        $request->setMoneyWallet($this->moneyWallet);
-        $request->setNameWallet($this->nameWallet);
+        $cWallet = new wallet;
+        $cWallet->setIdUser($this->idUser);
+        $cWallet->setKeyWallet($this->keyWallet);
+        $cWallet->setMoneyWallet($this->moneyWallet);
+        $cWallet->setNameWallet($this->nameWallet);
+        $cWallet->setBalanceValue($this->balanceWallet);
+
         //verifies si il existe déjà une liste de wallet
         self::loadOnceById( $connector);
-
 
         //si oui lance add et transmet l'ancinenne liste sinon create
         if(self::getResult()[COLUMN_USER_WALLET] != "")
         {
-            $request->setOldWallet(self::getResult()[COLUMN_USER_WALLET]);
-            $request->add($connector);
+
+            $cWallet->setJsonWallet(self::getResult()[COLUMN_USER_WALLET]);
+            $cWallet->add($connector);
 
         }
         else
         {
-            $request->create($connector);
+            $cWallet->create($connector);
         }
     }
     public function updateStatus(iDatabase $connector)
@@ -216,6 +219,38 @@ class contact
     public function deleteAll($connector)
     {
         dbManager::deleteAll($connector) ;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBalanceWallet()
+    {
+        return $this->balanceWallet;
+    }
+
+    /**
+     * @param mixed $balanceWallet
+     */
+    public function setBalanceWallet($balanceWallet)
+    {
+        $this->balanceWallet = $balanceWallet;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSold()
+    {
+        return $this->sold;
+    }
+
+    /**
+     * @param int $sold
+     */
+    public function setSold($sold)
+    {
+        $this->sold = $sold;
     }
 
     /**

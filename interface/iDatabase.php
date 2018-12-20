@@ -8,6 +8,7 @@ interface iDatabase
     public function load(requestBuilder $param) ;
     public function loadOnce(requestBuilder $param) ;
     public function delete(requestBuilder $param) ;
+    public function deleteTable(requestBuilder $param) ;
     public function deleteALL() ;
     public function getResult();
 }

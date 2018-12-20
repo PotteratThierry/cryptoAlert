@@ -45,6 +45,10 @@ class dbMySql implements iDatabase {
     {
 
     }
+    public function deleteTable(requestBuilder $param)
+    {
+
+    }
     public function deleteALL()
     {
 

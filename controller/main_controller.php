@@ -79,14 +79,15 @@ define ('TABLE_ALERT', 'alert:');
 define ('COLUMN_ALERT_ID', 'id');
 define ('COLUMN_ALERT_USER_ID', 'idUser');
 define ('COLUMN_ALERT_CONCERN', 'alrConcern');
+define ('COLUMN_ALERT_CONCERN_ID', 'alrConcernId');
 define ('COLUMN_ALERT_CONCERN_NAME', 'alrConcernName');
 define ('COLUMN_ALERT_OPERATOR', 'alrOperator');
 define ('COLUMN_ALERT_VALUE', 'alrValue');
+define ('COLUMN_ALERT_VALUE_CONCERN', 'alrValueConcerne');
 define ('COLUMN_ALERT_TIME_RANGE', 'alrTimeRange');
 define ('COLUMN_ALERT_TYPE', 'alrType');
 define ('COLUMN_ALERT_STATUS', 'alrStatus');
 define ('COLUMN_ALERT_LAST_REFRESH', 'alrLastRefresh');
-
 
 //défini les champs du tableau de wallet
 define ('WALL_NAME', 'wallName');
@@ -100,9 +101,9 @@ define ('WALL_VALUE', 'wallValue');
 //défini le tableau des type d'alert
 define ('CONCERN' , array(0=>'une monnaie',1=>'le sold d\'un wallet',2=>'le sold du compte'));
 //défini le tableau des opérateur
-define ('OPERATOR' , array(0=>'<',1=>'>',2=>'<=',3=>'>=',4=>'=',5=>'+%',6=>'-%'));
+define ('OPERATOR' , array(0=>'>',1=>'<',2=>'>=',3=>'<=',4=>'=',5=>'+%',6=>'-%'));
 //defini le tableau des interval
-define ('TIME_RANGE' , array(0=>'1 heure',1=>'6 heures',2=>'12 heures',3=>'1 jour',4=>'1 semaine'));
+define ('TIME_RANGE' , array('+1 hour'=>'1 heure','+6 hour'=>'6 heures','+12 hour'=>'12 heures','+1 day'=>'1 jour','+7 day'=>'1 semaine'));
 //defini des type de retour
 define ('TYPE' , array(0=>'par Mail',1=>'par notification'));
 
@@ -119,14 +120,27 @@ define('OPERATOR_EQUAL','4');
 define('OPERATOR_MORE_PERCENT','5');
 define('OPERATOR_LESS_PERCENT','6');
 
-define('TIME_HOUR','0');
-define('TIME_6_HOURS','1');
-define('TIME_12_HOURS','2');
-define('TIME_1_DAY','3');
-define('TIME_1_WEEK','4');
+define('TIME_HOUR','+1 hour');
+define('TIME_6_HOURS','+6 hour');
+define('TIME_12_HOURS','+12 hour');
+define('TIME_1_DAY','+1 day');
+define('TIME_1_WEEK','+7 day');
 
 define('TYPE_MAIL','0');
 define('TYPE_NOTIFICATION','1');
+
+//constante pour l'API des crypto monnaies
+define ('API_CRYPTO_COIN', 'coin');
+define ('API_CRYPTO_QUERY', 'query');
+define ('API_CRYPTO_ADDRESS', 'address');
+
+//constante pour l'API de change de devise
+define('API_CHANGE_REQUEST', 'request');
+define('API_CHANGE_SEPARATOR', '_');
+
+//constante pour le tabeau pour l'affichage
+define ('BALANCE', 'getbalance');
+define ('VALUE', 'ticker.usd');
 
 //défini le paramètre pour les clef d'activation
 define ('GET_ACTIVATE', 'a');
@@ -338,6 +352,7 @@ $viewDb = "";
 $money = "";
 $lstWallet = "";
 $alert = "";
+$majAlert = "";
 
 //page de l'administration
 $admin = "";

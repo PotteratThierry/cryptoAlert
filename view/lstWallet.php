@@ -4,10 +4,6 @@ include_once "../controller/lstWallet_controller.php";
 include_once "../templates/defaultTop.php";
 ?>
 <form class="form" role="form" method="post" action="<?php echo NAME_PAGE; ?>">
-    <legend class=""> <?php echo "chargement block 1 : ".$difference_block1." ms (change)";?></legend>
-    <legend class=""> <?php echo "chargement block 2 : ".$difference_block2." ms (sold)";?></legend>
-    <legend class=""> <?php echo "chargement block 3 : ".$difference_block3." ms (valeur monnaie)";?></legend>
-    <legend class=""> <?php echo "chargement total   : ".$total." ms";?></legend>
     <button type="submit" formaction="wallet.php" name="<?php echo NEW_WALLET; ?>"class="btn btn-warning"><?php echo 'ajouter un wallet'; ?></button>
     <?php /*<button type="submit" name="<?php echo DELETE.'all'; ?>"class="btn btn-danger"><?php echo 'supprimer tout les wallets'; ?></button>*/?>
         <?php if ($errorMsg != "") { ?>

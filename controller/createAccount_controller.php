@@ -171,7 +171,7 @@ if($dbConnected)
             }
         }
     }
-//si on envoie une donnée get(via mail de confirmation)
+    //si on envoie une donnée get(via mail de confirmation)
     if($_GET)
     {
 

@@ -91,7 +91,7 @@ class dbManager{
         return $db->getResult() ;
     }
     public static function deleteTable(iDatabase $db, $param) {
-        $db->delete($param) ;
+        $db->deleteTable($param) ;
         return $db->getResult() ;
     }
     public static function deleteAll(iDatabase $db) {
