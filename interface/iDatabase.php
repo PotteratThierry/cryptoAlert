@@ -1,7 +1,7 @@
 <?php
 interface iDatabase
 {
-    public function getInstanceParam($host, $port) ;
+    public function getInstanceParam($host, $port, $user, $password, $name) ;
     public function getInstance();
     public function save(requestBuilder $param) ;
     public function update(requestBuilder $param) ;

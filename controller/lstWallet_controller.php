@@ -38,7 +38,15 @@ if(isset($_POST[DELETE]))
     $cWallet->setIdUser($contact->getResult()[COLUMN_USER_ID]);
     $cWallet->delete($connector);
 }
+//récupère l'id de l'utilisateur
+$contact = new contact();
+$contact->setLoginName($_SESSION[LOGIN_NAME]);
+$contact->loadOnceByName( $connector);
 
+$cWallet = new wallet();
+$cWallet->setTabUser($contact->getResult());
+$cWallet->loadByTab();
+$tabWallet = $cWallet->getResult();
 if($tabWallet != "")
 {
     //calcul le sold total
@@ -62,7 +70,5 @@ if($tabWallet != "")
     }
     $totalWalletValue = generalFunction::numberFormat($totalWalletValue);
 }
-$cWallet = new wallet();
-$cWallet->setTabUser($contact->getResult());
-$cWallet->loadByTab();
-$tabWallet = $cWallet->getResult();
+
+

@@ -49,12 +49,11 @@ include_once "../model/model_alert.php";
 
 
 //défini les champs de la table contact
-define ('TABLE_USER', 'user:');
+define ('TABLE_USER', 'user');
 define ('COLUMN_USER_ID', 'id');
 define ('COLUMN_USER_MAIL', 'useMail');
 define ('COLUMN_USER_PASSWORD', 'usePassword');
 define ('COLUMN_USER_LOGIN_NAME', 'useName');
-define ('COLUMN_USER_ACTIVATE', 'useActivate');
 define ('COLUMN_USER_STATUS', 'useStatus');
 define ('COLUMN_USER_ACTIVATION_KEY', 'useActivationKey');
 define ('COLUMN_USER_CREAT_DATE', 'useCreatDate');
@@ -63,31 +62,31 @@ define ('COLUMN_USER_RESET_DATE', 'useResetDate');
 define ('COLUMN_USER_WALLET', 'useWallet');
 
 //défini les champs de la table money
-define ('TAB_MONEY', 'tabMoney:');
+define ('TAB_MONEY', 'money');
 define ('COLUMN_MONEY_ID', 'id');
-define ('COLUMN_MONEY_NAME', 'moneyName');
-define ('COLUMN_MONEY_POW', 'moneyPow');
-define ('COLUMN_MONEY_POS', 'moneyPos');
-define ('COLUMN_MONEY_HEIGHT', 'moneyHeight');
-define ('COLUMN_MONEY_DIFF', 'moneyDiff');
-define ('COLUMN_MONEY_SUPPLY', 'moneySupply');
-define ('COLUMN_MONEY_TICKER', 'moneyTicker');
-define ('COLUMN_MONEY_CODE', 'moneyTicker');
+define ('COLUMN_MONEY_NAME', 'monName');
+define ('COLUMN_MONEY_POW', 'monPow');
+define ('COLUMN_MONEY_POS', 'monPos');
+define ('COLUMN_MONEY_HEIGHT', 'monHeight');
+define ('COLUMN_MONEY_DIFF', 'monDiff');
+define ('COLUMN_MONEY_SUPPLY', 'monSupply');
+define ('COLUMN_MONEY_TICKER', 'monTicker');
+define ('COLUMN_MONEY_CODE', 'monCode');
 
 //défini les champs de la table alert
-define ('TABLE_ALERT', 'alert:');
+define ('TABLE_ALERT', 'alert');
 define ('COLUMN_ALERT_ID', 'id');
 define ('COLUMN_ALERT_USER_ID', 'idUser');
-define ('COLUMN_ALERT_CONCERN', 'alrConcern');
-define ('COLUMN_ALERT_CONCERN_ID', 'alrConcernId');
-define ('COLUMN_ALERT_CONCERN_NAME', 'alrConcernName');
-define ('COLUMN_ALERT_OPERATOR', 'alrOperator');
-define ('COLUMN_ALERT_VALUE', 'alrValue');
-define ('COLUMN_ALERT_VALUE_CONCERN', 'alrValueConcerne');
-define ('COLUMN_ALERT_TIME_RANGE', 'alrTimeRange');
-define ('COLUMN_ALERT_TYPE', 'alrType');
-define ('COLUMN_ALERT_STATUS', 'alrStatus');
-define ('COLUMN_ALERT_LAST_REFRESH', 'alrLastRefresh');
+define ('COLUMN_ALERT_CONCERN', 'aleConcern');
+define ('COLUMN_ALERT_CONCERN_ID', 'aleConcernId');
+define ('COLUMN_ALERT_CONCERN_NAME', 'aleConcernName');
+define ('COLUMN_ALERT_VALUE_CONCERN', 'aleConcernValue');
+define ('COLUMN_ALERT_OPERATOR', 'aleOperator');
+define ('COLUMN_ALERT_VALUE', 'aleValue');
+define ('COLUMN_ALERT_TIME_RANGE', 'aleTimeRange');
+define ('COLUMN_ALERT_TYPE', 'aleType');
+define ('COLUMN_ALERT_STATUS', 'aleStatus');
+define ('COLUMN_ALERT_LAST_REFRESH', 'aleLastRefresh');
 
 //défini les champs du tableau de wallet
 define ('WALL_NAME', 'wallName');
@@ -170,11 +169,14 @@ define ('DISCONNECT', "disconnect");
 define ('PAGE', "page");
 define ('ACCESS', 'access');
 
-define ('DB_HOST', 'dbHost');
-define ('DB_USER', 'dbUser');
-define ('DB_PASSWORD', 'dbPassword');
-define ('DB_NAME', 'dbName');
-define ('DB_PORT', 'dbport');
+define ('REDIS_DB_HOST', 'redisDbHost');
+define ('REDIS_DB_PORT', 'redisDbPort');
+
+define ('MYSQL_DB_HOST', 'mySqlDbHost');
+define ('MYSQL_DB_USER', 'mySqlDbUser');
+define ('MYSQL_DB_PASSWORD', 'mySqlDbPassword');
+define ('MYSQL_DB_NAME', 'mySqlDbName');
+define ('MYSQL_DB_PORT', 'mySqlDbPort');
 
 //constant pour les rechargement de page
 define ('LOCATION', 'Location:');
@@ -375,13 +377,13 @@ $userConnect = new contact();
 //////////        instantiation  des class         ////////////////
 ///////////////////////////////////////////////////////////////////
 
-//class de connection à une DB
+/*//class de connection à une DB
 $pdo = new dbConnect();
 $pdo = $pdo->connect();
-
+*/
 try
 {
-    $connector = dbManager::getConnector(param::searchParam(INI_PATH, 'databaseType')) ;
+    $connector = dbManager::getConnector(param::searchParam(INI_PATH, 'MySqlDatabaseType')) ;
     $dbConnected = 1;
 }
 catch ( Exception $e )
@@ -389,7 +391,7 @@ catch ( Exception $e )
     echo "errorMsg =".$e->getMessage() ;
 }
 
-//class de la table utilisateur
+/*//class de la table utilisateur
 $dbUser = new dbUser();
 $dbUser->setPdo($pdo);
 
@@ -399,7 +401,7 @@ $dbGroup->setPdo($pdo);
 //classe des interaction avec les compte utilisateur
 $account = new account();
 $account->setDbUser($dbUser);
-$account->setDbGroup($dbGroup);
+$account->setDbGroup($dbGroup);*/
 
 
 ///////////////////////////////////////////////////////////////////
@@ -472,7 +474,8 @@ if ($access == 0 && TYPE_PERM != 'all') {
     log::ConnectLog(5, 0, NAME_PAGE);
     header(LOCATION . ' ../index.php');
 }
-//vérifie si le compte à accès aux éléments accessible au admin
+$adminAccess = "";
+/*//vérifie si le compte à accès aux éléments accessible au admin
 $account->setTypePerm(ADMIN);
 $account->permission();
 $adminAccess = $account->getAccess();
@@ -484,6 +487,6 @@ $moderatorAccess = $account->getAccess();
 $account->setTypePerm(MEMBER);
 $account->permission();
 $memberAccess = $account->getAccess();
-
+*/
 
 ?>

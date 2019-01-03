@@ -9,6 +9,7 @@ class money
     const DIFF = 'diff';
     const SUPPLY = 'supply';
     const TICKER = 'ticker';
+    const BTC = 'btc';
 
     private $apiSource;
     private $result;
@@ -23,13 +24,15 @@ class money
         $jsonSources = "";
         try
         {
-            $jsonSources = utf8_encode(file_get_contents($this->apiSource.self::ALL));
+
+            $jsonSources = utf8_decode(file_get_contents($this->apiSource.self::ALL));
+
         }
         catch(Exception $e )
         {
             $this->result =  $e->getMessage() ;
         }
-        $tabMoney = json_decode($jsonSources);
+        $tabMoney = json_decode($jsonSources, true);
         if($tabMoney != "")
         {
             self::deleteAll($connector);
@@ -38,15 +41,23 @@ class money
             {
                 $request = new requestBuilder();
                 $request->setTable( TAB_MONEY);
-                $request->setParam( COLUMN_MONEY_ID  ,  "") ;
-                $request->setParam( COLUMN_MONEY_NAME,$value->{self::NAME} );
+                $request->setParam( COLUMN_MONEY_ID  ,  NULL) ;
+                $request->setParam( COLUMN_MONEY_NAME,$value[self::NAME] );
                 $request->setParam( COLUMN_MONEY_CODE,$key);
-                /*$request->setParam( COLUMN_MONEY_POW,$value->{self::POW}   );
-                $request->setParam( COLUMN_MONEY_POS, $value->{self::POS}   );
-                $request->setParam( COLUMN_MONEY_HEIGHT, $value->{self::HEIGHT}   );
-                $request->setParam( COLUMN_MONEY_DIFF, $value->{self::DIFF}   );
-                $request->setParam( COLUMN_MONEY_SUPPLY, $value->{self::SUPPLY}   );
-                $request->setParam( COLUMN_MONEY_TICKER, $value->{self::TICKER}   );*/
+                $request->setParam( COLUMN_MONEY_POW,$value[self::POW]   );
+                $request->setParam( COLUMN_MONEY_POS, $value[self::POS]   );
+                $request->setParam( COLUMN_MONEY_HEIGHT, $value[self::HEIGHT]   );
+                $request->setParam( COLUMN_MONEY_DIFF, $value[self::DIFF]   );
+                $request->setParam( COLUMN_MONEY_SUPPLY, $value[self::SUPPLY]   );
+                if(isset($value[self::TICKER]->{self::BTC}))
+                {
+                    $request->setParam( COLUMN_MONEY_TICKER, $value[self::TICKER]->{self::BTC});
+                }
+                else
+                {
+                    $request->setParam( COLUMN_MONEY_TICKER, NULL);
+                }
+
 
                 $this->result = dbManager::save($connector, $request) ;
             }
@@ -56,7 +67,6 @@ class money
     {
         $request = new requestBuilder();
         $request->setTable(TAB_MONEY);
-
         $this->result = dbManager::load($connector, $request) ;
     }
     public function deleteAll($connector)

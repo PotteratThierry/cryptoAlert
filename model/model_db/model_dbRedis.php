@@ -6,7 +6,7 @@ class dbRedis implements iDatabase {
     private $instance = null ;
     private $result;
 
-    public function getInstanceParam($host, $port) {
+    public function getInstanceParam($host, $port ,$user,  $password, $name) {
         if($this->instance == null) {
             $this->instance = new Redis();
             $this->instance->connect($host,$port ) ;
@@ -15,7 +15,7 @@ class dbRedis implements iDatabase {
     }
 
     public function getInstance() {
-        return $this->getInstanceParam(param::searchParam(INI_PATH,DB_HOST),  param::searchParam(INI_PATH,DB_PORT)) ;
+        return $this->getInstanceParam(param::searchParam(INI_PATH,REDIS_DB_HOST),  param::searchParam(INI_PATH,REDIS_DB_PORT),'','','') ;
     }
 
     public function idIncr($param)
@@ -40,12 +40,11 @@ class dbRedis implements iDatabase {
         {
             $this->idIncr($param->getTable()."counter");
             $id = $this->getId($param->getTable()."counter");
-            $idTable  = $param->getTable().$id;
+            $idTable  = $param->getTable();
             foreach ($param->getParams() as $key => $value)
             {
                 if($key == 'id')
                 {
-
                     $this->getInstance()->hset($idTable, $key, $id);
                     $this->result = 1;
                 }
@@ -60,10 +59,10 @@ class dbRedis implements iDatabase {
         {
             $this->result =  $e->getMessage() ;
         }
-
     }
     public function update(requestBuilder $param)
     {
+        self::loadOnce($param);
         foreach ($param->getParams() as $key=>$value)
         {
             try
@@ -81,19 +80,20 @@ class dbRedis implements iDatabase {
     {
 
         $maxId = $this->getId($param->getTable()."counter");
+
         $i = 0;
         $this->result = NULL;
         while($i <= $maxId)
         {
             //ne verifies pas les id vide
-            if($this->instance->hGetAll($param->getTable().$i) != array())
+            if($this->instance->hGetAll($param->getTable()) != array())
             {
                 //si on veut les clef non numeric
                 if(!$numKey)
                 {
                     try
                     {
-                        $this->result[$i] = $this->instance->hGetAll($param->getTable().$i);
+                        $this->result[$i] = $this->instance->hGetAll($param->getTable());
 
 
                     }
@@ -104,7 +104,7 @@ class dbRedis implements iDatabase {
                 else
                 {
                     $ip = 0;
-                    foreach ($this->instance->hGetAll($param->getTable().$i) as $key=>$value)
+                    foreach ($this->instance->hGetAll($param->getTable()) as $key=>$value)
                     {
                         $this->result[$i][$ip] = $value;
                         $ip++;

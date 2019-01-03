@@ -87,17 +87,14 @@ class generalFunction
     {
         if(is_numeric($num))
         {
-            if(is_float($num))
+            if($num>0.01)
             {
                 $num = number_format($num, 2, ',', '\'');
-            }
-            else
-            {
-                $num = number_format($num, 0, ',', '\'');
             }
         }
         else
         {
+
             $num = 0;
         }
         return $num;

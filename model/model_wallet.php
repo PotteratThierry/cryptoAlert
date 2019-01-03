@@ -41,7 +41,8 @@ class wallet
         $jsonWallet = json_encode($tabWallet);
 
         $request = new requestBuilder()  ;
-        $request->setTable( TABLE_USER.$this->idUser) ;
+        $request->setTable( TABLE_USER) ;
+        $request->setParam( COLUMN_USER_ID , $this->idUser) ;
         $request->setParam( COLUMN_USER_WALLET , $jsonWallet) ;
 
         $this->result = dbManager::update($connector, $request) ;
@@ -55,10 +56,17 @@ class wallet
             $wallet = array(WALL_NAME =>$this->nameWallet,WALL_MONEY=>$this->moneyWallet,WALL_KEY=>$this->keyWallet);
             $this->tabWallet[0] = $wallet;
         }
-        $jsonWallet = json_encode ($this->tabWallet);
-
+        if($this->tabWallet != array())
+        {
+            $jsonWallet = json_encode ($this->tabWallet);
+        }
+        else
+        {
+            $jsonWallet = '';
+        }
         $request = new requestBuilder()  ;
-        $request->setTable( TABLE_USER.$this->idUser) ;
+        $request->setTable( TABLE_USER) ;
+        $request->setParam( COLUMN_USER_ID , $this->idUser) ;
         $request->setParam( COLUMN_USER_WALLET , $jsonWallet) ;
 
         $this->result = dbManager::update($connector, $request) ;
@@ -94,12 +102,14 @@ class wallet
             $i++;
         }
         $this->tabWallet = $tabNewWallet;
+
         self::create($connector, 1);
     }
     public function deleteAll($connector)
     {
         $request = new requestBuilder()  ;
-        $request->setTable( TABLE_USER.$this->idUser) ;
+        $request->setTable( TABLE_USER) ;
+        $request->setParam( COLUMN_USER_ID , $this->idUser) ;
         $request->setParam( COLUMN_USER_WALLET , '') ;
 
         $this->result = dbManager::update($connector, $request) ;

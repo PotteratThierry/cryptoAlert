@@ -24,7 +24,7 @@ class contact
     {
         $request = new requestBuilder()  ;
         $request->setTable( TABLE_USER) ;
-        $request->setParam( COLUMN_USER_ID  ,  "") ;
+        $request->setParam( COLUMN_USER_ID  ,  NULL) ;
         $request->setParam( COLUMN_USER_MAIL  ,  $this->mail) ;
         $request->setParam( COLUMN_USER_LOGIN_NAME , $this->loginName) ;
         $request->setParam( COLUMN_USER_PASSWORD , $this->password) ;
@@ -98,8 +98,11 @@ class contact
     }
     public function updateStatus(iDatabase $connector)
     {
+        echo $this->idUser,"<br>";
+        echo $this->status;
         $request = new requestBuilder()  ;
-        $request->setTable( TABLE_USER.$this->idUser) ;
+        $request->setTable( TABLE_USER) ;
+        $request->setParam( COLUMN_USER_ID , $this->idUser) ;
         $request->setParam( COLUMN_USER_STATUS , $this->status) ;
 
         $this->result = dbManager::update($connector, $request) ;
@@ -107,15 +110,18 @@ class contact
     public function updateResetKey(iDatabase $connector)
     {
         $request = new requestBuilder()  ;
-        $request->setTable( TABLE_USER.$this->idUser) ;
+        $request->setTable( TABLE_USER) ;
+        $request->setParam( COLUMN_USER_ID , $this->idUser) ;
         $request->setParam( COLUMN_USER_RESET_DATE , $this->resetDate) ;
+        $request->setParam( COLUMN_USER_RESET_KEY , $this->resetKey) ;
 
         $this->result = dbManager::update($connector, $request) ;
     }
     public function updatePassword(iDatabase $connector)
     {
         $request = new requestBuilder()  ;
-        $request->setTable( TABLE_USER.$this->idUser) ;
+        $request->setTable( TABLE_USER) ;
+        $request->setParam( COLUMN_USER_ID , $this->idUser) ;
         $request->setParam( COLUMN_USER_PASSWORD , $this->password) ;
 
         $this->result = dbManager::update($connector, $request) ;

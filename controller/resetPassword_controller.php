@@ -28,7 +28,7 @@ if($dbConnected)
         $contact = new contact();
         $contact->setLoginName($loginName);
         $contact->loginNameExist($connector);
-
+        $id = $contact->getResult()[COLUMN_USER_ID];
         //vérifie si le loginName existe
         if($contact->getResult() != array())
         {
@@ -40,6 +40,7 @@ if($dbConnected)
             $resetKey = security::hashPath($mail.$loginName.$date);
 
             //met la clef d'activation dans la base de donnée
+            $contact->setIdUser($id);
             $contact->setResetKey($resetKey);
             $contact->setResetDate($date);
             $contact->updateResetKey( $connector);
@@ -144,6 +145,7 @@ if($dbConnected)
             $errorMsg .= $lang_errorMsg_password."<br>";
         }
         $contact = new contact();
+        $contact->setIdUser($useId);
         $contact->setMail($mail);
         $contact->mailExist($connector);
         //vérifie si l'Email existe
@@ -155,6 +157,7 @@ if($dbConnected)
         //si il n'y a pas d'erreur
         if(!$error)
         {
+            $contact->setIdUser($useId);
             $contact->setPassword(security::hash($password1));
             $contact->updatePassword($connector);
 
@@ -182,6 +185,7 @@ if($dbConnected)
             $success = 1;
             $successMsg .= $lang_successMsg_resetPassword;
         }
+        die;
     }
 
 }
