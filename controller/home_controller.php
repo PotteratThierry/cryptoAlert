@@ -12,3 +12,5 @@ $accueil = "active";
 //paramètre de session pour afficher les bon menu lors de la navigation sur les paramètre de compte
 $_SESSION[ADMIN] = 0;
 
+
+

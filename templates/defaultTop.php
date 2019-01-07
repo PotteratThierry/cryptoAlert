@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Lab4tech</title>
+    <title><?php echo $lang_title;?>h</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -45,14 +45,14 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item <?php echo $accueil;?>"><a class="nav-link" href="../index.php"><?php echo $lang_home;?></a></li>
                 <li class="nav-item <?php echo $viewDb;?>"><a class="nav-link" href="../view/viewDb.php"><?php echo 'visualiser les utilisateurs';?></a></li>
-                <?php if($userConnect->getConnect()){?><li class="nav-item <?php echo $lstWallet;?>"><a class="nav-link" href="../view/lstWallet.php"><?php echo 'gestion de mes wallets';?></a></li><?php }?>
-                <?php if($userConnect->getConnect()){?><li class="nav-item <?php echo $alert;?>"><a class="nav-link" href="../view/lstAlert.php"><?php echo 'gestion de mes alertes';?></a></li><?php }?>
-                <?php if($userConnect->getConnect()){?><li class="nav-item <?php echo $money;?>"><a class="nav-link" href="../view/lstMoney.php"><?php echo 'gestion des monnaies';?></a></li><?php }?>
-                <?php if($userConnect->getConnect()){?><li class="nav-item <?php echo $majAlert;?>"><a class="nav-link" href="../view/majAlert.php"><?php echo 'maj des alertes';?></a></li><?php }?>
+                <?php if($contact->getConnect()){?><li class="nav-item <?php echo $lstWallet;?>"><a class="nav-link" href="../view/lstWallet.php"><?php echo 'gestion de mes wallets';?></a></li><?php }?>
+                <?php if($contact->getConnect()){?><li class="nav-item <?php echo $alert;?>"><a class="nav-link" href="../view/lstAlert.php"><?php echo 'gestion de mes alertes';?></a></li><?php }?>
+                <?php if($contact->getConnect()){?><li class="nav-item <?php echo $money;?>"><a class="nav-link" href="../view/lstMoney.php"><?php echo 'gestion des monnaies';?></a></li><?php }?>
+                <?php if($contact->getConnect()){?><li class="nav-item <?php echo $majAlert;?>"><a class="nav-link" href="../view/majAlert.php"><?php echo 'maj des alertes';?></a></li><?php }?>
                 <?php if($loginErrorMsg != ""){?><li><div class="alert alert-danger loginErrorMsg"><?php echo $loginErrorMsg;?></div></li><?php }?>
             </ul>
             <?php
-            if(!$userConnect->getConnect())
+            if(!$contact->getConnect())
             {
                 ?>
                 <div class="btn-group">
@@ -86,7 +86,7 @@
             {?>
                 <div class="btn-group">
                     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php if($userConnect->getLoginName() != ""){echo $userConnect->getLoginName();}else{echo 'connection';} ;?>
+                        <?php if($contact->getLoginName() != ""){echo $contact->getLoginName();}else{echo 'connection';} ;?>
                     </button>
                     <form class="form" role="form" method="post" action="<?php echo NAME_PAGE;?>">
                         <div class="dropdown-menu dropdown-menu-right">
@@ -94,7 +94,7 @@
                             <a class="dropdown-item connectText" href="accountProfil.php"><?php echo $lang_accountProfil;?></a>
                             <a class="dropdown-item connectText" href="accountSignature.php"><?php echo $lang_accountSignature;?></a>
                             <a class="dropdown-item connectText" href="accountData.php"><?php echo $lang_accountData;?></a>
-                            <?php if($adminAccess){?>
+                            <?php if($accessLevel->getAdmin()){?>
                                 <div class="dropdown-divider"></div>
                                 <a class="connectText" href="../view/admin.php"><?php echo $lang_admin;?></a>
                                 <?php

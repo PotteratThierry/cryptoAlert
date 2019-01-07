@@ -16,35 +16,35 @@ $totalWalletValue = 0;
 $NewTabWallet = array();
 
 //récupère l'id de l'utilisateur
-$contact = new contact();
-$contact->setLoginName($_SESSION[LOGIN_NAME]);
-$contact->loadOnceByName( $connector);
+$cContact = new contact();
+$cContact->setLoginName($_SESSION[LOGIN_NAME]);
+$cContact->loadOnceByName( $connector);
 
 $cWallet = new wallet();
-$cWallet->setTabUser($contact->getResult());
+$cWallet->setTabUser($cContact->getResult());
 $cWallet->loadByTab();
 $tabWallet = $cWallet->getResult();
 
 if(isset($_POST[DELETE.'all']))
 {
     $cWallet = new wallet();
-    $cWallet->setIdUser($contact->getResult()[COLUMN_USER_ID]);
+    $cWallet->setIdUser($cContact->getResult()[COLUMN_USER_ID]);
     $cWallet->deleteAll($connector);
 }
 if(isset($_POST[DELETE]))
 {
     $cWallet->setIdWallet($_POST[DELETE]);
     $cWallet->setTabWallet($tabWallet);
-    $cWallet->setIdUser($contact->getResult()[COLUMN_USER_ID]);
+    $cWallet->setIdUser($cContact->getResult()[COLUMN_USER_ID]);
     $cWallet->delete($connector);
 }
 //récupère l'id de l'utilisateur
-$contact = new contact();
-$contact->setLoginName($_SESSION[LOGIN_NAME]);
-$contact->loadOnceByName( $connector);
+$cContact = new contact();
+$cContact->setLoginName($_SESSION[LOGIN_NAME]);
+$cContact->loadOnceByName( $connector);
 
 $cWallet = new wallet();
-$cWallet->setTabUser($contact->getResult());
+$cWallet->setTabUser($cContact->getResult());
 $cWallet->loadByTab();
 $tabWallet = $cWallet->getResult();
 if($tabWallet != "")

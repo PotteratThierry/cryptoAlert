@@ -6,36 +6,33 @@ define ('TYPE_PERM', 'admin');
 include_once "../controller/main_controller.php";
 
 $AccountManagement = "active";
-
+$plusErrorMsg = "";
 $add = 0;
 $plus = 0;
 $disabled = "";
+
+$idUser = 0;
+$idGroup =0;
+$status =0;
 //à changer lors de la mise en place des fichier de paramètres
 $defaultPassWord = param::searchParam(INI_PATH, 'defaultPassword');
 $defaultGroup = param::searchParam(INI_PATH, P_DEFAULT_GROUP);
 $userFile = param::searchParam(INI_PATH, 'userPath');
 
-//vérifie si le compte peut ajouter des utilisateur
-$account->setTypePerm(ADD_USER);
-$account->permission();
-$new_user = $account->getAccess();
+$connected = $contact->getConnect();
+$loginName = $contact->getLoginName();
 
-//vérifie si le compte peut modifier des utilisateurs
-$account->setTypePerm(EDIT_USER);
-$account->permission();
-$edit_user = $account->getAccess();
+$mail = $contact->getMail();
+$deleteUser = $permission->getDeleteUser();
+$editUser = $permission->getEditUser();
+$addUser = $permission->getAddUser();
 
-//vérifie si le compte peut supprimer des utilisateurs
-$account->setTypePerm(DELETE_USER);
-$account->permission();
-$delete_user = $account->getAccess();
-$userConnected = $_SESSION[MAIL];
 //desactive les champs du formulaire
-if (!$edit_user) {
+if ($editUser) {
     $disabled = "disabled";
 }
 //pour l'ajout d'un utilisateur
-if (isset($_POST[NEW_USER]) && $new_user) {
+if (isset($_POST[NEW_USER]) && $addUser) {
     $add = 1;
     $nickname = "";
     $name = "";
@@ -43,165 +40,138 @@ if (isset($_POST[NEW_USER]) && $new_user) {
     $mail = "";
 }
 //pour la validation de l'ajout d'un utilisateur
-if (isset($_POST[VALID_NEW_USER]) && $new_user)
+if (isset($_POST[VALID_NEW_USER]) && $addUser)
 {
-    $nickname = security::html($_POST[NICKNAME]);
+    $nickname = security::html($_POST[LOGIN_NAME]);
     $name = security::html($_POST[NAME]);
     $lastName = security::html($_POST[LAST_NAME]);
     $mail = security::html($_POST[MAIL]);
 
     //verification du mail
-    if (generalFunction::checkMail($mail)) {
-        //vérifie que le pusdo  n'est pas déjà utilisé
-        $dbUser->setUseNickname($nickname);
-        $dbUser->getNickname();
-        $tmp_nickname = $dbUser->getResult();
-        if (!isset($tmp_nickname[0])) {
-            //vérifie que le mail n'est pas deja utilisé
+    if (generalFunction::checkMail($mail))
+    {
+        $cContact = new contact();
+        $cContact->setMail($mail);
+        $cContact->mailExist($connector);
+        //vérifie si l'Email existe
+        if ($cContact->getResult() != array()) {
+            $error = 1;
+            $errorMsg .= $lang_errorMsg_existMail . "<br>";
+        }
+        $cContact->setLoginName($loginName);
+        $cContact->loginNameExist($connector);
+        //vérifie si le loginName existe
+        if ($cContact->getResult() != array()) {
+            $error = 1;
+            $errorMsg .= $lang_errorMsg_existUser . "<br>";
+        }
+        if (!$error) {
+            //recherche du groupe par default
+            $dbGroup->setGroName($defaultGroup);
+            $dbGroup->getName();
+            $defaultGroup = $dbGroup->getResult();
+
+            //prepare les valeurs pour le creat
+            $dbUser->setUseNickname($nickname);
+            $dbUser->setUseName($name);
+            $dbUser->setUseLastName($lastName);
+            $dbUser->setUseMail($mail);
+            $dbUser->setUsePassword(security::hash($defaultPassWord));
+            $dbUser->setIdxGroup($defaultGroup[0]->getIdGroup());
+            $dbUser->create();
+            //crée le dossier utilisateur
             $dbUser->setUseMail($mail);
             $dbUser->getMail();
-            $tmp_mail = $dbUser->getResult();
-            if (!isset($tmp_mail[0])) {
-                //recherche du groupe par default
-                $dbGroup->setGroName($defaultGroup);
-                $dbGroup->getName();
-                $defaultGroup = $dbGroup->getResult();
+            $tabUser = $dbUser->getResult();
 
-                //prepare les valeurs pour le creat
-                $dbUser->setUseNickname($nickname);
-                $dbUser->setUseName($name);
-                $dbUser->setUseLastName($lastName);
-                $dbUser->setUseMail($mail);
-                $dbUser->setUsePassword(security::hash($defaultPassWord));
-                $dbUser->setIdxGroup($defaultGroup[0]->getIdGroup());
-                $dbUser->create();
-                //crée le dossier utilisateur
-                $dbUser->setUseMail($mail);
-                $dbUser->getMail();
-                $userInfo = $dbUser->getResult();
-
-                //crée les nouveau fichier de l'utilisateur
-                handleFiles::crateNewUserFiles($userInfo[0]->getIdUser());
-                $successMsg =   $lang_successMsg_update;
-            } else {
-                $add = 1;
-                $errorMsg = $errorMsg . $lang_errorMsg_existMail;
-            }
-        } else {
-            $add = 1;
-            $errorMsg = $errorMsg . $lang_errorMsg_existUser;
+            //crée les nouveau fichier de l'utilisateur
+            handleFiles::crateNewUserFiles($tabUser[0]->getIdUser());
+            $successMsg = $lang_successMsg_update;
         }
-    } else {
-        $add = 1;
-        $errorMsg = $errorMsg . $lang_errorMsg_mail;
     }
 }
 //pour l'affichage des detail
-if (isset($_POST[PLUS]) && $edit_user) {
+if (isset($_POST[PLUS]) && $editUser)
+{
     $plus = 1;
-    $idUser = $_POST[PLUS];
-    $dbUser->setIdUser($idUser);
-    $dbUser->getOnce();
-    $tabUser = $dbUser->getResult();
+    $cContact = new contact();
+    $cContact->setIdUser($_POST[PLUS]);
+    $cContact->loadOnceById($connector);
+    $tabUser = $cContact->getResult();
+    $idGroup =  $tabUser[COLUMN_USER_IDX_GROUP];
 
-    $dbGroup->setIdGroup($tabUser[0]->getIdxGroup());
-    $dbGroup->getOnce();
-    $tabGroup = $dbGroup->getResult();
+    $group = new group();
+    $group->setIdGroup($idGroup);
+    $group->loadOnceById($connector);
+    $tabGroup =  $group->getResult();
 
-    $nickname = $tabUser[0]->getUseNickname();
-    $name = $tabUser[0]->getUseName();
-    $lastName = $tabUser[0]->getUseLastName();
-    $birthDate = $tabUser[0]->getUseBirthDate();
-    $mail = $tabUser[0]->getUseMail();
-    $idUser = $tabUser[0]->getIdUser();
-    $status = $tabUser[0]->getIdxGroup();
-    $idGroup = $tabUser[0]->getUseStatus();
+    $loginName = $tabUser[COLUMN_USER_LOGIN_NAME];
+    $mail = $tabUser[COLUMN_USER_MAIL];
+    $idUser = $tabUser[COLUMN_USER_ID];
+    $status = $tabUser[COLUMN_USER_STATUS];
 }
 //pour la validation des modification dans les details
-if (isset($_POST[VALID_PLUS]) && $edit_user) {
+if (isset($_POST[VALID_PLUS]) && $editUser)
+{
     $idUser = security::html($_POST[VALID_PLUS]);
-    $dbUser->setIdUser($idUser);
-    $dbUser->getOnce();
-    $userInfo = $dbUser->getResult();
+    $cContact = new contact();
+    $cContact->setIdUser($idUser);
+    $cContact->loadOnceById($connector);
+    $tabUser = $cContact->getResult();
 
-    $nickname = security::html($_POST[NICKNAME]);
-    $name = security::html($_POST[NAME]);
-    $lastName = security::html($_POST[LAST_NAME]);
-    $birthDate = security::html($_POST[BIRTH_DATE]);
+    $loginName = security::html($_POST[LOGIN_NAME]);
     $mail = security::html($_POST[MAIL]);
     $idUser = security::html($_POST[VALID_PLUS]);
     $status = security::html($_POST[STATUS]);
     $idGroup = security::html($_POST[ID_GROUP]);
 
     //vérifie que le mail  est valide
-    if (!generalFunction::checkMail($mail)) {
+    if (!generalFunction::checkMail($mail))
+    {
         $plus = 2;
         $plusErrorMsg = $errorMsg . $lang_errorMsg_mail;
-    } else {
+    }
+    else
+    {
         //verifie si le pseudo est différant de celui de la db
-        if ($nickname != $userInfo[0]->getUseNickname()) {
+        if ($loginName != $tabUser[COLUMN_USER_LOGIN_NAME])
+        {
             //vérifie que le pusdo  n'est pas déjà utilisé
-            $dbUser->setUseNickname($nickname);
-            $dbUser->getNickname();
-            $tmp_nickname = $dbUser->getResult();
-            if (!isset($tmp_nickname[0])) {
-                $plus = 2;
-                $plusErrorMsg = $errorMsg . $lang_errorMsg_existUser;
-            } else {
-                //verifier la date de naissance
-                if (generalFunction::checkDate($birthDate)) {
-
-                } else {
-                    $errorMsg = $lang_errorMsg_date;
-                }
-
+            $cContact->setLoginName($loginName);
+            $cContact->loginNameExist($connector);
+            //vérifie si le loginName existe
+            if ($cContact->getResult() != array()) {
+                $error = 1;
+                $errorMsg .= $lang_errorMsg_existUser . "<br>";
             }
-
         }
 
     }
 
-    if ($plusErrorMsg == "") {
-        //prepare les valeurs pour le modify
-        $dbUser->setIdUser($idUser);
-        $dbUser->setUseNickname($nickname);
-        $dbUser->setUseStatus($status);
-        $dbUser->setUseName($name);
-        $dbUser->setUseLastName($lastName);
-        $dbUser->setUseBirthDate($birthDate);
-        $dbUser->setUseMail($mail);
-        $dbUser->setIdxGroup($idGroup);
-        $dbUser->modify();
-
+    if ($plusErrorMsg == "")
+    {
+        //effectue l'update
+        $cContact->setMail($mail);
+        $cContact->update($connector);
         //crée les nouveau dossier pour l'utilisateur
         handleFiles::crateNewUserFiles($idUser);
         //met le message de success dans un cookie
         $successMsg =   $lang_successMsg_update;
-    } else {
-        $errorMsg = $plusErrorMsg;
-        $dbUser->setIdUser($idUser);
-        $dbUser->getOnce();
-        $tabUser = $dbUser->getResult();
-
-        $dbGroup->setIdGroup($tabUser[0]->getIdxGroup());
-        $dbGroup->getOnce();
-        $tabGroup = $dbGroup->getResult();
-
     }
 }
 //pour la suppression d'un utilisateur
-if (isset($_POST[USER_DELETE]) && $delete_user)
+if (isset($_POST[USER_DELETE]) && $deleteUser)
 {
     $idUser = security::html($_POST[USER_DELETE]);
     $dbUser->setIdUser($idUser);
     $dbUser->getOnce();
-    $userInfo = $dbUser->getResult();
+    $tabUser = $dbUser->getResult();
     //verification des resultats
-    if (isset($userInfo[0]))
+    if (isset($tabUser[0]))
     {
-        if ($userConnected != $userInfo[0]->getUseMail()) {
+        if ($contact->getContact() != $tabUser[0]->getUseMail()) {
             //defini le chemin du dossier de l'utilisateur
-            $userFile = $userFile . security::hashPath($userInfo[0]->getIdUser());
+            $userFile = $userFile . security::hashPath($tabUser[0]->getIdUser());
             //verifie si il existe si oui le supprime
             if (is_dir($userFile)) {
                 handleFiles::dellDirectory($userFile);
@@ -216,7 +186,7 @@ if (isset($_POST[USER_DELETE]) && $delete_user)
     header(LOCATION . NAME_PAGE);
 }
 //pour la validation des modification dans la liste des utilisateurs
-if (isset($_POST[VALID]) && $edit_user) {
+if (isset($_POST[VALID]) && $editUser) {
 
     $nbUser = security::html($_POST[NB_USER]);
     $i = 0;
@@ -302,9 +272,12 @@ if (isset($_POST[VALID]) && $edit_user) {
 
 }
 
-$dbUser->getAllUserPermission();
-$tabUserDefault = $dbUser->getResult();
-$nbUser = count($tabUserDefault);
-$dbGroup->getAll();
-$tabGroupDefault = $dbGroup->getResult();
+$cContact = new contact();
+$cContact->load($connector);
+$tabUser = $cContact->getResult();
+$nbUser = count($tabUser);
+
+$cGroup = new group();
+$cGroup->load($connector);
+$tabGroup = $cGroup->getResult();
 ?>

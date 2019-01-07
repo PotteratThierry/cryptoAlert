@@ -19,10 +19,10 @@ if($dbConnected)
 {
     if(isset($_POST[DELETE]))
     {
-        $contact = new contact();
-        $contact->deleteALL($connector);
+        $cContact = new contact();
+        $cContact->deleteALL($connector);
     }
 }
-$contact = new contact();
-$contact->load($connector);
-$tabUser = $contact->getResult();
+$cContact = new contact();
+$cContact->load($connector);
+$tabUser = $cContact->getResult();

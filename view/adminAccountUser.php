@@ -28,15 +28,7 @@ include_once "../templates/defaultTop-admin.php";
                                 <div class="alert alert-danger"><?php echo $errorMsg;?></div><?php }?>
                             <div class="form-group">
                                 <label><?php echo $lang_loginName;?></label>
-                                <input type="text" class="form-control" name="<?php echo NICKNAME;?>" value="<?php echo $nickname;?>" placeholder="<?php echo $lang_loginName;?>" />
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo $lang_name?></label>
-                                <input type="text" class="form-control" name="<?php echo NAME;?>" value="<?php echo $name;?>" placeholder="<?php echo $lang_name?>" />
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo $lang_lastName?></label>
-                                <input type="text" class="form-control" name="<?php echo LAST_NAME;?>" value="<?php echo $lastName;?>" placeholder="<?php echo $lang_lastName?>" />
+                                <input type="text" class="form-control" name="<?php echo LOGIN_NAME;?>" value="<?php echo $loginName;?>" placeholder="<?php echo $lang_loginName;?>" />
                             </div>
                             <div class="form-group">
                                 <label><?php echo $lang_mail?></label>
@@ -60,21 +52,10 @@ include_once "../templates/defaultTop-admin.php";
                         <div class="col-md-8">
                             <?php if($errorMsg != ""){?>
                                 <div class="alert alert-danger"><?php echo $errorMsg;?></div><?php }?>
+
                             <div class="form-group">
-                                <label><?php echo $lang_nickname;?></label>
-                                <input type="text" class="form-control" name="<?php echo NICKNAME;?>" value="<?php echo $nickname;?>" placeholder="<?php echo $lang_nickname;?>" />
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo $lang_name;?></label>
-                                <input type="text" class="form-control" name="<?php echo NAME;?>" value="<?php echo $name;?>" placeholder="<?php echo $lang_name;?>" />
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo $lang_lastName;?></label>
-                                <input type="text" class="form-control" name="<?php echo LAST_NAME;?>" value="<?php echo $lastName;?>" placeholder="<?php echo $lang_lastName;?>" />
-                            </div>
-                            <div class="form-group">
-                                <label><?php echo $lang_birthDate;?></label>
-                                <input type="date" max="2004-12-31" min="1920-01-01"class="form-control" name="<?php echo BIRTH_DATE;?>" value="<?php echo $birthDate;?>" placeholder="<?php echo $lang_birthDate;?>" />
+                                <label><?php echo $lang_loginName;?></label>
+                                <input type="text" class="form-control" name="<?php echo LOGIN_NAME;?>" value="<?php echo $loginName;?>" placeholder="<?php echo $lang_lastName;?>" />
                             </div>
                             <div class="form-group">
                                 <label><?php echo $lang_mail;?></label>
@@ -100,39 +81,35 @@ include_once "../templates/defaultTop-admin.php";
                 <table class="table ">
                     <thead>
                     <tr>
-                        <th><?php echo $lang_nickname;?></th>
-                        <th><?php echo $lang_name;?></th>
-                        <th><?php echo $lang_lastName;?></th>
+                        <th><?php echo $lang_loginName;?></th>
                         <th><?php echo $lang_mail;?></th>
                         <th><?php echo $lang_group;?></th>
                         <th><?php echo $lang_status;?></th>
-                        <?php if($edit_user){?><th></th><?php }?>
-                        <?php if($delete_user){?><th></th><?php }?>
+                        <?php if($editUser){?><th></th><?php }?>
+                        <?php if($deleteUser){?><th></th><?php }?>
                     </tr>
                     </thead>
                     <tbody>
                     <form class="form" role="form" method="post" action="<?php echo NAME_PAGE;?>">
-                        <?php if($edit_user){?><button name="<?php echo VALID;?>" type="submit" class="btn btn btn-primary"><?php echo $lang_send;?></button><?php }?>
-                        <?php if($new_user){?><button name="<?php echo NEW_USER;?>"  type="submit" class="btn btn btn-primary"><?php echo $lang_addUser;?></button><?php }?>
-                        <?php foreach($tabUserDefault as $userKey=>$userValue)
+                        <?php if($editUser){?><button name="<?php echo VALID;?>" type="submit" class="btn btn btn-primary"><?php echo $lang_send;?></button><?php }?>
+                        <?php if($addUser){?><button name="<?php echo NEW_USER;?>"  type="submit" class="btn btn btn-primary"><?php echo $lang_addUser;?></button><?php }?>
+                        <?php foreach($tabUser as $key=>$value)
                         {
                             ?>
                             <tr>
-                                <td><input <?php echo $disabled;?> class="form-control gestionUserName"  type="text"  name="<?php echo NICKNAME.$userKey;?>" value="<?php echo $userValue->getUseNickname();?>"placeholder="<?php echo $lang_nickname;?>"></td>
-                                <td><input <?php echo $disabled;?> class="form-control gestionUserName"  type="text" name="<?php echo NAME.$userKey;?>" value="<?php echo $userValue->getUseName();?>" placeholder="<?php echo $lang_name;?>"></td>
-                                <td><input <?php echo $disabled;?> class="form-control gestionUserName"  type="text" name="<?php echo LAST_NAME.$userKey;?>" value="<?php echo $userValue->getUseLastName();?>" placeholder="<?php echo $lang_lastName;?>"></td>
-                                <td><input <?php echo $disabled;?> class="form-control gestionUserMail"  type="text" name="<?php echo MAIL.$userKey;?>" value="<?php echo $userValue->getUseMail();?>" placeholder="<?php echo $lang_mail;?>"></td>
+                                <td><input <?php echo $disabled;?> class="form-control gestionUserName"  type="text"  name="<?php echo LOGIN_NAME.$key;?>" value="<?php echo $value[COLUMN_USER_LOGIN_NAME];?>"placeholder="<?php echo $lang_nickname;?>"></td>
+                                <td><input <?php echo $disabled;?> class="form-control gestionUserMail"  type="text" name="<?php echo MAIL.$key;?>" value="<?php echo $value[COLUMN_USER_MAIL];?>" placeholder="<?php echo $lang_mail;?>"></td>
                                 <td>
-                                    <select <?php if($userConnected == $userValue->getUseMail()){ echo "disabled";}else{echo $disabled;}?> class="form-control" name="<?php echo ID_GROUP.$userKey;?>">
-                                        <?php foreach($tabGroupDefault as $groKey=>$groValue)
+                                    <select <?php if($loginName == $value[COLUMN_USER_LOGIN_NAME]){ echo "disabled";}else{echo $disabled;}?> class="form-control" name="<?php echo ID_GROUP.$key;?>">
+                                        <?php foreach($tabGroup as $groKey=>$groValue)
                                         {
                                         ?>
                                             <option
-                                                <?php if($userValue->getIdxGroup() == $groValue->getIdGroup())
+                                                <?php if($value[COLUMN_USER_IDX_GROUP] == $groValue[COLUMN_GROUP_ID])
                                                 {
                                                     echo "selected";
                                                 }?>
-                                                value="<?php echo $groValue->getIdGroup();?>"><?php echo $groValue->getGroName();?>
+                                                value="<?php echo $groValue[COLUMN_GROUP_ID];?>"><?php echo$groValue[COLUMN_GROUP_NAME];?>
                                             </option>
                                         <?php
                                         }
@@ -140,9 +117,9 @@ include_once "../templates/defaultTop-admin.php";
                                     </select>
                                 </td>
                                 <td>
-                                    <select <?php if($userConnected == $userValue->getUseMail()){ echo "disabled";}else{echo $disabled;}?> class="form-control droit droitUtilisateur" name="<?php echo STATUS.$userKey;?>">
+                                    <select <?php if($loginName == $value[COLUMN_USER_LOGIN_NAME]){ echo "disabled";}else{echo $disabled;}?> class="form-control droit droitUtilisateur" name="<?php echo STATUS.$key;?>">
                                         <option
-                                            <?php if($userValue->getUseStatus())
+                                            <?php if($value[COLUMN_USER_STATUS])
                                             {
                                                 $selectedOui = "selected";
                                                 $selectedNon = "";
@@ -158,8 +135,8 @@ include_once "../templates/defaultTop-admin.php";
                                             </option>
                                     </select>
                                 </td>
-                                <?php if($edit_user){?><td><button name="<?php echo PLUS;?>" value="<?php echo $userValue->getIdUser(); ?>" type="submit"><span class="oi oi-pencil"></span></button></td><?php }?>
-                                <?php if($delete_user){?><td><button name="<?php echo USER_DELETE;?>" value="<?php echo $userValue->getIdUser(); ?>"  <?php if($userConnected == $userValue->getUseMail()){ echo "disabled";}else{echo $disabled;}?> type="submit" onclick="return confirm('<?php echo $lang_confirmMsg_deleteUser;?>')"><span class="oi oi-trash"></span></button></td><?php }?>
+                                <?php if($editUser){?><td><button name="<?php echo PLUS;?>" value="<?php echo $value[COLUMN_USER_ID]; ?>" type="submit"><span class="oi oi-pencil"></span></button></td><?php }?>
+                                <?php if($deleteUser){?><td><button name="<?php echo USER_DELETE;?>" value="<?php echo $value[COLUMN_USER_ID]; ?>"  <?php if($loginName == $value[COLUMN_USER_LOGIN_NAME]){ echo "disabled";}else{echo $disabled;}?> type="submit" onclick="return confirm('<?php echo $lang_confirmMsg_deleteUser;?>')"><span class="oi oi-trash"></span></button></td><?php }?>
                                 </td>
                             </tr>
                         <?php

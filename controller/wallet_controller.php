@@ -18,10 +18,10 @@ if($dbConnected)
         $walletName = security::html($_POST[WALL_NAME]);
 
         //récupère l'id de l'utilisateur
-        $contact = new contact();
-        $contact->setLoginName($_SESSION[LOGIN_NAME]);
-        $contact->loadOnceByName( $connector);
-        $idUser = $contact->getResult()[COLUMN_USER_ID];
+        $cContact = new contact();
+        $cContact->setLoginName($_SESSION[LOGIN_NAME]);
+        $cContact->loadOnceByName( $connector);
+        $idUser = $cContact->getResult()[COLUMN_USER_ID];
 
         if($strWallet == "")
         {
@@ -33,18 +33,18 @@ if($dbConnected)
         }
         if($error != 0)
         {
-            $contact = new contact();
-            $contact->setNameWallet($walletName);
-            $contact->setKeyWallet($strWallet);
-            $contact->setMoneyWallet($moneyWallet);
-            $contact->setIdUser($idUser);
-            $contact->addWallet($connector);
+            $cContact = new contact();
+            $cContact->setNameWallet($walletName);
+            $cContact->setKeyWallet($strWallet);
+            $cContact->setMoneyWallet($moneyWallet);
+            $cContact->setIdUser($idUser);
+            $cContact->addWallet($connector);
         }
         header(LOCATION . '../view/lstWallet.php');
     }
 
 }
 
-$contact = new money();
-$contact->load($connector);
-$tabMoney = $contact->getResult();
+$cContact = new money();
+$cContact->load($connector);
+$tabMoney = $cContact->getResult();

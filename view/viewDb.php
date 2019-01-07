@@ -3,6 +3,8 @@ include_once "../controller/viewDb_controller.php";
 
 include_once "../templates/defaultTop.php";
 ?>
+
+
 <form class="form" role="form" method="post" action="<?php echo NAME_PAGE;?>">
     <legend>Utilisateurs</legend>
     <?php if($tabUser != array()){?><button type="submit" class="btn btn-danger" name="<?php echo DELETE ;?>">supprimer la base de donnée</button><?php } ?>

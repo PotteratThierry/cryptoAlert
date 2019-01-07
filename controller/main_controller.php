@@ -6,16 +6,14 @@ include_once "../exceptions/exErrorDB.php";
 
 
 //appel les interface
-include_once "../interface/iUser.php";
 include_once "../interface/iDataBase.php";
+include_once "../interface/iAccess.php";
+include_once "../interface/iPermission.php";
 
 //appel des fichiers de modèle de la base de donnée
 include_once "../model/model_db/model_dbConnect.php";
 include_once "../model/model_db/model_dbRedis.php";
 include_once "../model/model_db/model_dbMysql.php";
-
-include_once "../model/model_db/model_dbGroup.php";
-include_once "../model/model_db/model_dbUser.php";
 
 include_once "../model/model_db/model_requestBuilder.php";
 include_once "../model/model_db/model_databaseManager.php";
@@ -29,9 +27,13 @@ include_once '../module/PHPMailer/src/SMTP.php';
 
 //modèle des contacts
 include_once "../model/model_contact.php";
+include_once "../model/model_group.php";
 
-//appel les autres modèle
-include_once "../model/model_account.php";
+//model des droits utilisateur
+include_once "../model/model_permission.php";
+include_once "../model/model_accessLevel.php";
+
+//les autres modèle
 include_once "../model/model_generalFunction.php";
 include_once "../model/model_handleFiles.php";
 include_once "../model/model_handleImg.php";
@@ -41,6 +43,7 @@ include_once "../model/model_security.php";
 include_once "../model/model_wallet.php";
 include_once "../model/model_money.php";
 include_once "../model/model_alert.php";
+
 
 
 ///////////////////////////////////////////////////////////////////
@@ -55,6 +58,7 @@ define ('COLUMN_USER_MAIL', 'useMail');
 define ('COLUMN_USER_PASSWORD', 'usePassword');
 define ('COLUMN_USER_LOGIN_NAME', 'useName');
 define ('COLUMN_USER_STATUS', 'useStatus');
+define ('COLUMN_USER_IDX_GROUP', 'idxGroup');
 define ('COLUMN_USER_ACTIVATION_KEY', 'useActivationKey');
 define ('COLUMN_USER_CREAT_DATE', 'useCreatDate');
 define ('COLUMN_USER_RESET_KEY', 'useResetKey');
@@ -87,6 +91,11 @@ define ('COLUMN_ALERT_TIME_RANGE', 'aleTimeRange');
 define ('COLUMN_ALERT_TYPE', 'aleType');
 define ('COLUMN_ALERT_STATUS', 'aleStatus');
 define ('COLUMN_ALERT_LAST_REFRESH', 'aleLastRefresh');
+
+define ('TABLE_GROUP', 'groupUser');
+define ('COLUMN_GROUP_ID', 'id');
+define ('COLUMN_GROUP_NAME', 'groName');
+define ('COLUMN_GROUP_PERMISSION', 'groPermission');
 
 //défini les champs du tableau de wallet
 define ('WALL_NAME', 'wallName');
@@ -267,16 +276,16 @@ define ('P_EXT', "ext");
 define ('P_LST_IE_EXT', "lst_ext_ie");
 define ('NB_EXT', "nb_ext");
 
+define ('ALL_KEY', 0);
+define ('MEMBER_KEY', 1);
+define ('MODERATOR_KEY', 2);
+define ('ADMIN_KEY', 3);
+
 //contant de droits
 define ('ALL', "all");
 define ('MEMBER', "member");
 define ('MODERATOR', "moderator");
 define ('ADMIN', "admin");
-
-define ('ALL_KEY', 0);
-define ('MEMBER_KEY', 1);
-define ('MODERATOR_KEY', 2);
-define ('ADMIN_KEY', 3);
 
 define ('ADD', "add");
 define ('DELETE', "delete");
@@ -317,7 +326,7 @@ define ('LOG_GROUP_DELETE', 'group_delete');
 $defaultLangage = param::searchParam(INI_PATH, 'defaultLangage');
 $defaultCurrency = param::searchParam(INI_PATH, 'defaultCurrency');
 $defaultApiCurrency = param::searchParam(INI_PATH, 'defaultApiCurrency');
-//verification de la langue séléctionée par l'utilisateur
+//verification de la langue sélectionnée par l'utilisateur
 //sinon on met la langue par default
 
 
@@ -371,16 +380,13 @@ $accountAvatar = "";
 //variable liée à la base de donnée
 $connector = NULL;
 $dbConnected = 0;
-$userConnect = new contact();
+
 
 ///////////////////////////////////////////////////////////////////
 //////////        instantiation  des class         ////////////////
 ///////////////////////////////////////////////////////////////////
 
-/*//class de connection à une DB
-$pdo = new dbConnect();
-$pdo = $pdo->connect();
-*/
+//connection à la base de donnée
 try
 {
     $connector = dbManager::getConnector(param::searchParam(INI_PATH, 'MySqlDatabaseType')) ;
@@ -391,29 +397,15 @@ catch ( Exception $e )
     echo "errorMsg =".$e->getMessage() ;
 }
 
-/*//class de la table utilisateur
-$dbUser = new dbUser();
-$dbUser->setPdo($pdo);
 
-$dbGroup = new dbGroup();
-$dbGroup->setPdo($pdo);
-
-//classe des interaction avec les compte utilisateur
-$account = new account();
-$account->setDbUser($dbUser);
-$account->setDbGroup($dbGroup);*/
-
+$contact = new contact();
+$permission = new permission();
+$accessLevel = new accessLevel();
 
 ///////////////////////////////////////////////////////////////////
 //////////        connection à l'application       ////////////////
 ///////////////////////////////////////////////////////////////////
 
-//lors de l'arrivée sur la page
-if(isset($_SESSION[CONNECT]) and  $_SESSION[CONNECT] != 0)
-{
-    $userConnect->setConnect($_SESSION[CONNECT]);
-    $userConnect->setLoginName($_SESSION[LOGIN_NAME]);
-}
 //lors de la reception d'un formulaire de connection
 if (isset($_POST[NAME]) and isset($_POST[CONNECT]))
 {
@@ -422,28 +414,35 @@ if (isset($_POST[NAME]) and isset($_POST[CONNECT]))
         $useLoginName = security::html($_POST[NAME]);
         $usePassword = security::html($_POST[PASSWORD]);
 
-        $userConnect = new contact();
-        $userConnect->setLoginName($useLoginName);
-        $userConnect->setPassword(security::hash($usePassword));
-        $userConnect->connect($connector);
+        $contact = new contact();
+        $contact->setLoginName($useLoginName);
+        $contact->setPassword(security::hash($usePassword));
+        $contact->connect($connector);
 
-        $userConnect->getResult();
+        $contact->getResult();
 
         //si le compte est désactivé
-        if ($userConnect->getResult() == 2) {
+        if ($contact->getResult() == 2)
+        {
             $loginErrorMsg = $lang_errorMsg_disabledAccount;
-            $userConnect->setLoginName('');
-            $userConnect->setConnect(0);
-        } else {
+            $contact->setLoginName('');
+            $contact->setConnect(0);
+        }
+        else
+        {
             //si le mots de passe est faut
-            if (!$userConnect->getResult()) {
+            if (!$contact->getResult())
+            {
                 $loginErrorMsg = $lang_errorMsg_connect;
-                $userConnect->setLoginName('');
-                $userConnect->setConnect(0);
-            } else {
+                $contact->setLoginName('');
+                $contact->setConnect(0);
+            }
+            else
+            {
                 if ($loginErrorMsg == "") {
                     $_SESSION[CONNECT] = 1;
                     $_SESSION[LOGIN_NAME] = $useLoginName;
+                    $_SESSION[ID_GROUP] = $contact->getIdxGroup();
                 }
             }
         }
@@ -453,40 +452,45 @@ if (isset($_POST[NAME]) and isset($_POST[CONNECT]))
         $loginErrorMsg = "impossible de se connecter à la base de donnée";
     }
 }
+//lors de la reception d'un formulaire de déconnections
+if (isset($_POST[DISCONNECT])) {
+    session_destroy();
+    header(LOCATION . ' ../index.php');
+}
+
 //lors de la reception d'un formulaire de changement de langue
 if (isset($_POST[LANG])) {
     $_SESSION[LANG] = security::html($_POST[LANG]);
     header(LOCATION . NAME_PAGE);
 }
-//lors de la reception d'un formulaire de déconnections
-if (isset($_POST[DISCONNECT])) {
-    $userConnect->setConnect(0);
-    session_destroy();
-    header(LOCATION . ' ../index.php');
-}
-//si il est connecté
-if ($userConnect->getConnect()) {
-    $useLoginName = $userConnect->getLoginName();
-}
-//refus d'accès
-//si la page n'est pas public et que le compte n'a pas accès renvoie à la page d'accueil
+
+/*//refus d'accès, si la page n'est pas public et que le compte n'a pas accès renvoie à la page d'accueil
 if ($access == 0 && TYPE_PERM != 'all') {
     log::ConnectLog(5, 0, NAME_PAGE);
     header(LOCATION . ' ../index.php');
-}
-$adminAccess = "";
-/*//vérifie si le compte à accès aux éléments accessible au admin
-$account->setTypePerm(ADMIN);
-$account->permission();
-$adminAccess = $account->getAccess();
-//vérifie si le compte à accès aux éléments accessible au modérateur
-$account->setTypePerm(MODERATOR);
-$account->permission();
-$moderatorAccess = $account->getAccess();
-//vérifie si le compte à accès aux éléments accessible au membres
-$account->setTypePerm(MEMBER);
-$account->permission();
-$memberAccess = $account->getAccess();
-*/
+}*/
+//lors de l'arrivée sur la page et  si l'utilisateur est connecté
+if(isset($_SESSION[CONNECT]))
+{
+    if ($_SESSION[CONNECT])
+    {
+        $useLoginName = $_SESSION[LOGIN_NAME];
 
-?>
+        $contact->setLoginName($useLoginName);
+        $contact->setConnect($_SESSION[CONNECT]);
+
+        //vérifie les accès de l'utilisateur connecté
+        $accessLevel->setIdxGroup( $_SESSION[ID_GROUP]);
+        $accessLevel->getUserAccess($connector);
+
+        //vérifie les permission de l'utilisateur connecté
+        $permission->setIdxGroup($_SESSION[ID_GROUP]);
+        $permission->getUserPermission($connector);
+        //vérifie si l'utilisateur à accès à la page courante
+        if(!$accessLevel->checkPageAccess(TYPE_PERM))
+        {
+            header(LOCATION . ' ../index.php');
+        }
+    }
+}
+

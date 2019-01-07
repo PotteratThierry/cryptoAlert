@@ -3,7 +3,6 @@ include_once "../controller/home_controller.php";
 
 include_once "../templates/defaultTop.php";
 
-
 ?>
 
 

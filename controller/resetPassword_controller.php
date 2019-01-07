@@ -25,14 +25,14 @@ if($dbConnected)
 
         $loginName =  security::html($_POST[USER_RESET]);
 
-        $contact = new contact();
-        $contact->setLoginName($loginName);
-        $contact->loginNameExist($connector);
-        $id = $contact->getResult()[COLUMN_USER_ID];
+        $cContact = new contact();
+        $cContact->setLoginName($loginName);
+        $cContact->loginNameExist($connector);
+        $id = $cContact->getResult()[COLUMN_USER_ID];
         //vérifie si le loginName existe
         if($contact->getResult() != array())
         {
-            $mail =  $contact->getResult()[COLUMN_USER_MAIL];
+            $mail =  $cContact->getResult()[COLUMN_USER_MAIL];
 
             $date = new datetime();
             $date = $date->format('Y-m-d H:i:s');
@@ -40,10 +40,10 @@ if($dbConnected)
             $resetKey = security::hashPath($mail.$loginName.$date);
 
             //met la clef d'activation dans la base de donnée
-            $contact->setIdUser($id);
-            $contact->setResetKey($resetKey);
-            $contact->setResetDate($date);
-            $contact->updateResetKey( $connector);
+            $cContact->setIdUser($id);
+            $cContact->setResetKey($resetKey);
+            $cContact->setResetDate($date);
+            $cContact->updateResetKey( $connector);
 
             $mailer = new mailer;
             $mailer->setRecipient($mail);
@@ -83,9 +83,9 @@ if($dbConnected)
         if (isset($_GET[GET_RESET]))
         {
             $resetKey = security::html($_GET[GET_RESET]);
-            $contact = new contact();
-            $contact->setResetKey($resetKey);
-            $contact->loadOnceByResetKey( $connector);
+            $cContact = new contact();
+            $cContact->setResetKey($resetKey);
+            $cContact->loadOnceByResetKey( $connector);
 
             if($contact->getResult() != array())
             {
@@ -97,7 +97,7 @@ if($dbConnected)
                 if($creatDate > $date)
                 {
                     $resetPage = 1;
-                    $useId = $contact->getResult()[COLUMN_USER_ID];
+                    $useId = $cContact->getResult()[COLUMN_USER_ID];
                 }
 
             }
@@ -110,11 +110,11 @@ if($dbConnected)
         $useId = security::html($_POST[VALID_RESET]);
 
         //récupère les infos de l'utilisateur
-        $contact = new contact();
-        $contact->setIdUser($useId);
-        $contact->loadOnceById($connector);
+        $cContact = new contact();
+        $cContact->setIdUser($useId);
+        $cContact->loadOnceById($connector);
 
-        $tabUser = $contact->getResult();
+        $tabUser = $cContact->getResult();
         $mail = $tabUser[COLUMN_USER_MAIL];
         $loginName = $tabUser[COLUMN_USER_LOGIN_NAME];
         $resetDate = $tabUser[COLUMN_USER_RESET_DATE];
@@ -144,10 +144,10 @@ if($dbConnected)
             $error = 1;
             $errorMsg .= $lang_errorMsg_password."<br>";
         }
-        $contact = new contact();
-        $contact->setIdUser($useId);
-        $contact->setMail($mail);
-        $contact->mailExist($connector);
+        $cContact = new contact();
+        $cContact->setIdUser($useId);
+        $cContact->setMail($mail);
+        $cContact->mailExist($connector);
         //vérifie si l'Email existe
         if($contact->getResult() == array())
         {
@@ -157,9 +157,9 @@ if($dbConnected)
         //si il n'y a pas d'erreur
         if(!$error)
         {
-            $contact->setIdUser($useId);
-            $contact->setPassword(security::hash($password1));
-            $contact->updatePassword($connector);
+            $cContact->setIdUser($useId);
+            $cContact->setPassword(security::hash($password1));
+            $cContact->updatePassword($connector);
 
             $mailer = new mailer;
             $mailer->setRecipient($mail);

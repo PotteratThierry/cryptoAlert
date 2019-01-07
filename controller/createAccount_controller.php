@@ -22,11 +22,11 @@ if($dbConnected)
         $loginName = security::html($_POST[LOGIN_NAME_AJAX]);
         if($loginName != "")
         {
-            $contact = new contact();
-            $contact->setLoginName($loginName);
-            $contact->loginNameExist($connector);
+            $cContact = new contact();
+            $cContact->setLoginName($loginName);
+            $cContact->loginNameExist($connector);
             //vérifie si le loginName existe
-            if($contact->getResult() != array())
+            if($cContact->getResult() != array())
             {
                 echo "1";
             }
@@ -44,11 +44,11 @@ if($dbConnected)
             //vérifie si le mail a le bon format
             if(generalFunction::checkMail($mail))
             {
-                $contact = new contact();
-                $contact->setMail($mail);
-                $contact->mailExist($connector);
+                $cContact = new contact();
+                $cContact->setMail($mail);
+                $cContact->mailExist($connector);
                 //vérifie si le mail existe
-                if($contact->getResult() != array())
+                if($cContact->getResult() != array())
                 {
                     echo "1";
                 }
@@ -97,19 +97,19 @@ if($dbConnected)
             $errorMsg .= $lang_errorMsg_password."<br>";
         }
 
-        $contact = new contact();
-        $contact->setMail($mail);
-        $contact->mailExist($connector);
+        $cContact = new contact();
+        $cContact->setMail($mail);
+        $cContact->mailExist($connector);
         //vérifie si l'Email existe
-        if($contact->getResult() != array())
+        if($cContact->getResult() != array())
         {
             $error = 1;
             $errorMsg .= $lang_errorMsg_existMail."<br>";
         }
-        $contact->setLoginName($loginName);
-        $contact->loginNameExist($connector);
+        $cContact->setLoginName($loginName);
+        $cContact->loginNameExist($connector);
         //vérifie si le loginName existe
-        if($contact->getResult() != array())
+        if($cContact->getResult() != array())
         {
             $error = 1;
             $errorMsg .= $lang_errorMsg_existUser."<br>";
@@ -120,15 +120,15 @@ if($dbConnected)
             $date = new DateTime();
             $date = $date->format('Y-m-d H:i:s');
             $activationKey = security::hashPath($mail.$loginName);
-            $contact->setLoginName($loginName);
-            $contact->setMail($mail);
-            $contact->setPassword(security::hash($password1));
-            $contact->setActivationKey($activationKey);
-            $contact->setCreatDate($date);
-            $contact->setKeyWallet($wallet);
-            $contact->save( $connector);
+            $cContact->setLoginName($loginName);
+            $cContact->setMail($mail);
+            $cContact->setPassword(security::hash($password1));
+            $cContact->setActivationKey($activationKey);
+            $cContact->setCreatDate($date);
+            $cContact->setKeyWallet($wallet);
+            $cContact->save( $connector);
             //si il n'y a pas d'erreur
-            if($contact->getResult())
+            if($cContact->getResult())
             {
                 $mailer = new mailer;
                 $mailer->setRecipient($mail);
@@ -154,8 +154,6 @@ if($dbConnected)
                 $mailer->setNoHtmlMsg(utf8_decode($contentNoHtml));
                 $mailer->mail();
 
-
-                echo $mailer->getResult();
                 if($mailer->getResult() == 1)
                 {
                     $success = 1;
@@ -179,24 +177,24 @@ if($dbConnected)
         {
 
             $activationKey = security::html($_GET[GET_ACTIVATE]);
-            $contact = new contact();
-            $contact->setActivationKey($activationKey);
-            $contact->loadOnceByActivationKey( $connector);
+            $cContact = new contact();
+            $cContact->setActivationKey($activationKey);
+            $cContact->loadOnceByActivationKey( $connector);
 
-            if($contact->getResult() != array())
+            if($cContact->getResult() != array())
             {
 
                 //crée la date d'expiration
                 $date = new DateTime();
-                $creatDate = new DateTime($contact->getResult()[COLUMN_USER_CREAT_DATE]);
+                $creatDate = new DateTime($cContact->getResult()[COLUMN_USER_CREAT_DATE]);
                 $creatDate = $creatDate->modify('+'.param::searchParam(INI_PATH, P_ACTIVATION_MAIL_EXPIRATION));
 
                 if($creatDate > $date)
                 {
-                    $contact->setIdUser($contact->getResult()[COLUMN_USER_ID]);
-                    $contact->setStatus(1);
-                    $contact->updateStatus( $connector);
-                    if($contact->getResult())
+                    $cContact->setIdUser($cContact->getResult()[COLUMN_USER_ID]);
+                    $cContact->setStatus(1);
+                    $cContact->updateStatus( $connector);
+                    if($cContact->getResult())
                     {
                         $success = 1;
                         $successMsg .= 'le compte à bien été activé<br>';

@@ -8,6 +8,7 @@ class contact
     private $password;
     private $mail;
     private $status = 0;
+    private $idxGroup = 4;
     private $activationKey = '';
     private $creatDate = '1900-1-1 00:00:00';
     private $resetKey = '';
@@ -38,6 +39,16 @@ class contact
 
         $this->result = dbManager::save($connector, $request) ;
     }
+    public function update(iDatabase $connector)
+    {
+        $request = new requestBuilder()  ;
+        $request->setTable( TABLE_USER) ;
+        $request->setParam( COLUMN_USER_ID  ,  $this->idUser) ;
+        $request->setParam( COLUMN_USER_MAIL  ,  $this->mail) ;
+        $request->setParam( COLUMN_USER_LOGIN_NAME , $this->loginName) ;
+
+        $this->result = dbManager::update($connector, $request) ;
+    }
     public function  load(iDatabase $connector)
     {
         $request = new requestBuilder();
@@ -61,6 +72,12 @@ class contact
                 if($this->result[COLUMN_USER_STATUS])
                 {
                     $result = 1;
+
+                    $this->loginName = $this->result[COLUMN_USER_LOGIN_NAME];
+                    $this->status = $this->result[COLUMN_USER_STATUS];
+                    $this->idxGroup = $this->result[COLUMN_USER_IDX_GROUP];
+                    $this->mail = $this->result[COLUMN_USER_MAIL];
+                    $this->moneyWallet = $this->result[COLUMN_USER_WALLET];
                 }
                 else
                 {
@@ -225,6 +242,22 @@ class contact
     public function deleteAll($connector)
     {
         dbManager::deleteAll($connector) ;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdxGroup()
+    {
+        return $this->idxGroup;
+    }
+
+    /**
+     * @param mixed $idxGroup
+     */
+    public function setIdxGroup($idxGroup)
+    {
+        $this->idxGroup = $idxGroup;
     }
 
     /**
