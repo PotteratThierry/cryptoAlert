@@ -9,56 +9,11 @@ include_once "../controller/main_controller.php";
 
 $creatAccount = "active";
 
-//paramètre de session pour afficher les bon menu lors de la navigation sur les paramètre de compte
-$_SESSION[ADMIN] = 0;
-
 $tabUser = array();
 
 //si on arrive à ce connecter à la base de donnée
 if($dbConnected)
 {
-    if(isset($_POST[LOGIN_NAME_AJAX]))
-    {
-        $loginName = security::html($_POST[LOGIN_NAME_AJAX]);
-        if($loginName != "")
-        {
-            $cContact = new contact();
-            $cContact->setLoginName($loginName);
-            $cContact->loginNameExist($connector);
-            //vérifie si le loginName existe
-            if($cContact->getResult() != array())
-            {
-                echo "1";
-            }
-            else
-            {
-                echo "0";
-            }
-        }
-    }
-    if(isset($_POST[MAIL_AJAX]))
-    {
-        $mail = security::html($_POST[MAIL_AJAX]);
-        if($mail != "")
-        {
-            //vérifie si le mail a le bon format
-            if(generalFunction::checkMail($mail))
-            {
-                $cContact = new contact();
-                $cContact->setMail($mail);
-                $cContact->mailExist($connector);
-                //vérifie si le mail existe
-                if($cContact->getResult() != array())
-                {
-                    echo "1";
-                }
-                else
-                {
-                    echo "0";
-                }
-            }
-        }
-    }
     if(isset($_POST[NEW_USER]) and !isset($_POST[DELETE]))
     {
         //échappement de caractères

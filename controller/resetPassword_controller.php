@@ -27,10 +27,12 @@ if($dbConnected)
 
         $cContact = new contact();
         $cContact->setLoginName($loginName);
-        $cContact->loginNameExist($connector);
-        $id = $cContact->getResult()[COLUMN_USER_ID];
+        $cContact->loadOnceByName($connector);
+        $tabUser = $cContact->getResult();
+        $id = $tabUser[COLUMN_USER_ID];
+
         //vérifie si le loginName existe
-        if($contact->getResult() != array())
+        if($tabUser != array())
         {
             $mail =  $cContact->getResult()[COLUMN_USER_MAIL];
 
@@ -78,23 +80,23 @@ if($dbConnected)
         }
 
     }
-    if($_GET) {
+    if($_GET)
+    {
 
         if (isset($_GET[GET_RESET]))
         {
+
             $resetKey = security::html($_GET[GET_RESET]);
             $cContact = new contact();
             $cContact->setResetKey($resetKey);
             $cContact->loadOnceByResetKey( $connector);
-
-            if($contact->getResult() != array())
+            if($cContact->getResult() != array())
             {
                 //crée la date d'expiration
                 $date = new DateTime();
                 $creatDate = new DateTime($contact->getResult()[COLUMN_USER_CREAT_DATE]);
-                $creatDate = $creatDate->modify('+'.param::searchParam(INI_PATH, P_RESET_MAIL_EXPIRATION));
-
-                if($creatDate > $date)
+                $expireDate = $date->modify('+'.param::searchParam(INI_PATH, P_RESET_MAIL_EXPIRATION));
+                if($expireDate >= $creatDate)
                 {
                     $resetPage = 1;
                     $useId = $cContact->getResult()[COLUMN_USER_ID];
@@ -147,9 +149,9 @@ if($dbConnected)
         $cContact = new contact();
         $cContact->setIdUser($useId);
         $cContact->setMail($mail);
-        $cContact->mailExist($connector);
+        $cContact->loadOnceByMail($connector);
         //vérifie si l'Email existe
-        if($contact->getResult() == array())
+        if($cContact->getResult() == array())
         {
             $error = 1;
             $errorMsg .= $lang_errorMsg_mail."<br>";
@@ -185,7 +187,6 @@ if($dbConnected)
             $success = 1;
             $successMsg .= $lang_successMsg_resetPassword;
         }
-        die;
     }
 
 }

@@ -18,7 +18,7 @@
     <script src="https://code.jquery.com/jquery.min.js"></script>
     <!-- les scrips personnel -->
     <script src="../js/main.js"></script>
-    <script src="../js/ajax.js"></script>
+    <script src="../js/creatAccount_ajax.js"></script>
     <script src="../js/passwordComplexity.js"></script>
     <script src="../js/loginNameFormat.js"></script>
     <script src="../js/mailFormat.js"></script>
@@ -79,35 +79,35 @@
                             </div>
                         </form>
                     </div>
-                </div>
+        </div>
             <?php
-            }
-            else
-            {?>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php if($contact->getLoginName() != ""){echo $contact->getLoginName();}else{echo 'connection';} ;?>
-                    </button>
-                    <form class="form" role="form" method="post" action="<?php echo NAME_PAGE;?>">
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item connectText" href="accountSettings.php"><?php echo $lang_accountSettings;?></a>
-                            <a class="dropdown-item connectText" href="accountProfil.php"><?php echo $lang_accountProfil;?></a>
-                            <a class="dropdown-item connectText" href="accountSignature.php"><?php echo $lang_accountSignature;?></a>
-                            <a class="dropdown-item connectText" href="accountData.php"><?php echo $lang_accountData;?></a>
-                            <?php if($accessLevel->getAdmin()){?>
-                                <div class="dropdown-divider"></div>
-                                <a class="connectText" href="../view/admin.php"><?php echo $lang_admin;?></a>
-                                <?php
-                            }?>
+        }
+        else
+        {?>
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <?php if($contact->getLoginName() != ""){echo $contact->getLoginName();}else{echo 'connection';} ;?>
+                </button>
+                <form class="form" role="form" method="post" action="<?php echo NAME_PAGE;?>">
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item connectText" href="../view/accountSettings.php"><?php echo $lang_accountSettings;?></a>
+                        <a class="dropdown-item connectText" href="../view/accountProfil.php"><?php echo $lang_accountProfil;?></a>
+                        <a class="dropdown-item connectText" href="../view/accountSignature.php"><?php echo $lang_accountSignature;?></a>
+                        <a class="dropdown-item connectText" href="../view/accountData.php"><?php echo $lang_accountData;?></a>
+                        <?php if($accessLevel->getAdmin()){?>
                             <div class="dropdown-divider"></div>
-                            <input id="disconnect" type="submit" value="<?php echo $lang_disconnect;?>">
-                            <input type= "hidden" name= "<?php echo DISCONNECT;?>">
-                            <input type= "hidden" name= "<?php echo PAGE;?>" value="<?php echo NAME_PAGE;?>">
-                        </div>
-                    </form>
-                </div>
-            <?php
-            }?>
+                            <a class="connectText" href="../view/admin.php"><?php echo $lang_admin;?></a>
+                            <?php
+                        }?>
+                        <div class="dropdown-divider"></div>
+                        <input id="disconnect" type="submit" value="<?php echo $lang_disconnect;?>">
+                        <input type= "hidden" name= "<?php echo DISCONNECT;?>">
+                        <input type= "hidden" name= "<?php echo PAGE;?>" value="<?php echo NAME_PAGE;?>">
+                    </div>
+                </form>
+            </div>
+        <?php
+        }?>
         </div><!--/.nav-collapse -->
 </nav>
 

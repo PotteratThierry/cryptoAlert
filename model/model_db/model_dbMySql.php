@@ -140,7 +140,14 @@ class dbMySql implements iDatabase {
             $result =  $req->fetchAll(PDO::FETCH_ASSOC);
             if ( $result != NULL)
             {
-                $this->result = $result[0];
+                if(count($result) > 1)
+                {
+                    $this->result = $result;
+                }
+                else
+                {
+                    $this->result = $result[0];
+                }
             }
         }
         else

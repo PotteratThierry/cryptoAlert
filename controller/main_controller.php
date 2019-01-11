@@ -192,6 +192,7 @@ define ('LOCATION', 'Location:');
 
 //constante pour la gestion du profil utilisateur
 define ('LOGIN_NAME', "useLoginName");
+define ('OLD_LOGIN_NAME', "old_useLoginName");
 define ('OLD_MAIL', "oldMail");
 define ('NAME', "useName");
 define ('LAST_NAME', "useLastName");
@@ -242,6 +243,10 @@ define ('VALID_RESET', 'valide_user_reset');
 //constante pour les requête ajax
 define ('LOGIN_NAME_AJAX','login_name_ajax');
 define ('MAIL_AJAX','mail_ajax');
+define ('LOC_AJAX','loc_ajax');
+define ('ORIGIN_AJAX','origin_ajax');
+define ('A_EDIT_ACCOUNT','/view/a_userEdit.php');
+define ('A_FLY_EDIT_ACCOUNT','/view/a_userLst.php');
 
 //contant pour la modification des groupe
 define ('GROUP_NAME', "group_name");
@@ -249,7 +254,8 @@ define ('NEW_GROUP', "new_group");
 define ('NB_GROUP', 'nb_group');
 define ('VALID_NEW_GROUP', 'valideNew_group');
 define ('GROUP_DELETE', 'group_delete');
-define ('GROUP_CHANGE', 'group_change');
+define ('GROUP_EDIT', 'group_edit');
+define ('VALID_GROUP_EDIT', 'valid_group_edit');
 define ('ID_NEW_GROUP', 'id_new_group');
 
 //constante de nom pour les paramètres
@@ -326,6 +332,7 @@ define ('LOG_GROUP_DELETE', 'group_delete');
 $defaultLangage = param::searchParam(INI_PATH, 'defaultLangage');
 $defaultCurrency = param::searchParam(INI_PATH, 'defaultCurrency');
 $defaultApiCurrency = param::searchParam(INI_PATH, 'defaultApiCurrency');
+
 //verification de la langue sélectionnée par l'utilisateur
 //sinon on met la langue par default
 
@@ -442,7 +449,6 @@ if (isset($_POST[NAME]) and isset($_POST[CONNECT]))
                 if ($loginErrorMsg == "") {
                     $_SESSION[CONNECT] = 1;
                     $_SESSION[LOGIN_NAME] = $useLoginName;
-                    $_SESSION[ID_GROUP] = $contact->getIdxGroup();
                 }
             }
         }
@@ -453,7 +459,7 @@ if (isset($_POST[NAME]) and isset($_POST[CONNECT]))
     }
 }
 //lors de la reception d'un formulaire de déconnections
-if (isset($_POST[DISCONNECT])) {
+if (isset($_POST[DISCONNECT])and NAME_PAGE != 'index.php') {
     session_destroy();
     header(LOCATION . ' ../index.php');
 }
@@ -470,6 +476,7 @@ if ($access == 0 && TYPE_PERM != 'all') {
     header(LOCATION . ' ../index.php');
 }*/
 //lors de l'arrivée sur la page et  si l'utilisateur est connecté
+
 if(isset($_SESSION[CONNECT]))
 {
     if ($_SESSION[CONNECT])
@@ -478,19 +485,31 @@ if(isset($_SESSION[CONNECT]))
 
         $contact->setLoginName($useLoginName);
         $contact->setConnect($_SESSION[CONNECT]);
+        $contact->loadOnceByName($connector);
+        $tabUser = $contact->getResult();
+        $idGroup = $tabUser[COLUMN_USER_IDX_GROUP];
 
         //vérifie les accès de l'utilisateur connecté
-        $accessLevel->setIdxGroup( $_SESSION[ID_GROUP]);
+        $accessLevel->setIdxGroup($idGroup);
         $accessLevel->getUserAccess($connector);
 
         //vérifie les permission de l'utilisateur connecté
-        $permission->setIdxGroup($_SESSION[ID_GROUP]);
-        $permission->getUserPermission($connector);
-        //vérifie si l'utilisateur à accès à la page courante
-        if(!$accessLevel->checkPageAccess(TYPE_PERM))
+        $permission->setIdxGroup($idGroup);
+        $permission->getGroupPermission($connector);
+
+        //si l'utilisateur est désactivé sa le déconnecte et retour page d'acceuil
+        if( $tabUser[COLUMN_USER_STATUS] == 0 and NAME_PAGE != 'home.php')
         {
+            session_destroy();
             header(LOCATION . ' ../index.php');
+        }
+        else
+        {
+            //vérifie si l'utilisateur à accès à la page courante
+            if(!$accessLevel->checkPageAccess(TYPE_PERM))
+            {
+                header(LOCATION . ' ../index.php');
+            }
         }
     }
 }
-

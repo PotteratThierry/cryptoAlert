@@ -18,7 +18,7 @@
     <script src="https://code.jquery.com/jquery.min.js"></script>
     <!-- les scrips personnel -->
     <script src="../js/main.js"></script>
-    <script src="../js/ajax.js"></script>
+    <script src="../js/creatAccount_ajax.js"></script>
     <script src="../js/passwordComplexity.js"></script>
     <script src="../js/loginNameFormat.js"></script>
     <script src="../js/mailFormat.js"></script>
@@ -53,25 +53,26 @@
               if($contact->getConnect())
               {?>
                   <div class="btn-group">
-                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <div class ="textlength <?php echo $accountMenu;?>"><?php echo $contact->getLoginName();?></div>
+                      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <?php if($contact->getLoginName() != ""){echo $contact->getLoginName();}else{echo 'connection';} ;?>
                       </button>
-                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                          <form class="form" role="form" method="post" action="<?php echo NAME_PAGE;?>">
+                      <form class="form" role="form" method="post" action="<?php echo NAME_PAGE;?>">
+                          <div class="dropdown-menu dropdown-menu-right">
                               <a class="dropdown-item connectText" href="../view/accountSettings.php"><?php echo $lang_accountSettings;?></a>
                               <a class="dropdown-item connectText" href="../view/accountProfil.php"><?php echo $lang_accountProfil;?></a>
                               <a class="dropdown-item connectText" href="../view/accountSignature.php"><?php echo $lang_accountSignature;?></a>
-                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item connectText" href="../view/accountData.php"><?php echo $lang_accountData;?></a>
                               <?php if($accessLevel->getAdmin()){?>
-                                  <a class="dropdown-item connectText" href="../view/home.php"><?php echo $lang_return;?></a>
+                                  <div class="dropdown-divider"></div>
+                                  <a class="connectText" href="../view/admin.php"><?php echo $lang_admin;?></a>
                                   <?php
                               }?>
                               <div class="dropdown-divider"></div>
-                              <input class="connectText" id="disconnect" type="submit" value="<?php echo $lang_disconnect;?>">
+                              <input id="disconnect" type="submit" value="<?php echo $lang_disconnect;?>">
                               <input type= "hidden" name= "<?php echo DISCONNECT;?>">
                               <input type= "hidden" name= "<?php echo PAGE;?>" value="<?php echo NAME_PAGE;?>">
-                          </form>
-                      </div>
+                          </div>
+                      </form>
                   </div>
               <?php
               }?>

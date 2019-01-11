@@ -133,11 +133,14 @@ $lang_errorMsg_size                 = param::searchParam(LANG_PATH.$lang.LANG_EX
 $lang_errorMsg_format               = param::searchParam(LANG_PATH.$lang.LANG_EXT,"errorMsg_format");
 $lang_errorMsg_update               = param::searchParam(LANG_PATH.$lang.LANG_EXT,"errorMsg_update");
 $lang_errorMsg_existGroup           = param::searchParam(LANG_PATH.$lang.LANG_EXT,"errorMsg_existGroup");
+$lang_errorMsg_existGroupModify     = param::searchParam(LANG_PATH.$lang.LANG_EXT,"errorMsg_existGroupModify");
 $lang_errorMsg_groupName            = param::searchParam(LANG_PATH.$lang.LANG_EXT,"errorMsg_groupName");
 $lang_errorMsg_existUser            = param::searchParam(LANG_PATH.$lang.LANG_EXT,"errorMsg_existUser");
 
 //message de réussite
 $lang_successMsg_update             = param::searchParam(LANG_PATH.$lang.LANG_EXT,"successMsg_update");
+$lang_successMsg_addUser            = param::searchParam(LANG_PATH.$lang.LANG_EXT,"successMsg_addUser");
+$lang_successMsg_addGroup           = param::searchParam(LANG_PATH.$lang.LANG_EXT,"successMsg_addGroup");
 $lang_successMsg_deleteGroup        = param::searchParam(LANG_PATH.$lang.LANG_EXT,"successMsg_deleteGroup");
 $lang_successMsg_deleteUser         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"successMsg_deleteUser");
 $lang_successMsg_img                = param::searchParam(LANG_PATH.$lang.LANG_EXT,"successMsg_img");

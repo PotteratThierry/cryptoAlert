@@ -20,42 +20,6 @@ class contact
 
     private $result;
 
-
-    public function save(iDatabase $connector)
-    {
-        $request = new requestBuilder()  ;
-        $request->setTable( TABLE_USER) ;
-        $request->setParam( COLUMN_USER_ID  ,  NULL) ;
-        $request->setParam( COLUMN_USER_MAIL  ,  $this->mail) ;
-        $request->setParam( COLUMN_USER_LOGIN_NAME , $this->loginName) ;
-        $request->setParam( COLUMN_USER_PASSWORD , $this->password) ;
-        $request->setParam( COLUMN_USER_STATUS , $this->status) ;
-        $request->setParam( COLUMN_USER_ACTIVATION_KEY , $this->activationKey) ;
-        $request->setParam( COLUMN_USER_CREAT_DATE , $this->creatDate) ;
-        $request->setParam( COLUMN_USER_RESET_KEY , $this->resetKey) ;
-        $request->setParam( COLUMN_USER_RESET_DATE , $this->resetDate) ;
-        $request->setParam( COLUMN_USER_WALLET , $this->keyWallet) ;
-
-
-        $this->result = dbManager::save($connector, $request) ;
-    }
-    public function update(iDatabase $connector)
-    {
-        $request = new requestBuilder()  ;
-        $request->setTable( TABLE_USER) ;
-        $request->setParam( COLUMN_USER_ID  ,  $this->idUser) ;
-        $request->setParam( COLUMN_USER_MAIL  ,  $this->mail) ;
-        $request->setParam( COLUMN_USER_LOGIN_NAME , $this->loginName) ;
-
-        $this->result = dbManager::update($connector, $request) ;
-    }
-    public function  load(iDatabase $connector)
-    {
-        $request = new requestBuilder();
-        $request->setTable(TABLE_USER);
-
-        $this->result = dbManager::load($connector, $request) ;
-    }
     public function connect($connector)
     {
         $result = 0;
@@ -87,6 +51,50 @@ class contact
         }
         $this->result = $result;
         $this->connect = $result;
+    }
+    public function save(iDatabase $connector)
+    {
+        $request = new requestBuilder()  ;
+        $request->setTable( TABLE_USER) ;
+        $request->setParam( COLUMN_USER_ID  ,  NULL) ;
+        $request->setParam( COLUMN_USER_MAIL  ,  $this->mail) ;
+        $request->setParam( COLUMN_USER_LOGIN_NAME , $this->loginName) ;
+        $request->setParam( COLUMN_USER_PASSWORD , $this->password) ;
+        $request->setParam( COLUMN_USER_STATUS , $this->status) ;
+        $request->setParam( COLUMN_USER_IDX_GROUP , $this->idxGroup) ;
+        $request->setParam( COLUMN_USER_ACTIVATION_KEY , $this->activationKey) ;
+        $request->setParam( COLUMN_USER_CREAT_DATE , $this->creatDate) ;
+        $request->setParam( COLUMN_USER_RESET_KEY , $this->resetKey) ;
+        $request->setParam( COLUMN_USER_RESET_DATE , $this->resetDate) ;
+        $request->setParam( COLUMN_USER_WALLET , $this->keyWallet) ;
+
+
+        $this->result = dbManager::save($connector, $request) ;
+    }
+    public function update(iDatabase $connector)
+    {
+        $request = new requestBuilder()  ;
+        $request->setTable( TABLE_USER) ;
+        $request->setParam( COLUMN_USER_ID  ,  $this->idUser) ;
+        $request->setParam( COLUMN_USER_MAIL  ,  $this->mail) ;
+        $request->setParam( COLUMN_USER_LOGIN_NAME , $this->loginName);
+
+        $this->result = dbManager::update($connector, $request) ;
+    }
+    public function  load(iDatabase $connector)
+    {
+        $request = new requestBuilder();
+        $request->setTable(TABLE_USER);
+
+        $this->result = dbManager::load($connector, $request) ;
+    }
+    public function loadById($connector)
+    {
+        $request = new requestBuilder();
+        $request->setTable(TABLE_USER);
+        $request->setParam( COLUMN_USER_IDX_GROUP , $this->idxGroup);
+
+        $this->result = dbManager::loadOnce($connector, $request) ;
     }
     public function addWallet($connector)
     {
@@ -124,6 +132,15 @@ class contact
 
         $this->result = dbManager::update($connector, $request) ;
     }
+    public function updateIdxGroup(iDatabase $connector)
+    {
+        $request = new requestBuilder()  ;
+        $request->setTable( TABLE_USER) ;
+        $request->setParam( COLUMN_USER_ID , $this->idUser) ;
+        $request->setParam( COLUMN_USER_IDX_GROUP , $this->idxGroup) ;
+
+        $this->result = dbManager::update($connector, $request) ;
+    }
     public function updateResetKey(iDatabase $connector)
     {
         $request = new requestBuilder()  ;
@@ -142,22 +159,6 @@ class contact
         $request->setParam( COLUMN_USER_PASSWORD , $this->password) ;
 
         $this->result = dbManager::update($connector, $request) ;
-    }
-    public function mailExist($connector)
-    {
-        $request = new requestBuilder();
-        $request->setTable(TABLE_USER);
-        $request->setParam( COLUMN_USER_MAIL  ,  $this->mail) ;
-
-        $this->result = dbManager::loadOnce($connector, $request) ;
-    }
-    public function loginNameExist($connector)
-    {
-        $request = new requestBuilder();
-        $request->setTable(TABLE_USER);
-        $request->setParam( COLUMN_USER_LOGIN_NAME  ,  $this->loginName) ;
-
-        $this->result = dbManager::loadOnce($connector, $request) ;
     }
     public function loadOnceById($connector)
     {
