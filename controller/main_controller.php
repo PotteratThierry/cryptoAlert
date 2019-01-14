@@ -147,7 +147,7 @@ define('API_CHANGE_REQUEST', 'request');
 define('API_CHANGE_SEPARATOR', '_');
 
 //constante pour le tabeau pour l'affichage
-define ('BALANCE', 'getbalance');
+define ('BALANCE', 'getBalance');
 define ('VALUE', 'ticker.usd');
 
 //défini le paramètre pour les clef d'activation
@@ -189,6 +189,7 @@ define ('MYSQL_DB_PORT', 'mySqlDbPort');
 
 //constant pour les rechargement de page
 define ('LOCATION', 'Location:');
+define ('REFRESH', 'Refresh: 4;');
 
 //constante pour la gestion du profil utilisateur
 define ('LOGIN_NAME', "useLoginName");
@@ -388,6 +389,8 @@ $accountAvatar = "";
 $connector = NULL;
 $dbConnected = 0;
 
+$successMsg = "";
+$errorMsg = "";
 
 ///////////////////////////////////////////////////////////////////
 //////////        instantiation  des class         ////////////////
@@ -512,4 +515,16 @@ if(isset($_SESSION[CONNECT]))
             }
         }
     }
+}
+if(isset($_COOKIE[MSG_ERROR]))
+{
+    $errorMsg = $_COOKIE[MSG_ERROR];
+    setcookie (MSG_ERROR, "", time() - 60, "/");
+    //header(REFRESH.NAME_PAGE);
+}
+if(isset($_COOKIE[MSG_SUCCESS]))
+{
+    $successMsg = $_COOKIE[MSG_SUCCESS];
+    setcookie (MSG_SUCCESS, "", time() - 60, "/");
+    //header(REFRESH.NAME_PAGE);
 }
