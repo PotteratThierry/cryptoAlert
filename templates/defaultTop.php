@@ -86,7 +86,7 @@
         {?>
             <div class="btn-group">
                 <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <?php if($contact->getLoginName() != ""){echo $contact->getLoginName();}else{echo 'connection';} ;?>
+                    <?php if($_SESSION[NICKNAME] != ""){echo $_SESSION[NICKNAME];}else{echo $_SESSION[LOGIN_NAME];} ;?>
                 </button>
                 <form class="form" role="form" method="post" action="<?php echo NAME_PAGE;?>">
                     <div class="dropdown-menu dropdown-menu-right">

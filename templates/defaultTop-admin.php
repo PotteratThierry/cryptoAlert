@@ -54,7 +54,7 @@
               {?>
                   <div class="btn-group">
                       <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <?php if($contact->getLoginName() != ""){echo $contact->getLoginName();}else{echo 'connection';} ;?>
+                          <?php if($_SESSION[NICKNAME] != ""){echo $_SESSION[NICKNAME];}else{echo $_SESSION[LOGIN_NAME];} ;?>
                       </button>
                       <form class="form" role="form" method="post" action="<?php echo NAME_PAGE;?>">
                           <div class="dropdown-menu dropdown-menu-right">
@@ -62,9 +62,10 @@
                               <a class="dropdown-item connectText" href="../view/accountProfil.php"><?php echo $lang_accountProfil;?></a>
                               <a class="dropdown-item connectText" href="../view/accountSignature.php"><?php echo $lang_accountSignature;?></a>
                               <a class="dropdown-item connectText" href="../view/accountData.php"><?php echo $lang_accountData;?></a>
-                              <?php if($accessLevel->getAdmin()){?>
+                              <?php if($accessLevel->getAdmin())
+                              {?>
                                   <div class="dropdown-divider"></div>
-                                  <a class="connectText" href="../view/admin.php"><?php echo $lang_admin;?></a>
+                                  <a class="dropdown-item connectText" href="../view/home.php"><?php echo $lang_return;?></a>
                                   <?php
                               }?>
                               <div class="dropdown-divider"></div>

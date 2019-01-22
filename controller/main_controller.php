@@ -56,14 +56,22 @@ define ('TABLE_USER', 'user');
 define ('COLUMN_USER_ID', 'id');
 define ('COLUMN_USER_MAIL', 'useMail');
 define ('COLUMN_USER_PASSWORD', 'usePassword');
-define ('COLUMN_USER_LOGIN_NAME', 'useName');
+define ('COLUMN_USER_LOGIN_NAME', 'useLoginName');
+define ('COLUMN_USER_NICK_NAME', 'useNickName');
+define ('COLUMN_USER_NAME', 'useName');
+define ('COLUMN_USER_LAST_NAME', 'useLastName');
+define ('COLUMN_USER_BIRTH_DATE', 'useBirthDate');
+define ('COLUMN_USER_WALLET', 'useWallet');
+define ('COLUMN_USER_SIGNATURE', 'useSignature');
+define ('COLUMN_USER_AVATAR', 'useAvatar');
+define ('COLUMN_USER_FILE_NAME', 'useFileName');
 define ('COLUMN_USER_STATUS', 'useStatus');
 define ('COLUMN_USER_IDX_GROUP', 'idxGroup');
 define ('COLUMN_USER_ACTIVATION_KEY', 'useActivationKey');
 define ('COLUMN_USER_CREAT_DATE', 'useCreatDate');
 define ('COLUMN_USER_RESET_KEY', 'useResetKey');
 define ('COLUMN_USER_RESET_DATE', 'useResetDate');
-define ('COLUMN_USER_WALLET', 'useWallet');
+
 
 //défini les champs de la table money
 define ('TAB_MONEY', 'money');
@@ -197,6 +205,7 @@ define ('OLD_LOGIN_NAME', "old_useLoginName");
 define ('OLD_MAIL', "oldMail");
 define ('NAME', "useName");
 define ('LAST_NAME', "useLastName");
+define ('NICKNAME', "useNickName");
 define ('PASSWORD', "usePassword");
 define ('BIRTH_DATE', "useBirthDate");
 define ('MAIL', "useMail");
@@ -350,7 +359,7 @@ include_once LANG_EXT_FILE;
 
 //configuration des erreurs de connection
 $loginErrorMsg = "";
-$connect = 0;
+$connectMsg = 0;
 $access = 0;
 
 //gestion des message d'erreur
@@ -452,6 +461,7 @@ if (isset($_POST[NAME]) and isset($_POST[CONNECT]))
                 if ($loginErrorMsg == "") {
                     $_SESSION[CONNECT] = 1;
                     $_SESSION[LOGIN_NAME] = $useLoginName;
+                    $_SESSION[NICKNAME] = $contact->getNickName();
                 }
             }
         }
@@ -484,11 +494,12 @@ if(isset($_SESSION[CONNECT]))
 {
     if ($_SESSION[CONNECT])
     {
-        $useLoginName = $_SESSION[LOGIN_NAME];
+        $connectedLoginName = $_SESSION[LOGIN_NAME];
 
-        $contact->setLoginName($useLoginName);
+        $contact->setLoginName($connectedLoginName);
         $contact->setConnect($_SESSION[CONNECT]);
         $contact->loadOnceByName($connector);
+
         $tabUser = $contact->getResult();
         $idGroup = $tabUser[COLUMN_USER_IDX_GROUP];
 

@@ -7,13 +7,21 @@ class contact
     private $loginName;
     private $password;
     private $mail;
+    private $name;
+    private $lastName;
+    private $nickName;
+    private $birthDate;
+    private $avatar;
+    private $signature;
+    private $fileName;
+    private $keyWallet = '';
     private $status = 0;
     private $idxGroup = 4;
     private $activationKey = '';
     private $creatDate = '1900-1-1 00:00:00';
     private $resetKey = '';
     private $resetDate = '1900-1-1 00:00:00';
-    private $keyWallet = '';
+
     private $moneyWallet;
     private $nameWallet;
     private $balanceWallet;
@@ -36,8 +44,9 @@ class contact
                 if($this->result[COLUMN_USER_STATUS])
                 {
                     $result = 1;
-
+                    $this->idUser = $this->result[COLUMN_USER_ID];
                     $this->loginName = $this->result[COLUMN_USER_LOGIN_NAME];
+                    $this->nickName = $this->result[COLUMN_USER_NICK_NAME];
                     $this->status = $this->result[COLUMN_USER_STATUS];
                     $this->idxGroup = $this->result[COLUMN_USER_IDX_GROUP];
                     $this->mail = $this->result[COLUMN_USER_MAIL];
@@ -121,10 +130,47 @@ class contact
             $cWallet->create($connector);
         }
     }
+    public function updateUserInfo(iDatabase $connector)
+    {
+        $request = new requestBuilder()  ;
+        $request->setTable( TABLE_USER) ;
+        $request->setParam( COLUMN_USER_ID , $this->idUser) ;
+        $request->setParam( COLUMN_USER_NAME , $this->name) ;
+        $request->setParam( COLUMN_USER_LAST_NAME , $this->lastName) ;
+        $request->setParam( COLUMN_USER_BIRTH_DATE , $this->birthDate) ;
+        $request->setParam( COLUMN_USER_NICK_NAME , $this->nickName) ;
+
+        $this->result = dbManager::update($connector, $request) ;
+    }
+    public function uploadAvatar(iDatabase $connector)
+    {
+        $request = new requestBuilder()  ;
+        $request->setTable( TABLE_USER) ;
+        $request->setParam( COLUMN_USER_ID , $this->idUser) ;
+        $request->setParam( COLUMN_USER_AVATAR , $this->avatar) ;
+
+        $this->result = dbManager::update($connector, $request) ;
+    }
+    public function uploadSignature(iDatabase $connector)
+    {
+        $request = new requestBuilder()  ;
+        $request->setTable( TABLE_USER) ;
+        $request->setParam( COLUMN_USER_ID , $this->idUser) ;
+        $request->setParam( COLUMN_USER_SIGNATURE , $this->signature) ;
+
+        $this->result = dbManager::update($connector, $request) ;
+    }
+    public function uploadFileName(iDatabase $connector)
+    {
+        $request = new requestBuilder()  ;
+        $request->setTable( TABLE_USER) ;
+        $request->setParam( COLUMN_USER_ID , $this->idUser) ;
+        $request->setParam( COLUMN_USER_FILE_NAME , $this->fileName) ;
+
+        $this->result = dbManager::update($connector, $request) ;
+    }
     public function updateStatus(iDatabase $connector)
     {
-        echo $this->idUser,"<br>";
-        echo $this->status;
         $request = new requestBuilder()  ;
         $request->setTable( TABLE_USER) ;
         $request->setParam( COLUMN_USER_ID , $this->idUser) ;
@@ -248,49 +294,49 @@ class contact
     /**
      * @return mixed
      */
-    public function getIdxGroup()
+    public function getFileName()
     {
-        return $this->idxGroup;
+        return $this->fileName;
     }
 
     /**
-     * @param mixed $idxGroup
+     * @param mixed $fileName
      */
-    public function setIdxGroup($idxGroup)
+    public function setFileName($fileName)
     {
-        $this->idxGroup = $idxGroup;
+        $this->fileName = $fileName;
     }
 
     /**
      * @return mixed
      */
-    public function getBalanceWallet()
+    public function getAvatar()
     {
-        return $this->balanceWallet;
+        return $this->avatar;
     }
 
     /**
-     * @param mixed $balanceWallet
+     * @param mixed $avatar
      */
-    public function setBalanceWallet($balanceWallet)
+    public function setAvatar($avatar)
     {
-        $this->balanceWallet = $balanceWallet;
+        $this->avatar = $avatar;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getSold()
+    public function getSignature()
     {
-        return $this->sold;
+        return $this->signature;
     }
 
     /**
-     * @param int $sold
+     * @param mixed $signature
      */
-    public function setSold($sold)
+    public function setSignature($signature)
     {
-        $this->sold = $sold;
+        $this->signature = $signature;
     }
 
     /**
@@ -374,6 +420,70 @@ class contact
     }
 
     /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param mixed $lastName
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNickName()
+    {
+        return $this->nickName;
+    }
+
+    /**
+     * @param mixed $nickName
+     */
+    public function setNickName($nickName)
+    {
+        $this->nickName = $nickName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBirthDate()
+    {
+        return $this->birthDate;
+    }
+
+    /**
+     * @param mixed $birthDate
+     */
+    public function setBirthDate($birthDate)
+    {
+        $this->birthDate = $birthDate;
+    }
+
+    /**
      * @return int
      */
     public function getStatus()
@@ -387,6 +497,22 @@ class contact
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdxGroup()
+    {
+        return $this->idxGroup;
+    }
+
+    /**
+     * @param int $idxGroup
+     */
+    public function setIdxGroup($idxGroup)
+    {
+        $this->idxGroup = $idxGroup;
     }
 
     /**
@@ -499,6 +625,22 @@ class contact
     public function setNameWallet($nameWallet)
     {
         $this->nameWallet = $nameWallet;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBalanceWallet()
+    {
+        return $this->balanceWallet;
+    }
+
+    /**
+     * @param mixed $balanceWallet
+     */
+    public function setBalanceWallet($balanceWallet)
+    {
+        $this->balanceWallet = $balanceWallet;
     }
 
     /**

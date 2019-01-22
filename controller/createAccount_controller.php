@@ -5,6 +5,7 @@ define ('TYPE_PERM', 'all');
 
 include_once "../controller/main_controller.php";
 
+define('PATH', param::searchParam(INI_PATH, 'userPath'));
 
 
 $creatAccount = "active";
@@ -54,7 +55,7 @@ if($dbConnected)
 
         $cContact = new contact();
         $cContact->setMail($mail);
-        $cContact->mailExist($connector);
+        $cContact->loadOnceByMail($connector);
         //vérifie si l'Email existe
         if($cContact->getResult() != array())
         {
@@ -62,7 +63,7 @@ if($dbConnected)
             $errorMsg .= $lang_errorMsg_existMail."<br>";
         }
         $cContact->setLoginName($loginName);
-        $cContact->loginNameExist($connector);
+        $cContact->loadOnceByName($connector);
         //vérifie si le loginName existe
         if($cContact->getResult() != array())
         {
@@ -82,6 +83,20 @@ if($dbConnected)
             $cContact->setCreatDate($date);
             $cContact->setKeyWallet($wallet);
             $cContact->save( $connector);
+
+            //crée le dossier utilisateur
+            $cContact->loadOnceByName($connector);
+            $idUser = $cContact->getResult()[COLUMN_USER_ID];
+
+            $dirName = security::hashPath($idUser);
+
+            //crée les nouveau fichier de l'utilisateur
+            handleFiles::createUserDir($dirName);
+
+            //met a jour dans la db
+            $cContact->setIdUser($idUser);
+            $cContact->setFileName(PATH.$dirName);
+            $cContact->uploadFileName($connector);
             //si il n'y a pas d'erreur
             if($cContact->getResult())
             {

@@ -43,7 +43,7 @@ $lang_disconnect                    = param::searchParam(LANG_PATH.$lang.LANG_EX
 
 //information de compte
 $lang_loginName                     = param::searchParam(LANG_PATH.$lang.LANG_EXT,"loginName");
-$lang_nickname                      = param::searchParam(LANG_PATH.$lang.LANG_EXT,"nickname");
+$lang_nickName                      = param::searchParam(LANG_PATH.$lang.LANG_EXT,"nickName");
 $lang_mail                          = param::searchParam(LANG_PATH.$lang.LANG_EXT,"mail");
 $lang_newPassword                   = param::searchParam(LANG_PATH.$lang.LANG_EXT,"newPassword");
 $lang_confirm                       = param::searchParam(LANG_PATH.$lang.LANG_EXT,"confirm");

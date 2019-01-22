@@ -19,12 +19,12 @@ include_once "../templates/defaultTop-admin.php";
                    <?php if($errorMsg != ""){?><div class="alert alert-danger"><?php echo $errorMsg;?></div><?php }?>
                    <?php if($successMsg != ""){?><div class="alert alert-success"><?php echo $successMsg;?></div><?php }?>
                    <div class="form-group">
-                       <label for="exampleInputEmail1"><?php echo $lang_nickname ;?></label>
-                       <input type="text" class="form-control" name="<?php echo NICKNAME;?>" value="<?php echo $nickname;?>" placeholder=""<?php echo $lang_nickname;?>" />
+                       <label for="exampleInputEmail1"><?php echo $lang_nickName ;?></label>
+                       <input type="text" class="form-control" name="<?php echo NICKNAME;?>" value="<?php echo $nickName;?>" placeholder="<?php echo $lang_nickName;?>" />
                    </div>
                    <div class="form-group">
                        <label for="exampleInputEmail1"><?php echo $lang_name ;?></label>
-                       <input type="text" class="form-control" name="<?php echo NAME;?>" value="<?php echo $name;?>" placeholder=""<?php echo $lang_name;?>" />
+                       <input type="text" class="form-control" name="<?php echo NAME;?>" value="<?php echo $name;?>" placeholder="<?php echo $lang_name;?>" />
                    </div>
                    <div class="form-group">
                        <label for="exampleInputEmail1"><?php echo $lang_lastName ;?></label>
@@ -32,7 +32,7 @@ include_once "../templates/defaultTop-admin.php";
                    </div>
                    <div class="form-group">
                        <label for="exampleInputEmail1"><?php echo $lang_birthDate ;?></label>
-                       <input type="date" max="2004-12-31" min="1920-01-01"class="form-control" name="<?php echo BIRTH_DATE;?>" value="<?php echo $birthDate;?>" placeholder="<?php echo $lang_birthDate;?>" />
+                       <input type="date" class="form-control" name="<?php echo BIRTH_DATE;?>" value="<?php echo $birthDate;?>" placeholder="<?php echo $lang_birthDate;?>" />
                    </div>
                    <button type="submit" class="btn btn-default"><?php echo $lang_send ;?></button>
                </div>

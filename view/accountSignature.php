@@ -1,6 +1,6 @@
 <?php
 include_once "../controller/accountSignature_controller.php";
-if($adminAccess)
+if($accessLevel->getAdmin())
 {
     include_once "../templates/defaultTop-admin.php";
     ?><div class="container"><?php
@@ -16,6 +16,7 @@ else
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-1 main">
     <form class="form" role="form" method="post" enctype="multipart/form-data" action="<?php echo NAME_PAGE;?>">
+        <button type="submit" class="btn btn-default"><?php echo $lang_send?></button>
         <div class="row">
             <div class="col-md-1">
             </div>
@@ -144,7 +145,7 @@ else
             <div class="col-md-2">
             </div>
             <div class="col-md-4">
-                <button type="submit" class="btn btn-default"><?php echo $lang_send?></button>
+
             </div>
             <div class="col-md-6">
             </div>

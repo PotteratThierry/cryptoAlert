@@ -8,9 +8,11 @@ class handleFiles
 
     public static function dellFile($file)
     {
-        if(file_exists($file))
+
+        //si c'est pas un dossier et qu'il existe
+        if(file_exists($file) and !is_dir($file))
         {
-            //detrui le fichier correspondant
+            //détruit le fichier correspondant
             unlink($file);
         }
         else
@@ -37,9 +39,9 @@ class handleFiles
         rmdir($directory.'/'.$entry);
         closedir($handle);
     }
-    public static function crateNewUserFiles($name)
+    public static function createUserDir($id)
     {
-        $userDirectory = param::searchParam(INI_PATH,'userPath').security::hashPath($name);
+        $userDirectory = param::searchParam(INI_PATH,'userPath').$id;
         if(!is_dir($userDirectory))
         {
             mkdir($userDirectory);

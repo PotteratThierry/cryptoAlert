@@ -25,9 +25,8 @@ class security
         $string = sha1($string.self::GDS);
         return $string;
     }
-    public static function imgPathHash($globalPath, $userName, $directoryPath, $imgName = 1)
+    public static function imgNameHash($imgName = 1)
     {
-        $userName =  self::hashPath($userName);
         //si le nom de l'imageà pas été set
         if($imgName)
         {
@@ -37,7 +36,7 @@ class security
         {
             $imgName = self::hashImgName($imgName);
         }
-        return $globalPath.$userName.$directoryPath.$imgName;
+        return $imgName;
     }
     public static function hashImgName($string)
     {

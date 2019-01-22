@@ -5,12 +5,12 @@ define ('TYPE_PERM', 'member');
 include_once "../controller/main_controller.php";
 $accountMenu = "btn-Active";
 
-//recherche de l'id de l'utilisateur
-$dbUser->setUseMail($_SESSION[MAIL]);
-$dbUser->getMail();
-$userName = $dbUser->getResult();
-$userName = $userName[0]->getUseName();
-
+//on vas chercher les infos de l'utilisateur avant modification
+$cContact = new contact();
+$cContact->setLoginName($_SESSION[LOGIN_NAME]);
+$cContact->loadOnceByName($connector);
+$tabUser = $cContact->getResult();
+$cContact->setIdUser($tabUser[COLUMN_USER_ID]);
 
 //constant pour le redimentionement et le déplacement des signatures et des avatars
 define('RESIZE_HEIGHT_SIGNATURE', param::searchParam(INI_PATH, 'maxHeight_signature'));
@@ -32,116 +32,115 @@ $signatureSuccessMsg = "";
 $msgFormatError = "";
 $success = 0;
 
-//on vas chercher les infos de l'utilisateur avant modification
-$dbUser->setUseMail($_SESSION[MAIL]);
-$dbUser->getMail();
-$userInfo = $dbUser->getResult();
-
+$userPath = $tabUser[COLUMN_USER_FILE_NAME];
 
 //si l'image de l'avatage à été renseigné
-if (isset($_FILES[AVATAR][IMG_NAME]) && $_FILES[AVATAR][IMG_NAME] != "") {
-    if ($_FILES[AVATAR][ERROR] <= 0) {
-        if ($_FILES[AVATAR][SIZE] <= WEIGHT) {
-            $avatar = $_FILES[AVATAR][IMG_NAME];
-            $avatarTmp = $_FILES[AVATAR][IMG_TMP_NAME];
-            //verifies si l'extention est valide
-            $ext = handleImg::checkImg($avatarTmp);
-            if ($ext != '0' && $ext != '1') {
-
-                $imgNewName = security::imgPathHash(PATH, $userInfo[0]->getIdUser() ,AVATAR_PATH);
-
-                //redimentionne l'image
-                $uploadAvatarFile = handleImg::imgResize($avatarTmp, $imgNewName, RESIZE_WIDTH_AVATAR, RESIZE_HEIGHT_AVATAR);
-
-                //si l'image à bien été redimentionnée
-                if ($uploadAvatarFile != "") {
-
-                    //supprime l'ancienne signature
-                    handleFiles::dellFile($userInfo[0]->getUseAvatar());
-
-                    $dbUser->setUseAvatar($uploadAvatarFile);
-
-                    //prepare les valeurs pour le modify
-                    $dbUser->setIdUser($userInfo[0]->getIdUser());
-                    $dbUser->modifyAvatar();
-                    $avatarSuccessMsg = $lang_successMsg_img;
-                }
-            }
-        } else {
-            $avatarErrorMsg = $avatarErrorMsg . $lang_errorMsg_size;
-        }
-    } else {
+if (isset($_FILES[AVATAR][IMG_NAME]) AND $_FILES[AVATAR][IMG_NAME] != "")
+{
+    if ($_FILES[AVATAR][ERROR] > 0)
+    {
         $avatarErrorMsg = $avatarErrorMsg . $lang_errorMsg_update;
     }
+    if ($_FILES[AVATAR][SIZE] > WEIGHT)
+    {
+        $avatarErrorMsg = $avatarErrorMsg . $lang_errorMsg_size;
+    }
+    if($avatarErrorMsg == "")
+    {
+        $avatar = $_FILES[AVATAR][IMG_NAME];
+        $avatarTmp = $_FILES[AVATAR][IMG_TMP_NAME];
+
+        $imgNewPath = AVATAR_PATH.security::imgNameHash($avatar);
+
+        //redimentionne l'image
+        $uploadAvatarFile = handleImg::imgResize($avatarTmp ,$userPath, $imgNewPath, RESIZE_WIDTH_AVATAR, RESIZE_HEIGHT_AVATAR);
+
+        if ($uploadAvatarFile != "")
+        {
+            //supprime l'ancienne signature
+            handleFiles::dellFile($userPath.$tabUser[COLUMN_USER_AVATAR]);
+
+            $cContact->setAvatar($uploadAvatarFile);
+
+            //prepare les valeurs pour le modify
+            $cContact->uploadAvatar($connector);
+            $avatarSuccessMsg = $lang_successMsg_img;
+        }
+    }
+
 }
 
 //si la signature à été renseignée
-if (isset($_FILES[SIGNATURE][IMG_NAME]) && $_FILES[SIGNATURE][IMG_NAME] != "") {
-    if ($_FILES[SIGNATURE][ERROR] <= 0) {
-        if ($_FILES[SIGNATURE][SIZE] <= WEIGHT) {
+if (isset($_FILES[SIGNATURE][IMG_NAME]) AND $_FILES[SIGNATURE][IMG_NAME] != "")
+{
+    if ($_FILES[SIGNATURE][ERROR] > 0)
+    {
+        $signatureErrorMsg = $signatureErrorMsg . $lang_errorMsg_update;
+    }
+        if ($_FILES[SIGNATURE][SIZE] > WEIGHT)
+        {
+            $signatureErrorMsg = $signatureErrorMsg . $lang_errorMsg_size;
+        }
+        if($signatureErrorMsg == "")
+        {
             $signature = $_FILES[SIGNATURE][IMG_NAME];
             $signatureTmp = $_FILES[SIGNATURE][IMG_TMP_NAME];
 
-            //verifie si l'extention est valide
-            $result = handleImg::checkImg($signatureTmp);
-            if ($result != '0' && $result != '1') {
+            $imgNewPath = SIGNATURE_PATH.security::imgNameHash($signature);
 
-                $userInfoHash = $userInfo[0]->getUseName();
-                $pathHash = SIGNATURE_PATH;
-                $imgNewName = $pathHash.$userInfoHash.".".$ext;
+            //redimentionne l'image
+            $uploadSignatureFile = handleImg::imgResize($signatureTmp, $userPath, $imgNewPath, RESIZE_WIDTH_SIGNATURE, RESIZE_HEIGHT_SIGNATURE);
+            if ($uploadSignatureFile != "")
+            {
 
-                //redimentionne l'image
-                $uploadSignatureFile = handleImg::imgResize($signatureTmp, $imgNewName, RESIZE_WIDTH_SIGNATURE, RESIZE_HEIGHT_SIGNATURE);
+                //supprime l'ancienne signature
+                handleFiles::dellFile($userPath.$tabUser[COLUMN_USER_SIGNATURE]);
 
-                //si l'image à bien été redimentionnée
-                if ($uploadSignatureFile != "") {
-                    //supprime l'ancienne signature
-                    handleFiles::dellFile($userInfo[0]->getUseSignature());
+                $cContact->setSignature($uploadSignatureFile);
 
-                    $dbUser->setUseSignature($uploadSignatureFile);
-
-                    //prepare les valeurs pour le modify
-                    $dbUser->setIdUser($userInfo[0]->getIdUser());
-                    $dbUser->modifySignature();
-                    $signatureSuccessMsg = $lang_successMsg_img;
-                }
+                //prepare les valeurs pour le modify
+                $cContact->uploadSignature($connector);
+                $signatureSuccessMsg = $lang_successMsg_img;
             }
-        } else {
-            $signatureErrorMsg = $signatureErrorMsg . $lang_errorMsg_size;
         }
-    } else {
-        $signatureErrorMsg = $signatureErrorMsg . $lang_errorMsg_update;
-    }
 }
-if (isset($_POST[DELETE_SIGNATURE])) {
-    $dbUser->setUseSignature(NULL);
+if (isset($_POST[DELETE_AVATAR]))
+{
+    $cContact->setAvatar('');
     //prepare les valeurs pour le modify
-    $dbUser->setIdUser($userInfo[0]->getIdUser());
-    $dbUser->modifySignature();
+    $cContact->uploadAvatar($connector);
+    handleFiles::dellFile($userPath.$tabUser[COLUMN_USER_AVATAR]);
 }
-if (isset($_POST[DELETE_AVATAR])) {
-    $dbUser->setUseAvatar(NULL);
+if (isset($_POST[DELETE_SIGNATURE]))
+{
+    $cContact->setSignature('');
     //prepare les valeurs pour le modify
-    $dbUser->setIdUser($userInfo[0]->getIdUser());
-    $dbUser->modifyAvatar();
+    $cContact->uploadSignature($connector);
+    handleFiles::dellFile($userPath.$tabUser[COLUMN_USER_SIGNATURE]);
 }
-//assigne le message dans la langue affichée à la variable du message d'erreur
 
+//on vas chercher les infos de l'utilisateur avant modification
+$cContact = new contact();
+$cContact->setLoginName($_SESSION[LOGIN_NAME]);
+$cContact->loadOnceByName($connector);
+$tabUser = $cContact->getResult();
 
-
-// vas chercher les infos de l'utilisateur avant modification
-$dbUser->setUseMail($_SESSION[MAIL]);
-$dbUser->getMail();
-
-$userInfo = $dbUser->getResult();
-$signature = $userInfo[0]->getUseSignature();
-$avatar = $userInfo[0]->getUseAvatar();
+$signature = $tabUser[COLUMN_USER_SIGNATURE];
+$avatar = $tabUser[COLUMN_USER_AVATAR];
 if ($signature == NULL) {
     $signature = $defaultSignature;
+}
+else
+{
+    $signature = $tabUser[COLUMN_USER_FILE_NAME].$signature;
 }
 if ($avatar == NULL) {
     $avatar = $defaultAvatar;
 
+}
+else
+{
+    $avatar = $tabUser[COLUMN_USER_FILE_NAME].$avatar;
 }
 
 ?>
