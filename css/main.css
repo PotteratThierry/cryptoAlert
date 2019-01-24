@@ -1,136 +1,12 @@
-body
-{ !IMPORTANT;
-    margin-top: 50px;
-    margin-bottom: 100px;
-}
-.boutonlien {
-    background: transparent;
-    border: 0px;
-    cursor: pointer;
-    color: #337ab7;
-}
-.boutonlien:hover {
-    color: #23527C;
-    text-decoration: underline;
-}
 
 
-/* Custom container */
-.customNavBar {
-    margin-left: 16.66666667%;
+/*table sorter*/
+.tablesorter-pager .btn-group-sm .btn {
+ font-size: 1.2em;
 }
-
-.customFooter {
-    margin-left: calc(16.9% + 10px);
-    border-top: 2px solid #ddd;
-    background-color: #ffffff;
-}
-
-.slidMenu {
-    margin: 0px 80% 0px 10%;
-}
-
-.menuAdmin > .nav > li > a:hover, .nav > li > a:focus {
-    color: #428bca;
-}
-
-.activeMenu > a {
-    color: #ffffff;
-    background-color: #428bca;
-}
-
-.contentAdmin {
-    margin-left: 20%;
-    width: 54%;
-}
-
-.footerAdmin {
-    margin-left: 25%;
-}
-
-/* login template */
-.loginErrorMsg {
-    padding: 5px;
-    margin-top: 10px;
-    margin-bottom: 0px;
-}
-
-.btn-NoConnect:hover, .btn-NoConnect:focus, .btn-Connect:hover, .btn-Connect:focus {
-    color: #ffffff;
-}
-
-.loginWindows {
-    width: 200px;
-}
-
+/*connection*/
 .loginFrame {
-    color: #000000;
-    padding: 10px;
-    float: left;
-    margin-left: 10px;
-    left: -110px;
-}
-
-.connectText {
-    color: #000000;
-    padding: 15px;
-}
-
-.DisconnectText {
-    color: #000000;
-    padding: 15px;
-}
-
-.btnLogin {
-    width: 100%;
-}
-
-#disconnect {
-    vertical-align: bottom;
-    overflow: visible;
-    font-size: 1em;
-    display: inline;
-    padding: 0;
-    border: 0;
-    margin-left: 15px;
-    border-bottom: 0px solid blue;
-    background: none;
-    cursor: pointer;
-}
-
-#disconnect:hover, #disconnect:focus {
-    text-decoration: underline;
-}
-
-.menuConnect {
-    display: inline-block;
-    padding: 10px 14px;
-    white-space: nowrap;
-    cursor: pointer;
-    -webkit-user-select: none;
-}
-
-.btn-NoConnect {
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-right: 22px;
-    padding-left: 8px;
-    border: none;
-}
-
-.btn-Connect {
-    color: #999999;
-    border: none;
-    padding-top: 5px;
-    padding-bottom: 8px;
-    padding-right: 55px;
-    margin: 0px 0px 0px 0px;
-}
-
-.textlength {
-    margin-left: 5px;
-    width: 95px;
-    display: inline-block;
+    margin-left: -75px;
 }
 
 /*menu des langue*/
@@ -139,13 +15,11 @@ body
     height: 12px;
     border: 0;
 }
-
 .no-lang {
     filter: grayscale(0%);
     -webkit-filter: grayscale(70%);
     -moz-filter: grayscale(0%);
 }
-
 .uk-en {
     background: url(../img/en.gif) no-repeat 0 50%;
 }
@@ -162,12 +36,11 @@ body
     background: url(../img/it.gif) no-repeat 0 50%;
 }
 
-/* account avatar/signature template */
+/* gestion des avatar et signature*/
 .account-avatar, .account-signature {
     border: 1px solid #cccccc;
     padding: 5px 5px 5px 5px
 }
-
 .account-avatar {
     width: 210px;
     height: 210px
@@ -182,8 +55,26 @@ body
     display: block;
     margin: auto;
 }
+/*getion de group*/
+.oui {
+    background-color: green;
+    color: #ffffff;
+}
 
-/* password complexity template */
+.non {
+    background-color: red;
+    color: #ffffff;
+}
+
+/*complexité des mots de passe*/
+#pswd_info {
+    display: none;
+}
+#pswd_info_title {
+    margin: 0 0 10px 0;
+    padding: 0;
+    font-weight: normal;
+}
 #pswd_info {
     position: absolute;
     z-index: 10;
@@ -195,12 +86,6 @@ body
     border-radius: 5px;
     box-shadow: 0 1px 3px #ccc;
     border: 1px solid #ddd;
-}
-
-#pswd_info_title {
-    margin: 0 0 10px 0;
-    padding: 0;
-    font-weight: normal;
 }
 
 #pswd_info::before {
@@ -215,6 +100,7 @@ body
     display: block;
 }
 
+/*message d'erreur pour la complexité des mots de passse et le retour d'ajax*/
 .invalid {
     background: url(../img/invalid.png) no-repeat 0 50%;
     padding-left: 22px;
@@ -229,125 +115,12 @@ body
     color: #3a7d34;
 }
 
-#pswd_info {
-    display: none;
-}
-
-/*gestion de compte, et de droit*/
-.droit {
-    color: #ffffff;
-
-}
-
-.droitUtilisateur {
-    width: 100px;
-    font-size: 80%;
-}
-
-.droitGroupe {
-    width: 65px;
-    font-size: 80%;
-}
-
-.oui {
-    background-color: green;
-    color: #ffffff;
-}
-
-.non {
-    background-color: red;
-    color: #ffffff;
-}
-
-.groupe {
-    width: 100px;
-}
-
-.access {
-    width: 145px;
-}
-
-.groupeMenu {
-    width: 190px;
-}
-
-.groupeMenuFirstChild {
-    width: 300px;
-}
-
-.newGroup {
-    width: 250px !IMPORTANT;
-}
-
-.gestionUserName {
-    width: 120px !IMPORTANT;
-}
-
-.gestionUserMail {
-    width: 250px !IMPORTANT;
-}
-
-/*paramètres généraux*/
-.subMeta {
-    font-weight: normal;
-}
-
-/*page d'acceuil*/
-.mainShowing {
-    padding-left: 30px;
-}
-/* forumlaire*/
-.StreetNumber{
-    width: 60px;
-}
-.kind
+/*menu de navigation*/
+.MenuNav
 {
-    width: 65px;
+    height: 49px;
 }
-.car
+.menuConnect
 {
-    width: 70px;
-}
-.npa
-{
-    width: 80px;
-}
-.canton
-{
-    width: 70px
-}
-.tabFixedTop
-{
-    margin-top:  60px;
-}
-.contentFixedTop
-{
-    margin-top:  60px;
-}
-.ContactDropdown
-{
-    width: 250px;
-}
-.lstTs
-{
-    font-size: 12px;
-}
-.lstCustomerError
-{
-    width: 500px;
-}
-.testDashBoard
-{
-    margin-top:  60px;
-}
-input::-webkit-calendar-picker-indicator {
-    opacity: 100;
-}
-.logo16x16
-{
-    width: 16px;
-    height: 16px;
-}
-.tablesorter-pager .btn-group-sm .btn {
- font-size: 1.2em; /* make pager arrows more visible */
+    margin-top: 3px;
 }

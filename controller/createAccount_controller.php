@@ -97,8 +97,15 @@ if($dbConnected)
             $cContact->setIdUser($idUser);
             $cContact->setFileName(PATH.$dirName);
             $cContact->uploadFileName($connector);
+
             //si il n'y a pas d'erreur
-            if($cContact->getResult())
+            if(!$cContact->getResult())
+            {
+                $error = 1;
+                $errorMsg .= "impossible d'ajouter à la db";
+
+            }
+            else
             {
                 $mailer = new mailer;
                 $mailer->setRecipient($mail);
@@ -135,8 +142,19 @@ if($dbConnected)
                     $errorMsg .= "erreur d'envoie du mail: ".$mailer->getResult()." <br>";
                 }
 
-
             }
+        }
+        if (!$error)
+        {
+            //met le message de success dans un cookie
+            $successMsg = $lang_successMsg_update;
+            setcookie(MSG_SUCCESS, $successMsg, time()+60, '/');
+            header(LOCATION . '../view/'.security::html($_POST[PAGE]));
+        }
+        if ($error) {
+            //met le message d'erreur dans un cookie
+            setcookie(MSG_ERROR, $errorMsg, time()+60, '/');
+            header(LOCATION . '../view/'.security::html($_POST[PAGE]));
         }
     }
     //si on envoie une donnée get(via mail de confirmation)

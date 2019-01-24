@@ -472,7 +472,7 @@ if (isset($_POST[NAME]) and isset($_POST[CONNECT]))
     }
 }
 //lors de la reception d'un formulaire de déconnections
-if (isset($_POST[DISCONNECT])and NAME_PAGE != 'index.php') {
+if (isset($_GET['d'])and NAME_PAGE != 'index.php') {
     session_destroy();
     header(LOCATION . ' ../index.php');
 }
@@ -499,9 +499,10 @@ if(isset($_SESSION[CONNECT]))
         $contact->setLoginName($connectedLoginName);
         $contact->setConnect($_SESSION[CONNECT]);
         $contact->loadOnceByName($connector);
-
         $tabUser = $contact->getResult();
+
         $idGroup = $tabUser[COLUMN_USER_IDX_GROUP];
+        $avatar = $tabUser[COLUMN_USER_FILE_NAME].$tabUser[COLUMN_USER_AVATAR];
 
         //vérifie les accès de l'utilisateur connecté
         $accessLevel->setIdxGroup($idGroup);

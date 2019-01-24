@@ -16,26 +16,45 @@ else
 
          </div>
          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-1 main">
-             <form class="form" role="form" method="post" action="<?php echo NAME_PAGE;?>">
-                 <?php if($errorMsg != ""){?>
-                     <div class="alert alert-danger"><?php echo $errorMsg;?></div><?php }?>
-                 <?php if($successMsg != ""){?>
-                     <div class="alert alert-success"><?php echo $successMsg;?></div><?php }?>
+             <form class="form" role="form" method="post" action="../view/createAccount.php">
+                 <button type="submit" class="btn btn-primary"><?php echo $lang_send ;?></button>
+                 <input type= "hidden" name="<?php echo PAGE; ?>" value ="<?php echo NAME_PAGE;?>">
                  <div class="form-group">
-                     <label><?php echo $lang_loginName ;?></label>
-                     <input type="text" class="form-control" name="<?php echo LOGIN_NAME;?>" value="<?php echo $loginName?>" placeholder="Nom de login" />
+                     <label><?php echo $lang_loginName;?></label>
+                     <input id="loginName" type="text" class="form-control" name="<?php echo NEW_USER;?>" value="" placeholder="Nom de compte" />
+                 </div>
+                 <div id="login_format">
+                     <ul>
+                         <ol class="invalid"><?php echo $lang_errorMsg_loginName ;?></ol>
+                     </ul>
+                 </div>
+                 <div id="login_info">
+                     <ul>
+                         <ol class="invalid"><?php echo $lang_errorMsg_existUser ;?></ol>
+                     </ul>
                  </div>
                  <div class="form-group">
                      <label><?php echo $lang_mail ;?></label>
-                     <input type="text" class="form-control" name="<?php echo MAIL;?>" value="<?php echo $mail?>" placeholder="Nom de login" />
+                     <input id="mail" type="email" class="form-control" name="<?php echo MAIL;?>" placeholder="adresse mail">
+                 </div>
+                 <div id="mail_format">
+                     <ul>
+                         <ol class="invalid"><?php echo $lang_errorMsg_mail ;?></ol>
+                     </ul>
+                 </div>
+                 <div id="mail_info">
+                     <ul>
+                         <ol class="invalid"><?php echo $lang_errorMsg_existMail ;?></ol>
+                     </ul>
                  </div>
                  <div class="form-group">
-                     <label><?php echo $lang_newPassword ;?></label>
-                     <input type="password" class="form-control pswd" id="pswd" name="<?php echo NEW_PASSWORD_1;?>"  placeholder="nouveau mots de passe">
+                     <label><?php echo $lang_dbPassword ;?></label>
+                     <input type="password" class="form-control pswd" id="pswd" name="<?php echo PASSWORD_1;?>"  placeholder="Mots de passe">
                  </div>
+
                  <div class="form-group">
                      <label><?php echo $lang_confirm ;?></label>
-                     <input type="password" class="form-control pswd" id="pswdRepeat" name="<?php echo NEW_PASSWORD_2;?>" placeholder="confirmation">
+                     <input type="password" class="form-control pswd" id="pswdRepeat" name="<?php echo PASSWORD_2;?>" placeholder="confirmation">
                  </div>
                  <div id="pswd_info">
                      <div id="pswd_info_title"><?php echo $lang_infoPassword ;?></div>
@@ -53,6 +72,9 @@ else
                  </div>
                  <input type= "hidden" name= "<?php echo OLD_LOGIN_NAME;?>" value ="<?php echo $oldLoginName;?>">
                  <button type="submit" class="btn btn-default"><?php echo $lang_send ;?></button>
+             </form>
+
+
             </form>
         </div>
     </div>
