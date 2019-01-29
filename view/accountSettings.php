@@ -1,23 +1,15 @@
 <?php
 include_once "../controller/accountSettings_controller.php";
-if($accessLevel->getAdmin())
+if(isset($_SESSION[ADMIN]))
 {
     include_once "../templates/defaultTop-admin.php";
-    ?><div class="container"><?php
 }
 else
 {
     include_once "../templates/defaultTop.php";
 }
 ?>
-
-     <div class="row">
-         <div class="col-sm-3 col-md-2 sidebar">
-
-         </div>
-         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-1 main">
              <form class="form" role="form" method="post" action="../view/createAccount.php">
-                 <button type="submit" class="btn btn-primary"><?php echo $lang_send ;?></button>
                  <input type= "hidden" name="<?php echo PAGE; ?>" value ="<?php echo NAME_PAGE;?>">
                  <div class="form-group">
                      <label><?php echo $lang_loginName;?></label>
@@ -71,15 +63,18 @@ else
                      <input type="password" class="form-control"  name="<?php echo PASSWORD;?>" placeholder="<?php echo $lang_oldPassword ;?>">
                  </div>
                  <input type= "hidden" name= "<?php echo OLD_LOGIN_NAME;?>" value ="<?php echo $oldLoginName;?>">
-                 <button type="submit" class="btn btn-default"><?php echo $lang_send ;?></button>
+                 <button type="submit" class="btn btn-primary"><?php echo $lang_send ;?></button>
              </form>
 
 
             </form>
-        </div>
-    </div>
-
 
 <?php
-include_once "../templates/defaultBottom.php";
-?>
+if(isset($_SESSION[ADMIN]))
+{
+    include_once "../templates/defaultBottom-admin.php";
+}
+else
+{
+    include_once "../templates/defaultTop.php";
+}

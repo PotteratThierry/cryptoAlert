@@ -1,19 +1,23 @@
     </div> <!-- /container -->
-    <footer>
-        <div class="footer mt-auto py-3" role="navigation">
-            <div class="container">
-                <p>
-                <form class="form" role="form" method="post" action="<?php echo NAME_PAGE;?>">
-                    <label><?php echo $lang_choiceLang;?> : </label>
-                    <button name="<?php echo LANG;?>" value="<?php echo CH_FR;?>" type="submit" class="flag ch-fr <?php if($lang != CH_FR){echo 'no-lang' ;}?>"></button>
-                    <button name="<?php echo LANG;?>" value="<?php echo UK_EN;?>" type="submit" class="flag uk-en <?php if($lang != UK_EN){echo 'no-lang' ;}?>"></button>
-                    <button name="<?php echo LANG;?>" value="<?php echo CH_DE;?>" type="submit" class="flag ch-de <?php if($lang != CH_DE){echo 'no-lang' ;}?>"></button>
-                    <button name="<?php echo LANG;?>" value="<?php echo CH_IT;?>" type="submit" class="flag ch-it <?php if($lang != CH_IT){echo 'no-lang' ;}?>"></button>
-                </form>
-                </p>
-                <p>
-                    Potterat Thierry 2014
-                </p>
+    <footer class="footerMargin">
+        <div class=" fixed-bottom ">
+            <div class="container-fluid container-sm">
+                <nav class="navbar navbar-default navbar-expand-lg navbar-light footerNav site">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item">
+                            <form class="form" role="form" method="post" action="<?php echo NAME_PAGE;?>">
+                                <label><?php echo $lang_choiceLang;?> : </label>
+                                <button name="<?php echo LANG;?>" value="<?php echo CH_FR;?>" type="submit" class="flag ch-fr <?php if($lang != CH_FR){echo 'no-lang' ;}?>"></button>
+                                <button name="<?php echo LANG;?>" value="<?php echo UK_EN;?>" type="submit" class="flag uk-en <?php if($lang != UK_EN){echo 'no-lang' ;}?>"></button>
+                                <button name="<?php echo LANG;?>" value="<?php echo CH_DE;?>" type="submit" class="flag ch-de <?php if($lang != CH_DE){echo 'no-lang' ;}?>"></button>
+                                <button name="<?php echo LANG;?>" value="<?php echo CH_IT;?>" type="submit" class="flag ch-it <?php if($lang != CH_IT){echo 'no-lang' ;}?>"></button>
+                            </form>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right ml-auto">
+                        <li>Potterat Thierry 2019</li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </footer>

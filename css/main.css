@@ -4,10 +4,7 @@
 .tablesorter-pager .btn-group-sm .btn {
  font-size: 1.2em;
 }
-/*connection*/
-.loginFrame {
-    margin-left: -75px;
-}
+
 
 /*menu des langue*/
 .flag {
@@ -116,11 +113,71 @@
 }
 
 /*menu de navigation*/
-.MenuNav
+
+.site
 {
-    height: 49px;
+    background: #eeeeee;
+}
+.admin
+{
+    background: #b7c4ee;
 }
 .menuConnect
 {
     margin-top: 3px;
+}
+.container
+{
+    margin-top: 70px;
+}
+.logo16x16
+{
+    width: 16px;
+    height: 16px;
+}
+.logoMoney
+{
+    width: 20px;
+}
+.codeMoney
+{
+    width: 20px;
+}
+.footerMargin
+{
+    margin-top: 40px;
+}
+/*connection*/
+@media only screen and (max-device-width:800px)
+{
+    .footerNav
+    {
+        width: 100%;
+    }
+    .container-sm
+    {
+        margin: 0;
+        padding: 0;
+    }
+}
+@media only screen and (min-device-width:800px)
+{
+
+    .loginFrame {
+        margin-left: -66px;
+        margin-top: 15px;
+    }
+    .dropdown-menu
+    {
+        margin-top: 8px;
+    }
+    .MenuNav
+    {
+        height: 57px;
+        border-radius: 0 0 10px 10px;
+    }
+    .footerNav
+    {
+        border-radius: 10px 10px 0 0;
+    }
 }

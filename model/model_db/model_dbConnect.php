@@ -47,40 +47,6 @@ class dbConnect
     {
         $this->dbPort = $dbPort;
     }
-    //-------------------//
-    //  connection mysql //
-    //-------------------//
-    /*
-	private $dbHost;
-	private $dbUser;
-	private $dbPassWord;
-	private $dbName;
-
-
-    public function __construct()
-	{
-        //recuperation des donnée dans le fichier de paramètre
-        $this->dbHost =         param::searchParam(INI_PATH,DB_HOST);
-        $this->dbUser =         param::searchParam(INI_PATH,DB_USER);
-        $this->dbPassWord =     param::searchParam(INI_PATH,DB_PASSWORD);
-        $this->dbName =         param::searchParam(INI_PATH,DB_NAME);
-    }
-	public function connect()
-	{
-
-        try
-		{
-			//connection en PDO avec UTF8
-		    return $sql = new PDO('mysql:host='.$this->dbHost.';dbname='.$this->dbName.'', $this->dbUser, $this->dbPassWord, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-            $sql->query("SET NAMES 'utf8'");
-		}
-		catch (PDOException $e)
-		{
-            return $sql= $e->getMessage();
-		}
-	}
-   */
-
     /**
      * @return int
      */

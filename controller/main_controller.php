@@ -345,8 +345,6 @@ $defaultApiCurrency = param::searchParam(INI_PATH, 'defaultApiCurrency');
 
 //verification de la langue sélectionnée par l'utilisateur
 //sinon on met la langue par default
-
-
 if (isset($_SESSION[LANG])) {
     $lang = $_SESSION[LANG];
 } else {
@@ -361,6 +359,8 @@ include_once LANG_EXT_FILE;
 $loginErrorMsg = "";
 $connectMsg = 0;
 $access = 0;
+$namePage = "";
+
 
 //gestion des message d'erreur
 $successMsg = "";
@@ -383,10 +383,15 @@ $alert = "";
 $majAlert = "";
 
 //page de l'administration
-$admin = "";
-$AccountManagement = "";
-$AppSettings = "";
-$AppStats = "";
+$a = "";
+$a_lstGroup = "";
+$a_lstUser = "";
+$a_settingsGeneral = "";
+$a_settingsDb = "";
+$a_settingsTemplate = "";
+$a_statsAnalytics = "";
+$a_statsGeneral = "";
+$a_statsLog = "";
 
 //pages des paramètre de compte
 $accountMenu = "";
@@ -408,7 +413,8 @@ $errorMsg = "";
 //connection à la base de donnée
 try
 {
-    $connector = dbManager::getConnector(param::searchParam(INI_PATH, 'MySqlDatabaseType')) ;
+    $dbDatabaseType = param::searchParam(INI_PATH, 'MySqlDatabaseType');
+    $connector = dbManager::getConnector($dbDatabaseType) ;
     $dbConnected = 1;
 }
 catch ( Exception $e )

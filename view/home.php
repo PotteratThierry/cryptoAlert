@@ -3,7 +3,7 @@
 include_once "../controller/home_controller.php";
 
 $accueil = "active";
-
+unset($_SESSION[ADMIN]);
 include_once "../templates/defaultTop.php";
 
 ?>
