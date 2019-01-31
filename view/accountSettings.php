@@ -13,7 +13,7 @@ else
                  <input type= "hidden" name="<?php echo PAGE; ?>" value ="<?php echo NAME_PAGE;?>">
                  <div class="form-group">
                      <label><?php echo $lang_loginName;?></label>
-                     <input id="loginName" type="text" class="form-control" name="<?php echo NEW_USER;?>" value="" placeholder="Nom de compte" />
+                     <input id="loginName" type="text" class="form-control" name="<?php echo NEW_USER;?>" value="" placeholder="<?php echo $lang_loginName ;?>" />
                  </div>
                  <div id="login_format">
                      <ul>
@@ -27,7 +27,7 @@ else
                  </div>
                  <div class="form-group">
                      <label><?php echo $lang_mail ;?></label>
-                     <input id="mail" type="email" class="form-control" name="<?php echo MAIL;?>" placeholder="adresse mail">
+                     <input id="mail" type="email" class="form-control" name="<?php echo MAIL;?>" placeholder="<?php echo $lang_mail ;?>">
                  </div>
                  <div id="mail_format">
                      <ul>
@@ -41,12 +41,12 @@ else
                  </div>
                  <div class="form-group">
                      <label><?php echo $lang_dbPassword ;?></label>
-                     <input type="password" class="form-control pswd" id="pswd" name="<?php echo PASSWORD_1;?>"  placeholder="Mots de passe">
+                     <input type="password" class="form-control pswd" id="pswd" name="<?php echo PASSWORD_1;?>"  placeholder="<?php echo $lang_dbPassword ;?>">
                  </div>
 
                  <div class="form-group">
                      <label><?php echo $lang_confirm ;?></label>
-                     <input type="password" class="form-control pswd" id="pswdRepeat" name="<?php echo PASSWORD_2;?>" placeholder="confirmation">
+                     <input type="password" class="form-control pswd" id="pswdRepeat" name="<?php echo PASSWORD_2;?>" placeholder="<?php echo $lang_confirm ;?>">
                  </div>
                  <div id="pswd_info">
                      <div id="pswd_info_title"><?php echo $lang_infoPassword ;?></div>
@@ -76,5 +76,5 @@ if(isset($_SESSION[ADMIN]))
 }
 else
 {
-    include_once "../templates/defaultTop.php";
+    include_once "../templates/defaultBottom.php";
 }

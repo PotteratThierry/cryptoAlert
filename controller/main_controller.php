@@ -186,6 +186,9 @@ define ('DISCONNECT', "disconnect");
 define ('PAGE', "page");
 define ('ACCESS', 'access');
 
+define ('TAB_DB', 'tabDb');
+define ('DB_ID', 'dbId');
+define ('DB_USED', 'databaseUsed');
 define ('REDIS_DB_HOST', 'redisDbHost');
 define ('REDIS_DB_PORT', 'redisDbPort');
 
@@ -342,6 +345,7 @@ define ('LOG_GROUP_DELETE', 'group_delete');
 $defaultLangage = param::searchParam(INI_PATH, 'defaultLangage');
 $defaultCurrency = param::searchParam(INI_PATH, 'defaultCurrency');
 $defaultApiCurrency = param::searchParam(INI_PATH, 'defaultApiCurrency');
+$credit = param::searchParam(INI_PATH, 'credit');
 
 //verification de la langue sélectionnée par l'utilisateur
 //sinon on met la langue par default
@@ -413,7 +417,7 @@ $errorMsg = "";
 //connection à la base de donnée
 try
 {
-    $dbDatabaseType = param::searchParam(INI_PATH, 'MySqlDatabaseType');
+    $dbDatabaseType = param::searchParam(INI_PATH, 'databaseUsed');
     $connector = dbManager::getConnector($dbDatabaseType) ;
     $dbConnected = 1;
 }
@@ -430,7 +434,6 @@ $accessLevel = new accessLevel();
 ///////////////////////////////////////////////////////////////////
 //////////        connection à l'application       ////////////////
 ///////////////////////////////////////////////////////////////////
-
 //lors de la reception d'un formulaire de connection
 if (isset($_POST[NAME]) and isset($_POST[CONNECT]))
 {

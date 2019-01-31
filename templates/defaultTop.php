@@ -67,20 +67,20 @@
                     <li class="nav-item"><a href="../view/home.php" class="nav-link <?php echo $accueil;?>"><?php echo $lang_home;?></a></li>
                     <?php if($contact->getConnect()){?>
                     <li class="nav-item dropdown">
-                        <a data-toggle="dropdown" class="nav-link dropdown-toggle <?php echo $lstWallet.$money.$alert.$majAlert;?>" href="#">Services <b class="caret"></b></a>
+                        <a data-toggle="dropdown" class="nav-link dropdown-toggle <?php echo $lstWallet.$money.$alert.$majAlert;?>" href="#"><?php echo $lang_feature;?> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <?php if($contact->getConnect()){?><li class="nav-item <?php echo $lstWallet;?>"><a class="nav-link" href="../view/lstWallet.php"><?php echo 'wallets';?></a></li><?php }?>
-                            <?php if($contact->getConnect()){?><li class="nav-item <?php echo $money;?>"><a class="nav-link" href="../view/lstMoney.php"><?php echo 'monnaies';?></a></li><?php }?>
-                            <?php if($contact->getConnect()){?><li class="nav-item <?php echo $alert;?>"><a class="nav-link" href="../view/lstAlert.php"><?php echo 'alertes';?></a></li><?php }?>
-                            <?php if($contact->getConnect()){?><li class="nav-item <?php echo $majAlert;?>"><a class="nav-link" href="../view/majAlert.php"><?php echo 'maj alertes';?></a></li><?php }?>
+                            <?php if($contact->getConnect()){?><li class="nav-item <?php echo $lstWallet;?>"><a class="nav-link" href="../view/lstWallet.php"><?php echo $lang_wallet;?></a></li><?php }?>
+                            <?php if($contact->getConnect()){?><li class="nav-item <?php echo $money;?>"><a class="nav-link" href="../view/lstMoney.php"><?php echo $lang_money;?></a></li><?php }?>
+                            <?php if($contact->getConnect()){?><li class="nav-item <?php echo $alert;?>"><a class="nav-link" href="../view/lstAlert.php"><?php echo $lang_alert;?></a></li><?php }?>
+                            <?php if($contact->getConnect()){?><li class="nav-item <?php echo $majAlert;?>"><a class="nav-link" href="../view/majAlert.php"><?php echo $lang_maj_alert;?></a></li><?php }?>
                         </ul>
                     </li>
                     <?php }?>
-                    <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><?php echo $lang_contact; ?></a></li>
                 </ul>
                 <form class="navbar-form form-inline">
                     <div class="input-group search-box">
-                        <input type="text" id="search" class="form-control" placeholder="Search here...">
+                        <input type="text" id="search" class="form-control" placeholder="<?php echo $lang_search;?>">
                         <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
                     </div>
                 </form>
@@ -92,7 +92,7 @@
                     {
                         ?>
                         <li class="nav-item">
-                            <a data-toggle="dropdown" class="nav-link dropdown-toggle menuConnect" href="#">Connection</a>
+                            <a data-toggle="dropdown" class="nav-link dropdown-toggle menuConnect" href="#"><?php echo $lang_connect;?></a>
                             <ul class="dropdown-menu form-wrapper loginFrame">
                                 <li>
                                     <form class="form" role="form" method="post" action="<?php echo NAME_PAGE;?>">
@@ -104,16 +104,16 @@
                                         <div class="form-group">
                                             <input type="password" class="form-control" name="<?php echo PASSWORD;?>" placeholder="<?php echo $lang_dbPassword ;?>" required="required">
                                         </div>
-                                        <input type="submit" class="btn btn-primary btn-block" value="connection">
+                                        <input type="submit" class="btn btn-primary btn-block" value="<?php echo $lang_connect ;?>">
                                         <div class="form-footer">
-                                            <a href="#">Mots de passe oublié ?</a>
+                                            <a href="../view/resetPassword.php"><?php echo $lang_resetPassword;?></a>
                                         </div>
                                     </form>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1">crée un compte</a>
+                            <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle get-started-btn mt-1 mb-1"><?php echo $lang_creatAccount;?></a>
                             <ul class="dropdown-menu form-wrapper loginFrame">
                                 <li>
                                     <form class="form" role="form" method="post" action="../view/createAccount.php">
@@ -121,7 +121,7 @@
                                         <input type= "hidden" name="<?php echo PAGE; ?>" value ="<?php echo NAME_PAGE;?>">
                                         <div class="form-group">
                                             <label><?php echo $lang_loginName;?></label>
-                                            <input id="loginName" type="text" class="form-control" name="<?php echo NEW_USER;?>" value="" placeholder="Nom de compte" />
+                                            <input id="loginName" type="text" class="form-control" name="<?php echo NEW_USER;?>" value="" placeholder="<?php echo $lang_loginName;?>" />
                                         </div>
                                         <div id="login_format">
                                             <ul>
@@ -135,7 +135,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label><?php echo $lang_mail ;?></label>
-                                            <input id="mail" type="email" class="form-control" name="<?php echo MAIL;?>" placeholder="adresse mail">
+                                            <input id="mail" type="email" class="form-control" name="<?php echo MAIL;?>" placeholder="<?php echo $lang_mail;?>">
                                         </div>
                                         <div id="mail_format">
                                             <ul>
@@ -149,12 +149,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label><?php echo $lang_dbPassword ;?></label>
-                                            <input type="password" class="form-control pswd" id="pswd" name="<?php echo PASSWORD_1;?>"  placeholder="Mots de passe">
+                                            <input type="password" class="form-control pswd" id="pswd" name="<?php echo PASSWORD_1;?>"  placeholder="<?php echo $lang_dbPassword;?>">
                                         </div>
 
                                         <div class="form-group">
                                             <label><?php echo $lang_confirm ;?></label>
-                                            <input type="password" class="form-control pswd" id="pswdRepeat" name="<?php echo PASSWORD_2;?>" placeholder="confirmation">
+                                            <input type="password" class="form-control pswd" id="pswdRepeat" name="<?php echo PASSWORD_2;?>" placeholder="<?php echo $lang_confirm;?>">
                                         </div>
                                         <div id="pswd_info">
                                             <div id="pswd_info_title"><?php echo $lang_infoPassword ;?></div>
@@ -188,7 +188,7 @@
                                 <li><a href="../view/accountData.php" class="dropdown-item"><i class="fa fa-file"></i> <?php echo $lang_accountData;?></a></li>
                                 <?php if($accessLevel->getAdmin()){?>
                                     <li class="divider dropdown-divider"></li>
-                                    <li><a href="../view/a.php" class="dropdown-item"><i class="fa fa-cog"></i> <?php echo $lang_admin;?></a></li>
+                                    <li><a href="../view/a.php" class="dropdown-item"><i class="fa fa-cog"></i> <?php echo $lang_a;?></a></li>
                                     <?php
                                 }?>
                                 <li class="divider dropdown-divider"></li>

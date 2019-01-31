@@ -13,10 +13,12 @@ $(document).ready(function()
         if($(val).val() == 1)
         {
             $(val).css("background-color","green");
+            $(val).css("color","white");
         }
         else
         {
             $(val).css("background-color","red");
+            $(val).css("color","white");
         }
     });
 
@@ -28,50 +30,16 @@ $(document).ready(function()
             if($(val).val() == 1)
             {
                 $(val).css("background-color","green");
+                $(val).css("color","white");
             }
             else
             {
                 $(val).css("background-color","red");
+                $(val).css("color","white");
             }
         });
     });
     $('.selectRow').hide();
 })
-function AddRow(id)
-{
-// lorsqu'on change de valeur dans la liste
-    var valeur = $('#selectRow'+id).val(); // valeur sélectionnée
-    if (valeur == -1) { // si non vide
-        $('#addRow'+id).show();
-    }
-    else {
-        $('#addRow'+id).hide();
-    }
-}
-function changeNPA(value, id) {
 
-
-    //si c'est le NPA ou la localité qui appele la fonction
-    if(id.substring(id.length-2)== '-2')
-    {
-        id = id.substring(0, id.length-2);
-    }
-    else
-    {
-
-        id = id+'-2';
-    }
-    $('#'+id+' option').each(function()
-    {
-
-        if($(this).val() != "")
-        {
-            if($(this).val() == value)
-            {
-                $('#'+id+' option').removeAttr('selected')
-                $(this).attr('selected', true)
-            }
-        }
-    });
-}
 

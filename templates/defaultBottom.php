@@ -15,7 +15,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right ml-auto">
-                        <li>Potterat Thierry 2019</li>
+                        <li><?php echo $credit;?></li>
                     </ul>
                 </nav>
             </div>

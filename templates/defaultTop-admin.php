@@ -72,7 +72,7 @@
                 </ul>
                 <form class="navbar-form form-inline">
                     <div class="input-group search-box">
-                        <input type="text" id="search" class="form-control form-control-dark w-100" placeholder="Search here...">
+                        <input type="text" id="search" class="form-control form-control-dark w-100" placeholder="<?php echo $lang_search;?>">
                         <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
                     </div>
                 </form>
@@ -129,12 +129,12 @@
                     <li class="nav-item">
                         <a class="nav-link <?php echo $a; ?>" href="../view/a.php">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                            administration <span class="sr-only">(current)</span>
+                            <?php echo $lang_a;?> <span class="sr-only">(current)</span>
                         </a>
                     </li>
                 </ul>
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>Gestion des comptes</span>
+                    <span><?php echo $lang_accountManagement;?></span>
                     <a class="d-flex align-items-center text-muted" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"></svg>
                     </a>
@@ -143,18 +143,18 @@
                     <li class="nav-item">
                         <a class="nav-link <?php echo $a_lstUser; ?>" href="../view/a_userLst.php">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                            gestion des utilisateurs
+                            <?php echo $lang_a_accountUser;?>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?php echo $a_lstGroup; ?>" href="../view/a_groupLst.php">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                            gestion des groupes
+                            <?php echo $lang_a_accountGroup;?>
                         </a>
                     </li>
                 </ul>
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>Statistiques</span>
+                    <span><?php echo $lang_a_stats;?></span>
                     <a class="d-flex align-items-center text-muted" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"></svg>
                     </a>
@@ -163,24 +163,24 @@
                     <li class="nav-item">
                         <a class="nav-link <?php echo $a_statsAnalytics; ?>" href="../view/a_statsAnalytics.php">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                            Google analytics
+                            <?php echo $lang_a_statsAnalytics;?>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?php echo $a_statsGeneral; ?>" href="../view/a_statsGeneral.php">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                            stats généraux
+                            <?php echo $lang_a_statsGeneral;?>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?php echo $a_statsLog; ?>" href="../view/a_statsLog.php">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                            logs
+                            <?php echo $lang_a_log;?>
                         </a>
                     </li>
                 </ul>
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>paramètres</span>
+                    <span><?php echo $lang_a_settings;?></span>
                     <a class="d-flex align-items-center text-muted" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"</svg>
                     </a>
@@ -189,19 +189,19 @@
                     <li class="nav-item">
                         <a class="nav-link <?php echo $a_settingsGeneral; ?>" href="../view/a_settingsGeneral.php">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                            généraux
+                            <?php echo $lang_a_settingsGeneral ;?>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?php echo $a_settingsDb; ?>" href="../view/a_settingsDb.php">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                            base de données
+                            <?php echo $lang_a_settingsDb ;?>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?php echo $a_settingsTemplate; ?>" href="../view/a_settingsTemplate.php">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                            apparences
+                            <?php echo $lang_a_settingsTemplate;?>
                         </a>
                     </li>
                 </ul>

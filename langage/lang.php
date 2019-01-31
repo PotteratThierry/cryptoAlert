@@ -6,12 +6,14 @@ $lang_title                         = param::searchParam(LANG_PATH.$lang.LANG_EX
 $lang_description                   = param::searchParam(LANG_PATH.$lang.LANG_EXT,"description");
 
 //menu
+$lang_feature                       = param::searchParam(LANG_PATH.$lang.LANG_EXT,"feature");
+$lang_search                        = param::searchParam(LANG_PATH.$lang.LANG_EXT,"search");
 $lang_home                          = param::searchParam(LANG_PATH.$lang.LANG_EXT,"home");
-$lang_movie                         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"movie");
-$lang_series                         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"series");
-$lang_music                         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"music");
-$lang_video                         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"video");
-$lang_forum                         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"forum");
+$lang_contact                       = param::searchParam(LANG_PATH.$lang.LANG_EXT,"contact");
+$lang_wallet                        = param::searchParam(LANG_PATH.$lang.LANG_EXT,"wallet");
+$lang_money                         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"money");
+$lang_alert                         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"alert");
+$lang_maj_alert                     = param::searchParam(LANG_PATH.$lang.LANG_EXT,"maj_alert");
 
 //constant des texte affiché pour les droit d'accés selon la langue
 $lang_AccessRight_all               = param::searchParam(LANG_PATH.$lang.LANG_EXT,'noAccess');
@@ -21,23 +23,29 @@ $lang_AccessRight_admin             = param::searchParam(LANG_PATH.$lang.LANG_EX
 
 //menu administration
 $lang_accountManagement             = param::searchParam(LANG_PATH.$lang.LANG_EXT,"accountManagement");
-    $lang_adminAccountUser          = param::searchParam(LANG_PATH.$lang.LANG_EXT,"adminAccountUser");
-    $lang_adminAccountGroup         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"adminAccountGroup");
-$lang_adminSettings                 = param::searchParam(LANG_PATH.$lang.LANG_EXT,"adminSettings");
-    $lang_adminSettingsGeneral      = param::searchParam(LANG_PATH.$lang.LANG_EXT,"adminSettingsGeneral");
-    $lang_adminSettingsDb           = param::searchParam(LANG_PATH.$lang.LANG_EXT,"adminSettingsDb");
-    $lang_adminSettingsTemplate     = param::searchParam(LANG_PATH.$lang.LANG_EXT,"adminSettingsTemplate");
-$lang_adminStats                    = param::searchParam(LANG_PATH.$lang.LANG_EXT,"adminStats");
-    $lang_adminStatsAnalytics       = param::searchParam(LANG_PATH.$lang.LANG_EXT,"adminStatsAnalytics");
-    $lang_adminLog                  = param::searchParam(LANG_PATH.$lang.LANG_EXT,"adminLog");
-    $lang_adminStatsGeneral         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"adminStatsGeneral");
+    $lang_a_accountUser             = param::searchParam(LANG_PATH.$lang.LANG_EXT,"a_accountUser");
+    $lang_a_accountGroup            = param::searchParam(LANG_PATH.$lang.LANG_EXT,"a_accountGroup");
+$lang_a_settings                    = param::searchParam(LANG_PATH.$lang.LANG_EXT,"a_settings");
+    $lang_a_settingsGeneral         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"a_settingsGeneral");
+    $lang_a_settingsDb              = param::searchParam(LANG_PATH.$lang.LANG_EXT,"a_settingsDb");
+    $lang_a_settingsTemplate        = param::searchParam(LANG_PATH.$lang.LANG_EXT,"a_settingsTemplate");
+$lang_a_stats                       = param::searchParam(LANG_PATH.$lang.LANG_EXT,"a_stats");
+    $lang_a_statsAnalytics          = param::searchParam(LANG_PATH.$lang.LANG_EXT,"a_statsAnalytics");
+    $lang_a_log                     = param::searchParam(LANG_PATH.$lang.LANG_EXT,"a_log");
+    $lang_a_statsGeneral            = param::searchParam(LANG_PATH.$lang.LANG_EXT,"a_statsGeneral");
 
 //menu déroulant du compte
+$lang_connect                       = param::searchParam(LANG_PATH.$lang.LANG_EXT,"connect");
+$lang_creatAccount                  = param::searchParam(LANG_PATH.$lang.LANG_EXT,"creatAccount");
+$lang_resetPassword                 = param::searchParam(LANG_PATH.$lang.LANG_EXT,"resetPassword");
 $lang_accountSettings               = param::searchParam(LANG_PATH.$lang.LANG_EXT,"accountSettings");
+$lang_accountSettings               = param::searchParam(LANG_PATH.$lang.LANG_EXT,"accountSettings");
+
+$lang_a                             = param::searchParam(LANG_PATH.$lang.LANG_EXT,"a");
 $lang_accountProfil                 = param::searchParam(LANG_PATH.$lang.LANG_EXT,"accountProfil");
 $lang_accountSignature              = param::searchParam(LANG_PATH.$lang.LANG_EXT,"accountSignature");
 $lang_accountData                   = param::searchParam(LANG_PATH.$lang.LANG_EXT,"accountData");
-$lang_admin                         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"admin");
+$lang_a                             = param::searchParam(LANG_PATH.$lang.LANG_EXT,"a");
 $lang_return                        = param::searchParam(LANG_PATH.$lang.LANG_EXT,"return");
 $lang_disconnect                    = param::searchParam(LANG_PATH.$lang.LANG_EXT,"disconnect");
 
@@ -60,13 +68,20 @@ $lang_currentAvatar                 = param::searchParam(LANG_PATH.$lang.LANG_EX
 $lang_overviewAvatar                = param::searchParam(LANG_PATH.$lang.LANG_EXT,"overviewAvatar");
 $lang_send                          = param::searchParam(LANG_PATH.$lang.LANG_EXT,"send");
 
+
+//logs
+$lang_addContent                     = param::searchParam(LANG_PATH.$lang.LANG_EXT,"addContent");
+$lang_date                           = param::searchParam(LANG_PATH.$lang.LANG_EXT,"date");
+$lang_action                         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"action");
+$lang_Ip                             = param::searchParam(LANG_PATH.$lang.LANG_EXT,"ip");
+
 //paramètre généraux de l'application
 $lang_newAccount                    = param::searchParam(LANG_PATH.$lang.LANG_EXT,"newAccount");
 $lang_defaultPassWord               = param::searchParam(LANG_PATH.$lang.LANG_EXT,"defaultPassword");
 $lang_defaultGroup                  = param::searchParam(LANG_PATH.$lang.LANG_EXT,"defaultGroup");
 $lang_defaultLang                   = param::searchParam(LANG_PATH.$lang.LANG_EXT,"defaultLang");
 $lang_permitExt                     = param::searchParam(LANG_PATH.$lang.LANG_EXT,"permitExt");
-$lang_extMIME                        = param::searchParam(LANG_PATH.$lang.LANG_EXT,"extMIME");
+$lang_extMIME                       = param::searchParam(LANG_PATH.$lang.LANG_EXT,"extMIME");
 $lang_extIe                         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"extIe");
 $lang_extName                       = param::searchParam(LANG_PATH.$lang.LANG_EXT,"extName");
 $lang_imagesParam                   = param::searchParam(LANG_PATH.$lang.LANG_EXT,"imagesParam");
@@ -80,6 +95,7 @@ $lang_maxImageWeight                = param::searchParam(LANG_PATH.$lang.LANG_EX
 $lang_changeDefaultImage            = param::searchParam(LANG_PATH.$lang.LANG_EXT,"changeDefaultImage");
 
 //paramètres de la base de donnée
+$lang_dbType                        = param::searchParam(LANG_PATH.$lang.LANG_EXT,"dbType");
 $lang_dbConnect                     = param::searchParam(LANG_PATH.$lang.LANG_EXT,"dbConnect");
 $lang_dbHost                        = param::searchParam(LANG_PATH.$lang.LANG_EXT,"dbHost");
 $lang_dbPort                        = param::searchParam(LANG_PATH.$lang.LANG_EXT,"dbPort");
@@ -87,7 +103,7 @@ $lang_dbUser                        = param::searchParam(LANG_PATH.$lang.LANG_EX
 $lang_dbPassword                    = param::searchParam(LANG_PATH.$lang.LANG_EXT,"dbPassword");
 $lang_dbName                        = param::searchParam(LANG_PATH.$lang.LANG_EXT,"dbName");
 
-//merssage de verification des mots de passe
+//message de verification des mots de passe
 $lang_infoPassword                  = param::searchParam(LANG_PATH.$lang.LANG_EXT,"infoPassword");
 $lang_infoPasswordLetter            = param::searchParam(LANG_PATH.$lang.LANG_EXT,"infoPasswordLetter");
 $lang_infoPasswordUppercase         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"infoPasswordUppercase");
@@ -96,17 +112,19 @@ $lang_infoPasswordSpecialChar       = param::searchParam(LANG_PATH.$lang.LANG_EX
 $lang_infoPasswordNumberChar        = param::searchParam(LANG_PATH.$lang.LANG_EXT,"infoPasswordNumberChar");
 $lang_infoPasswordSame              = param::searchParam(LANG_PATH.$lang.LANG_EXT,"infoPasswordSame");
 
-//metat getion de d'utilisateur et groupe
+//metat gestion de d'utilisateur et groupe
 $lang_lstGroup                      = param::searchParam(LANG_PATH.$lang.LANG_EXT,"lstGroup");
 $lang_lstUser                       = param::searchParam(LANG_PATH.$lang.LANG_EXT,"lstUser");
 $lang_group                         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"group");
 $lang_addGroup                      = param::searchParam(LANG_PATH.$lang.LANG_EXT,"addGroup");
+$lang_editGroup                     = param::searchParam(LANG_PATH.$lang.LANG_EXT,"editGroup");
 $lang_status                        = param::searchParam(LANG_PATH.$lang.LANG_EXT,"status");
 $lang_delete                        = param::searchParam(LANG_PATH.$lang.LANG_EXT,"delete");
 $lang_plus                          = param::searchParam(LANG_PATH.$lang.LANG_EXT,"plus");
 $lang_activate                      = param::searchParam(LANG_PATH.$lang.LANG_EXT,"activate");
 $lang_deactivate                    = param::searchParam(LANG_PATH.$lang.LANG_EXT,"deactivate");
 $lang_addUser                       = param::searchParam(LANG_PATH.$lang.LANG_EXT,"addUser");
+$lang_editUser                      = param::searchParam(LANG_PATH.$lang.LANG_EXT,"editUser");
 $lang_userConcerned                 = param::searchParam(LANG_PATH.$lang.LANG_EXT,"userConcerned");
 $lang_cancel                        = param::searchParam(LANG_PATH.$lang.LANG_EXT,"cancel");
 $lang_groupName                     = param::searchParam(LANG_PATH.$lang.LANG_EXT,"groupName");
@@ -153,7 +171,9 @@ $lang_confirmMsg_deleteUser         = param::searchParam(LANG_PATH.$lang.LANG_EX
 
 //message d'info
 $lang_infoMsg_deleteGroup           = param::searchParam(LANG_PATH.$lang.LANG_EXT,"infoMsg_deleteGroup");
-$lang_infoMsg_defaultPassword       = param::searchParam(LANG_PATH.$lang.LANG_EXT,"infoMsg_defaultPassword1").param::searchParam(INI_PATH,'defaultPassword').param::searchParam(LANG_PATH.$lang.LANG_EXT,"infoMsg_defaultPassword2");
-$lang_infoMsg_defaultGroup          = param::searchParam(LANG_PATH.$lang.LANG_EXT,"infoMsg_defaultGroup1").param::searchParam(INI_PATH,'defaultGroup').param::searchParam(LANG_PATH.$lang.LANG_EXT,"infoMsg_defaultGroup2");
+$lang_infoMsg_defaultPassword1      = param::searchParam(LANG_PATH.$lang.LANG_EXT,"infoMsg_defaultPassword1");
+$lang_infoMsg_defaultPassword2      = param::searchParam(LANG_PATH.$lang.LANG_EXT,"infoMsg_defaultPassword2");
+$lang_infoMsg_defaultGroup1         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"infoMsg_defaultGroup1");
+$lang_infoMsg_defaultGroup2         = param::searchParam(LANG_PATH.$lang.LANG_EXT,"infoMsg_defaultGroup2");
 
 
