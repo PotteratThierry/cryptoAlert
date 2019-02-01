@@ -17,82 +17,141 @@ class log
             return 0 ;
         }
     }
-    static function disconnectLog($user)
+    static function disconnect()
     {
-        $action = "disconnect form user";
-        $date = new dateTime();
-        $date = $date->format('Y-m-d H:i:s');
-        $log = "[".$date."] [".$_SERVER["REMOTE_ADDR"]."] [".$user."] ".$action."\r\n";
-        $file = fopen(CONNECT_LOG_PATH, 'a+');
-        fwrite($file, $log);
-        fclose($file);
-    }
-    static function ConnectLog($connect, $user= 0,$page= 0)
-    {
-        $log = "";
-        $action = "";
-        $date = new dateTime();
-        $date = $date->format('Y-m-d H:i:s');
-
-        if($user == 0)
+        if(SUCCESS_LOG)
         {
-            if(isset($_SESSION[MAIL]))
+            $action = "disconnect form user";
+            $ip = $_SERVER["REMOTE_ADDR"];
+            $user = $_SESSION[LOGIN_NAME];
+            $date = new dateTime();
+            $date = $date->format('Y-m-d H:i:s');
+
+            $log = "[".$date."] [".$ip."] [".$user."] [".$action."]\r\n";
+            $file = fopen(CONNECT_SUCCESS_LOG_PATH, 'a+');
+            fwrite($file, $log);
+            fclose($file);
+        }
+
+    }
+    static function connect($typeError=0)
+    {
+        if(GET_LOG)
+        {
+            $action = "";
+            $ip = $_SERVER["REMOTE_ADDR"];
+            $date = new dateTime();
+            $date = $date->format('Y-m-d H:i:s');
+            switch ($typeError)
             {
-                $user = $_SESSION[MAIL];
+                case 0:
+                    {
+                        $action = "user unknown";
+                        break;
+                    }
+                case 1:
+                    {
+                        $action = "successful connect";
+                        break;
+                    }
+                case 2:
+                    {
+                        $action = "user account disabled";
+                        break;
+                    }
+                case 3:
+                    {
+                        $action = "wrong password";
+                        break;
+                    }
+            }
+            if(isset($_SESSION[LOGIN_NAME]))
+            {
+                $user = $_SESSION[LOGIN_NAME];
             }
             else
             {
-                if($user == '0')
-                {
-                    $user = "Undefined";
-                }
+                $user = "unknown";
+            }
+            $log = "[".$date."] [".$ip."] [".$user."] [".$action."]\r\n";
+
+            //si on veut log les succès
+            if(SUCCESS_LOG and $typeError == 1)
+            {
+                $file = fopen(CONNECT_SUCCESS_LOG_PATH, 'a+');
+                fwrite($file, $log);
+                fclose($file);
+            }
+            else
+            {
+                $file = fopen(CONNECT_LOG_PATH, 'a+');
+                fwrite($file, $log);
+                fclose($file);
             }
         }
 
-        switch($connect)
-        {
-            case 0:
-            {
-                $action = "connect fail: bad password";
-                break;
-            }
-            case 1:
-            {
-                $action = "connect success";
-                break;
-            }
-            case 2:
-            {
-                $action = "connect fail: Undefined user";
-                break;
-            }
-            case 3:
-            {
-                $action = 'connect fail: user deactivated';
-                break;
-            }
-            case 4:
-            {
-                $action = 'session integrity fail';
-                break;
-            }
-            case 5:
-            {
-                $action = 'access denied to '.$page;
-                break;
-            }
-            default:
-            {
-                break;
-            }
-        }
-
-        $log = "[".$date."] [".$_SERVER["REMOTE_ADDR"]."] [".$user."] ".$action."\r\n";
-        $file = fopen(CONNECT_LOG_PATH, 'a+');
-        fwrite($file, $log);
-        fclose($file);
     }
-    static function dbLog($function, $table, $idElement1, $idElement2= 0, $idElement3= 0)
+    static function accessPage($typeError=0)
+    {
+        if(GET_LOG)
+        {
+            $action = "";
+            $user = $_SESSION[LOGIN_NAME];
+            $ip = $_SERVER["REMOTE_ADDR"];
+            $date = new dateTime();
+            $date = $date->format('Y-m-d H:i:s');
+            //si on a fourni le nom de la page
+            if(NAME_PAGE != "")
+            {
+                //si c'est un utilisateur connecté
+                if($user != "")
+                {
+                    switch ($typeError)
+                    {
+                        case 0:
+                            {
+                                $action = "successful access";
+                                break;
+                            }
+                        case 1:
+                            {
+                                $action = "user account disabled";
+                                break;
+                            }
+                        case 2:
+                            {
+                                $action = "insufficient rights";
+                                break;
+                            }
+
+                    }
+                }
+                else
+                {
+                    $user = "unknown";
+                    $action = "access denied";
+                }
+                $log = "[".$date."] [".$ip."] [".$user."] [".$action."] [".NAME_PAGE."]\r\n";
+
+                //si on veut log les succès
+                if(SUCCESS_LOG and $typeError == 0 and $user != "")
+                {
+                    $file = fopen(ACCESS_SUCCESS_LOG_PATH, 'a+');
+                    fwrite($file, $log);
+                    fclose($file);
+                }
+                else
+                {
+                    $file = fopen(ACCESS_LOG_PATH, 'a+');
+                    fwrite($file, $log);
+                    fclose($file);
+                }
+
+            }
+        }
+
+    }
+    /*static function dbLog($function, $table, $idElement1, $idElement2= 0, $idElement3= 0)
     {
         $Pdo = new dbConnect();
         $Pdo = $Pdo ->connect();
@@ -223,5 +282,5 @@ class log
             fwrite($file, $log);
         }
         fclose($file);
-    }
+    }*/
 }

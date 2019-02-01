@@ -30,7 +30,7 @@ class contact
 
     public function connect($connector)
     {
-        $result = 0;
+
         self::loadOnceByName($connector);
 
         //si le pseudo existe
@@ -57,9 +57,20 @@ class contact
                     $result = 2;
                 }
             }
+            else
+            {
+                $result = 3;
+            }
+        }
+        else
+        {
+          $result = 0;
         }
         $this->result = $result;
         $this->connect = $result;
+
+
+
     }
     public function save(iDatabase $connector)
     {

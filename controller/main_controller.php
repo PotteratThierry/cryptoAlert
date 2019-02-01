@@ -168,10 +168,6 @@ define ('LANG_PATH', '../langage/');
 define ('LANG_EXT', '.ini');
 define ('LANG_EXT_FILE', '../langage/lang.php');
 
-//contant pour les fichiers de log
-define ('DB_LOG_PATH', '../log/dataBase_modification.log');
-define ('CONNECT_LOG_PATH', '../log/Connect.log');
-
 //constant pour le changement de langue
 define ('LANG', 'lang');
 define ('CH_FR', 'ch-fr');
@@ -318,7 +314,19 @@ define ('EDIT_USER', "edit_user");
 define ('ADD_USER', "add_user");
 define ('DELETE_USER', "delete_user");
 
+//contant pour les fichiers de log
+define ('DB_LOG_PATH', '../log/dataBase_modification.log');
+define ('ACCESS_LOG_PATH', '../log/access.log');
+define ('CONNECT_LOG_PATH', '../log/Connect.log');
+define ('ACCESS_SUCCESS_LOG_PATH', '../log/access_success.log');
+define ('CONNECT_SUCCESS_LOG_PATH', '../log/connect_success.log');
+
 //champs pour les log
+define ('LOG', 'log');
+define ('LOG_ADVANCED', 'logAdvanced');
+define ('SUCCESS_LOG', param::searchParam(INI_PATH, LOG));
+define ('GET_LOG', param::searchParam(INI_PATH, LOG_ADVANCED));
+
 define ('LOG_DB', 'db');
 define ('LOG_CONNEXION', 'connexion');
 define ('LOG_CONTENT', 'content');
@@ -347,6 +355,7 @@ $defaultCurrency = param::searchParam(INI_PATH, 'defaultCurrency');
 $defaultApiCurrency = param::searchParam(INI_PATH, 'defaultApiCurrency');
 $credit = param::searchParam(INI_PATH, 'credit');
 
+
 //verification de la langue sélectionnée par l'utilisateur
 //sinon on met la langue par default
 if (isset($_SESSION[LANG])) {
@@ -360,6 +369,7 @@ include_once LANG_EXT_FILE;
 
 
 //configuration des erreurs de connection
+$connectedLoginName = "";
 $loginErrorMsg = "";
 $connectMsg = 0;
 $access = 0;
@@ -447,31 +457,36 @@ if (isset($_POST[NAME]) and isset($_POST[CONNECT]))
         $contact->setPassword(security::hash($usePassword));
         $contact->connect($connector);
 
-        $contact->getResult();
-
         //si le compte est désactivé
         if ($contact->getResult() == 2)
         {
             $loginErrorMsg = $lang_errorMsg_disabledAccount;
             $contact->setLoginName('');
             $contact->setConnect(0);
+            log::connect($contact->getResult());
         }
         else
         {
-            //si le mots de passe est faut
-            if (!$contact->getResult())
+            if ($contact->getResult() == 0)
             {
                 $loginErrorMsg = $lang_errorMsg_connect;
                 $contact->setLoginName('');
                 $contact->setConnect(0);
+                log::connect($contact->getResult());
             }
-            else
+            if ($contact->getResult() == 3)
             {
-                if ($loginErrorMsg == "") {
-                    $_SESSION[CONNECT] = 1;
-                    $_SESSION[LOGIN_NAME] = $useLoginName;
-                    $_SESSION[NICKNAME] = $contact->getNickName();
-                }
+                $loginErrorMsg = $lang_errorMsg_password;
+                $contact->setLoginName('');
+                $contact->setConnect(0);
+                log::connect($contact->getResult());
+            }
+            if ($loginErrorMsg == "")
+            {
+                $_SESSION[CONNECT] = 1;
+                $_SESSION[LOGIN_NAME] = $useLoginName;
+                $_SESSION[NICKNAME] = $contact->getNickName();
+                log::connect($contact->getResult());
             }
         }
     }
@@ -480,25 +495,26 @@ if (isset($_POST[NAME]) and isset($_POST[CONNECT]))
         $loginErrorMsg = "impossible de se connecter à la base de donnée";
     }
 }
-//lors de la reception d'un formulaire de déconnections
-if (isset($_GET['d'])and NAME_PAGE != 'index.php') {
-    session_destroy();
-    header(LOCATION . ' ../index.php');
-}
 
 //lors de la reception d'un formulaire de changement de langue
 if (isset($_POST[LANG])) {
     $_SESSION[LANG] = security::html($_POST[LANG]);
     header(LOCATION . NAME_PAGE);
 }
-
-/*//refus d'accès, si la page n'est pas public et que le compte n'a pas accès renvoie à la page d'accueil
-if ($access == 0 && TYPE_PERM != 'all') {
-    log::ConnectLog(5, 0, NAME_PAGE);
+//lors de la reception d'un formulaire de déconnections
+if (isset($_GET['d'])and NAME_PAGE != 'index.php')
+{
+    log::disconnect();
+    session_destroy();
     header(LOCATION . ' ../index.php');
-}*/
+}
+//refus d'accès, si la page n'est pas public et que l'utilisateur est pas connecté
+if (TYPE_PERM != ALL and !isset($_SESSION[CONNECT]))
+{
+    log::accessPage();
+    header(LOCATION . ' ../index.php');
+}
 //lors de l'arrivée sur la page et  si l'utilisateur est connecté
-
 if(isset($_SESSION[CONNECT]))
 {
     if ($_SESSION[CONNECT])
@@ -525,6 +541,7 @@ if(isset($_SESSION[CONNECT]))
         if( $tabUser[COLUMN_USER_STATUS] == 0 and NAME_PAGE != 'home.php')
         {
             session_destroy();
+            log::accessPage( 1);
             header(LOCATION . ' ../index.php');
         }
         else
@@ -532,14 +549,30 @@ if(isset($_SESSION[CONNECT]))
             //vérifie si l'utilisateur à accès à la page courante
             if(!$accessLevel->checkPageAccess(TYPE_PERM))
             {
+                log::accessPage(2);
                 header(LOCATION . ' ../index.php');
+            }
+            else
+            {
+                if(TYPE_PERM != ALL)
+                {
+                    log::accessPage( );
+                }
             }
         }
     }
 }
-if(isset($_COOKIE[MSG_ERROR]))
+if(isset($_COOKIE[MSG_ERROR]) or $loginErrorMsg)
 {
-    $errorMsg = $_COOKIE[MSG_ERROR];
+
+    if($loginErrorMsg == "")
+    {
+        $errorMsg = $_COOKIE[MSG_ERROR];
+    }
+    else
+    {
+        $errorMsg = $loginErrorMsg;
+    }
     setcookie (MSG_ERROR, "", time() - 60, "/");
     //header(REFRESH.NAME_PAGE);
 }
